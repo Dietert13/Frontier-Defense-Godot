@@ -5,7 +5,9 @@ const EngineerDroneUnit = preload("res://source/match/units/EngineerDrone.tscn")
 const StructureMenuActions = preload("res://source/match/hud/unit-menus/StructureMenuActions.gd")
 const CommandButtonHotkeys = preload("res://source/match/hud/unit-menus/CommandButtonHotkeys.gd")
 const ProductionMenuActions = preload("res://source/match/hud/unit-menus/ProductionMenuActions.gd")
-const ProductionButtonTooltip = preload("res://source/match/hud/unit-menus/ProductionButtonTooltip.gd")
+const ProductionButtonTooltip = preload(
+	"res://source/match/hud/unit-menus/ProductionButtonTooltip.gd"
+)
 
 var unit = null
 var units = []
@@ -21,7 +23,9 @@ func _ready():
 	_repair_structure_button = StructureMenuActions.ensure_repair_button(self)
 	CommandButtonHotkeys.assign_grid_hotkeys(self)
 	_set_unit_tooltip(_worker_button, WorkerUnit, "WORKER", "WORKER_DESCRIPTION")
-	_set_unit_tooltip(_engineer_drone_button, EngineerDroneUnit, "ENGINEER_DRONE", "ENGINEER_DRONE_DESCRIPTION")
+	_set_unit_tooltip(
+		_engineer_drone_button, EngineerDroneUnit, "ENGINEER_DRONE", "ENGINEER_DRONE_DESCRIPTION"
+	)
 
 
 func refresh():

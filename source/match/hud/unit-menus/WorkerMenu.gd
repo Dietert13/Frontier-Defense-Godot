@@ -50,8 +50,12 @@ var unit = null
 
 func _ready():
 	CommandButtonHotkeys.assign_grid_hotkeys(self)
-	_set_structure_tooltip(_ag_turret_button, AntiGroundTurretUnit, "AG_TURRET", "AG_TURRET_DESCRIPTION")
-	_set_structure_tooltip(_aa_turret_button, AntiAirTurretUnit, "AA_TURRET", "AA_TURRET_DESCRIPTION")
+	_set_structure_tooltip(
+		_ag_turret_button, AntiGroundTurretUnit, "AG_TURRET", "AG_TURRET_DESCRIPTION"
+	)
+	_set_structure_tooltip(
+		_aa_turret_button, AntiAirTurretUnit, "AA_TURRET", "AA_TURRET_DESCRIPTION"
+	)
 	_set_structure_tooltip(
 		_tesla_fence_button,
 		TeslaFenceSegmentUnit,
@@ -96,11 +100,15 @@ func _ready():
 		_ore_purifier_button, OrePurifierUnit, "ORE_PURIFIER", "ORE_PURIFIER_DESCRIPTION"
 	)
 	_set_structure_tooltip(_barracks_button, BarracksUnit, "BARRACKS", "BARRACKS_DESCRIPTION")
-	_set_structure_tooltip(_radar_uplink_button, RadarUplinkUnit, "RADAR_UPLINK", "RADAR_UPLINK_DESCRIPTION")
+	_set_structure_tooltip(
+		_radar_uplink_button, RadarUplinkUnit, "RADAR_UPLINK", "RADAR_UPLINK_DESCRIPTION"
+	)
 	_set_structure_tooltip(
 		_robotics_bay_button, RoboticsBayUnit, "ROBOTICS_BAY", "ROBOTICS_BAY_DESCRIPTION"
 	)
-	_set_structure_tooltip(_repair_pad_button, RepairPadUnit, "REPAIR_PAD", "REPAIR_PAD_DESCRIPTION")
+	_set_structure_tooltip(
+		_repair_pad_button, RepairPadUnit, "REPAIR_PAD", "REPAIR_PAD_DESCRIPTION"
+	)
 	_set_structure_tooltip(_tech_lab_button, TechLabUnit, "TECH_LAB", "TECH_LAB_DESCRIPTION")
 	_set_structure_tooltip(
 		_weather_control_spire_button,
@@ -110,7 +118,10 @@ func _ready():
 	)
 	_set_structure_tooltip(_cc_button, CommandCenterUnit, "CC", "CC_DESCRIPTION")
 	_set_structure_tooltip(
-		_vehicle_factory_button, VehicleFactoryUnit, "VEHICLE_FACTORY", "VEHICLE_FACTORY_DESCRIPTION"
+		_vehicle_factory_button,
+		VehicleFactoryUnit,
+		"VEHICLE_FACTORY",
+		"VEHICLE_FACTORY_DESCRIPTION"
 	)
 	_set_structure_tooltip(
 		_aircraft_factory_button,
@@ -178,7 +189,9 @@ func refresh():
 	_refresh_structure_button(
 		_robotics_bay_button, RoboticsBayUnit, "ROBOTICS_BAY", "ROBOTICS_BAY_DESCRIPTION"
 	)
-	_refresh_structure_button(_repair_pad_button, RepairPadUnit, "REPAIR_PAD", "REPAIR_PAD_DESCRIPTION")
+	_refresh_structure_button(
+		_repair_pad_button, RepairPadUnit, "REPAIR_PAD", "REPAIR_PAD_DESCRIPTION"
+	)
 	_refresh_structure_button(_tech_lab_button, TechLabUnit, "TECH_LAB", "TECH_LAB_DESCRIPTION")
 	_refresh_structure_button(
 		_weather_control_spire_button,
@@ -188,7 +201,10 @@ func refresh():
 	)
 	_refresh_structure_button(_cc_button, CommandCenterUnit, "CC", "CC_DESCRIPTION")
 	_refresh_structure_button(
-		_vehicle_factory_button, VehicleFactoryUnit, "VEHICLE_FACTORY", "VEHICLE_FACTORY_DESCRIPTION"
+		_vehicle_factory_button,
+		VehicleFactoryUnit,
+		"VEHICLE_FACTORY",
+		"VEHICLE_FACTORY_DESCRIPTION"
 	)
 	_refresh_structure_button(
 		_aircraft_factory_button,
@@ -211,7 +227,9 @@ func _refresh_structure_button(button, structure_scene, name_key, description_ke
 	_set_structure_tooltip(button, structure_scene, name_key, description_key, missing_requirements)
 
 
-func _set_structure_tooltip(button, structure_scene, name_key, description_key, missing_requirements = []):
+func _set_structure_tooltip(
+	button, structure_scene, name_key, description_key, missing_requirements = []
+):
 	var properties = Constants.Match.Units.DEFAULT_PROPERTIES[structure_scene.resource_path]
 	var costs = Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path]
 	var stats = "{0} HP".format([properties["hp_max"]])
@@ -225,18 +243,16 @@ func _set_structure_tooltip(button, structure_scene, name_key, description_key, 
 			[roundi(properties["resource_bonus_ratio"] * 100.0), tr("RESOURCE_BONUS")]
 		)
 	stats += _format_power_stats(structure_scene.resource_path)
-	var tooltip_text = (
-		"{0} - {1}\n{2}\n{3}: {4}, {5}: {6}".format(
-			[
-				tr(name_key),
-				tr(description_key),
-				stats,
-				tr("RESOURCE_A"),
-				costs["resource_a"],
-				tr("RESOURCE_B"),
-				costs["resource_b"]
-			]
-		)
+	var tooltip_text = "{0} - {1}\n{2}\n{3}: {4}, {5}: {6}".format(
+		[
+			tr(name_key),
+			tr(description_key),
+			stats,
+			tr("RESOURCE_A"),
+			costs["resource_a"],
+			tr("RESOURCE_B"),
+			costs["resource_b"]
+		]
 	)
 	tooltip_text += _format_construction_requirements(structure_scene, missing_requirements)
 	button.tooltip_text = CommandButtonHotkeys.tooltip(button, tooltip_text)
@@ -285,8 +301,7 @@ func _refresh_deploy_mcv_button():
 	_deploy_mcv_button.disabled = not can_deploy
 	CommandButtonStatus.apply_action(_deploy_mcv_button, "DEPLOY_MCV")
 	_deploy_mcv_button.tooltip_text = CommandButtonHotkeys.tooltip(
-		_deploy_mcv_button,
-		"{0} - {1}".format([tr("DEPLOY_MCV"), tr("DEPLOY_MCV_DESCRIPTION")])
+		_deploy_mcv_button, "{0} - {1}".format([tr("DEPLOY_MCV"), tr("DEPLOY_MCV_DESCRIPTION")])
 	)
 
 

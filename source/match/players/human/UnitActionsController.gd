@@ -20,6 +20,7 @@ class Actions:
 	const Capturing = preload("res://source/match/units/actions/Capturing.gd")
 	const Garrisoning = preload("res://source/match/units/actions/Garrisoning.gd")
 
+
 var _attack_move_armed = false
 var _patrol_armed = false
 var _rally_point_targeting_active = false
@@ -283,7 +284,9 @@ func _navigate_units_towards_unit_in_formation(units, target_unit):
 	var new_unit_targets = Utils.Match.Unit.Movement.crowd_moved_to_unit(
 		terrain_units_to_move, target_unit
 	)
-	new_unit_targets += Utils.Match.Unit.Movement.crowd_moved_to_unit(air_units_to_move, target_unit)
+	new_unit_targets += Utils.Match.Unit.Movement.crowd_moved_to_unit(
+		air_units_to_move, target_unit
+	)
 	for tuple in new_unit_targets:
 		var unit = tuple[0]
 		var target_position = tuple[1]
@@ -356,9 +359,7 @@ func _validated_terrain_target(position):
 		return null
 
 	return Vector3(
-		clampf(target_position.x, 0.0, map_size.x),
-		0.0,
-		clampf(target_position.z, 0.0, map_size.y)
+		clampf(target_position.x, 0.0, map_size.x), 0.0, clampf(target_position.z, 0.0, map_size.y)
 	)
 
 

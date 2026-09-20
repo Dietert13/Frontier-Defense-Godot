@@ -37,7 +37,10 @@ static func cancel_current_actions(units):
 
 
 static func has_cancellable_actions(units):
-	return _can_cancel_under_construction_structure(units) or not _cancel_action_units(units).is_empty()
+	return (
+		_can_cancel_under_construction_structure(units)
+		or not _cancel_action_units(units).is_empty()
+	)
 
 
 static func refresh_cancel_action_button(button, units):
@@ -46,7 +49,9 @@ static func refresh_cancel_action_button(button, units):
 	var can_cancel = has_cancellable_actions(units)
 	button.disabled = not can_cancel
 	CommandButtonStatus.apply_action(button, "CANCEL_CURRENT_ACTION")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _cancel_action_tooltip(button, can_cancel))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _cancel_action_tooltip(button, can_cancel)
+	)
 
 
 static func refresh_hold_position_button(button, units):
@@ -56,7 +61,9 @@ static func refresh_hold_position_button(button, units):
 	button.disabled = hold_units.is_empty()
 	button.set_pressed_no_signal(_all_hold_position(hold_units))
 	CommandButtonStatus.apply_action(button, "HOLD_POSITION")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _hold_position_tooltip(button, hold_units))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _hold_position_tooltip(button, hold_units)
+	)
 
 
 static func refresh_attack_move_button(button, units):
@@ -76,7 +83,9 @@ static func refresh_patrol_button(button, units):
 	var patrol_units = _patrol_units(units)
 	button.disabled = patrol_units.is_empty()
 	CommandButtonStatus.apply_action(button, "PATROL")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _patrol_tooltip(button, patrol_units))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _patrol_tooltip(button, patrol_units)
+	)
 
 
 static func refresh_guard_area_button(button, units):
@@ -85,7 +94,9 @@ static func refresh_guard_area_button(button, units):
 	var guard_units = _guard_area_units(units)
 	button.disabled = guard_units.is_empty()
 	CommandButtonStatus.apply_action(button, "GUARD_AREA")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _guard_area_tooltip(button, guard_units))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _guard_area_tooltip(button, guard_units)
+	)
 
 
 static func refresh_scatter_button(button, units):
@@ -106,7 +117,9 @@ static func refresh_deploy_mode_button(button, units):
 	button.disabled = deploy_units.is_empty()
 	button.set_pressed_no_signal(_all_deployed(deploy_units))
 	CommandButtonStatus.apply_action(button, "DEPLOY_MODE")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _deploy_mode_tooltip(button, deploy_units))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _deploy_mode_tooltip(button, deploy_units)
+	)
 
 
 static func set_hold_position(units, enabled):
@@ -183,7 +196,9 @@ static func scatter_targets(units):
 		if direction.is_zero_approx():
 			var angle = TAU * float(index) / max(1.0, float(units.size()))
 			direction = Vector3(cos(angle), 0.0, sin(angle))
-		targets.append([unit, unit.global_position_yless + direction.normalized() * SCATTER_DISTANCE_M])
+		targets.append(
+			[unit, unit.global_position_yless + direction.normalized() * SCATTER_DISTANCE_M]
+		)
 		index += 1
 	return targets
 

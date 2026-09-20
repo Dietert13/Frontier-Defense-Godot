@@ -114,7 +114,9 @@ func _has_source_unit():
 
 
 func _has_target_unit():
-	return _target_unit != null and is_instance_valid(_target_unit) and _target_unit.is_inside_tree()
+	return (
+		_target_unit != null and is_instance_valid(_target_unit) and _target_unit.is_inside_tree()
+	)
 
 
 func _on_target_unit_removed():

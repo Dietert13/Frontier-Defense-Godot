@@ -87,8 +87,7 @@ func _best_available_collector_for(crate):
 	if collectors.is_empty():
 		return null
 	collectors.sort_custom(
-		func(a, b):
-			return _collector_score(a, crate) < _collector_score(b, crate)
+		func(a, b): return _collector_score(a, crate) < _collector_score(b, crate)
 	)
 	return collectors.front()
 
@@ -154,9 +153,7 @@ func _supply_crates_in_preference_order():
 	var crates = get_tree().get_nodes_in_group("supply_crates").filter(
 		func(crate): return _is_available_crate(crate)
 	)
-	crates.sort_custom(
-		func(a, b): return _distance_to_player(a) < _distance_to_player(b)
-	)
+	crates.sort_custom(func(a, b): return _distance_to_player(a) < _distance_to_player(b))
 	return crates
 
 
@@ -167,7 +164,9 @@ func _is_available_crate(crate):
 func _distance_to_player(crate):
 	var player_units = get_tree().get_nodes_in_group("units").filter(
 		func(unit):
-			return unit.player == _player and unit.is_inside_tree() and "global_position_yless" in unit
+			return (
+				unit.player == _player and unit.is_inside_tree() and "global_position_yless" in unit
+			)
 	)
 	if player_units.is_empty():
 		return INF

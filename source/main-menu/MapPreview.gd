@@ -136,8 +136,7 @@ func _draw_squares(map_rect, points, color, half_size):
 			Vector2((half_size + 1.5) * 2.0, (half_size + 1.5) * 2.0)
 		)
 		var rect = Rect2(
-			preview_point - Vector2(half_size, half_size),
-			Vector2(half_size * 2.0, half_size * 2.0)
+			preview_point - Vector2(half_size, half_size), Vector2(half_size * 2.0, half_size * 2.0)
 		)
 		draw_rect(outline_rect, SPAWN_OUTLINE_COLOR, true)
 		draw_rect(rect, color, true)
@@ -146,18 +145,22 @@ func _draw_squares(map_rect, points, color, half_size):
 func _draw_diamonds(map_rect, points, color, radius):
 	for point in points:
 		var preview_point = _map_to_preview(map_rect, point)
-		var outline = PackedVector2Array([
-			preview_point + Vector2(0.0, -(radius + 2.0)),
-			preview_point + Vector2(radius + 2.0, 0.0),
-			preview_point + Vector2(0.0, radius + 2.0),
-			preview_point + Vector2(-(radius + 2.0), 0.0),
-		])
-		var diamond = PackedVector2Array([
-			preview_point + Vector2(0.0, -radius),
-			preview_point + Vector2(radius, 0.0),
-			preview_point + Vector2(0.0, radius),
-			preview_point + Vector2(-radius, 0.0),
-		])
+		var outline = PackedVector2Array(
+			[
+				preview_point + Vector2(0.0, -(radius + 2.0)),
+				preview_point + Vector2(radius + 2.0, 0.0),
+				preview_point + Vector2(0.0, radius + 2.0),
+				preview_point + Vector2(-(radius + 2.0), 0.0),
+			]
+		)
+		var diamond = PackedVector2Array(
+			[
+				preview_point + Vector2(0.0, -radius),
+				preview_point + Vector2(radius, 0.0),
+				preview_point + Vector2(0.0, radius),
+				preview_point + Vector2(-radius, 0.0),
+			]
+		)
 		draw_colored_polygon(outline, SPAWN_OUTLINE_COLOR)
 		draw_colored_polygon(diamond, color)
 

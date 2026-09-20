@@ -127,15 +127,16 @@ static func apply_production(
 	var costs = Constants.Match.Units.PRODUCTION_COSTS.get(unit_scene.resource_path, {})
 	_apply(button, costs, missing_requirements, player)
 	_update_time_label(
-		button,
-		Constants.Match.Units.PRODUCTION_TIMES.get(unit_scene.resource_path, 0.0)
+		button, Constants.Match.Units.PRODUCTION_TIMES.get(unit_scene.resource_path, 0.0)
 	)
 	var active_queues = _normalize_production_queues(production_queue, production_queues)
 	var queue_count = _queue_count_for(active_queues, unit_scene.resource_path)
 	var queue_full = _queues_are_full(active_queues)
 	button.set_meta(META_QUEUE_COUNT, queue_count)
 	button.set_meta(META_QUEUE_FULL, queue_full)
-	button.set_meta(META_PRODUCTION_QUEUE, active_queues[0] if not active_queues.is_empty() else null)
+	button.set_meta(
+		META_PRODUCTION_QUEUE, active_queues[0] if not active_queues.is_empty() else null
+	)
 	button.set_meta(META_PRODUCTION_QUEUES, active_queues)
 	button.set_meta(META_UNIT_SCENE_PATH, unit_scene.resource_path)
 	_update_queue_label(button, queue_count, queue_full)
@@ -144,11 +145,7 @@ static func apply_production(
 
 
 static func apply_construction(
-	button,
-	structure_scene,
-	missing_requirements = [],
-	player = null,
-	name_key = ""
+	button, structure_scene, missing_requirements = [], player = null, name_key = ""
 ):
 	CommandButtonIcons.apply_for_scene(button, structure_scene.resource_path)
 	var costs = Constants.Match.Units.CONSTRUCTION_COSTS.get(structure_scene.resource_path, {})
@@ -463,9 +460,7 @@ static func _update_queue_label(button, count, is_full):
 		button.add_child(label)
 	label.visible = is_full or count > 0
 	label.text = button.tr("PRODUCTION_QUEUE_FULL_SHORT") if is_full else "x{0}".format([count])
-	label.add_theme_color_override(
-		"font_color", QUEUE_FULL_COLOR if is_full else QUEUE_COLOR
-	)
+	label.add_theme_color_override("font_color", QUEUE_FULL_COLOR if is_full else QUEUE_COLOR)
 	label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	label.offset_left = -43
 	label.offset_top = 2

@@ -69,7 +69,9 @@ static func refresh_rally_point_button(button, units_or_unit):
 	var structures = _rally_point_structures(units_or_unit)
 	button.disabled = structures.is_empty()
 	CommandButtonStatus.apply_action(button, "RALLY_POINT")
-	button.tooltip_text = CommandButtonHotkeys.tooltip(button, _rally_point_tooltip(button, structures))
+	button.tooltip_text = CommandButtonHotkeys.tooltip(
+		button, _rally_point_tooltip(button, structures)
+	)
 
 
 static func sell(units_or_unit):
@@ -159,7 +161,9 @@ static func _normalize_units(units_or_unit):
 
 static func _sell_tooltip(button, structures):
 	if structures.is_empty():
-		return "{0} - {1}".format([button.tr("SELL_STRUCTURE"), button.tr("SELL_STRUCTURE_DISABLED")])
+		return "{0} - {1}".format(
+			[button.tr("SELL_STRUCTURE"), button.tr("SELL_STRUCTURE_DISABLED")]
+		)
 	var refund = {"resource_a": 0, "resource_b": 0}
 	for structure in structures:
 		var structure_refund = structure.get_sell_refund()
@@ -193,18 +197,21 @@ static func _repair_tooltip(button, candidates, structures):
 		var structure_cost = structure.get_repair_cost()
 		repair_cost["resource_a"] += structure_cost.get("resource_a", 0)
 		repair_cost["resource_b"] += structure_cost.get("resource_b", 0)
-	var tooltip = "{0} - {1}\n{2}: {3}: {4}, {5}: {6}\n{7}: {8}".format(
-		[
-			button.tr("REPAIR_STRUCTURE"),
-			button.tr("REPAIR_STRUCTURE_DESCRIPTION"),
-			button.tr("REPAIR_COST"),
-			button.tr("RESOURCE_A"),
-			repair_cost["resource_a"],
-			button.tr("RESOURCE_B"),
-			repair_cost["resource_b"],
-			button.tr("REPAIR_RATE"),
-			"{0} HP/s".format([Constants.Match.Structure.MANUAL_REPAIR_HITPOINTS_PER_SECOND]),
-		]
+	var tooltip = (
+		"{0} - {1}\n{2}: {3}: {4}, {5}: {6}\n{7}: {8}"
+		. format(
+			[
+				button.tr("REPAIR_STRUCTURE"),
+				button.tr("REPAIR_STRUCTURE_DESCRIPTION"),
+				button.tr("REPAIR_COST"),
+				button.tr("RESOURCE_A"),
+				repair_cost["resource_a"],
+				button.tr("RESOURCE_B"),
+				repair_cost["resource_b"],
+				button.tr("REPAIR_RATE"),
+				"{0} HP/s".format([Constants.Match.Structure.MANUAL_REPAIR_HITPOINTS_PER_SECOND]),
+			]
+		)
 	)
 	if structures.is_empty():
 		tooltip += "\n{0}".format([button.tr("NOT_ENOUGH_RESOURCES")])

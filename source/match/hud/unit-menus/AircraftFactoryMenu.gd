@@ -5,14 +5,14 @@ const DroneUnit = preload("res://source/match/units/Drone.tscn")
 const InterceptorVTOLUnit = preload("res://source/match/units/InterceptorVTOL.tscn")
 const BomberVTOLUnit = preload("res://source/match/units/BomberVTOL.tscn")
 const RocketGunshipUnit = preload("res://source/match/units/RocketGunship.tscn")
-const HeavyBombardmentAirshipUnit = preload(
-	"res://source/match/units/HeavyBombardmentAirship.tscn"
-)
+const HeavyBombardmentAirshipUnit = preload("res://source/match/units/HeavyBombardmentAirship.tscn")
 const SiegeAirshipUnit = preload("res://source/match/units/SiegeAirship.tscn")
 const StructureMenuActions = preload("res://source/match/hud/unit-menus/StructureMenuActions.gd")
 const CommandButtonHotkeys = preload("res://source/match/hud/unit-menus/CommandButtonHotkeys.gd")
 const ProductionMenuActions = preload("res://source/match/hud/unit-menus/ProductionMenuActions.gd")
-const ProductionButtonTooltip = preload("res://source/match/hud/unit-menus/ProductionButtonTooltip.gd")
+const ProductionButtonTooltip = preload(
+	"res://source/match/hud/unit-menus/ProductionButtonTooltip.gd"
+)
 
 var unit = null
 var units = []
@@ -22,9 +22,7 @@ var units = []
 @onready var _interceptor_vtol_button = find_child("ProduceInterceptorVTOLButton")
 @onready var _bomber_vtol_button = find_child("ProduceBomberVTOLButton")
 @onready var _rocket_gunship_button = find_child("ProduceRocketGunshipButton")
-@onready var _heavy_bombardment_airship_button = find_child(
-	"ProduceHeavyBombardmentAirshipButton"
-)
+@onready var _heavy_bombardment_airship_button = find_child("ProduceHeavyBombardmentAirshipButton")
 @onready var _siege_airship_button = find_child("ProduceSiegeAirshipButton")
 @onready var _sell_structure_button = find_child("SellStructureButton")
 @onready var _rally_point_button = find_child("SetRallyPointButton")
@@ -53,10 +51,7 @@ func _ready():
 		"HEAVY_BOMBARDMENT_AIRSHIP_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_siege_airship_button,
-		SiegeAirshipUnit,
-		"SIEGE_AIRSHIP",
-		"SIEGE_AIRSHIP_DESCRIPTION"
+		_siege_airship_button, SiegeAirshipUnit, "SIEGE_AIRSHIP", "SIEGE_AIRSHIP_DESCRIPTION"
 	)
 
 
@@ -82,10 +77,7 @@ func refresh():
 		"HEAVY_BOMBARDMENT_AIRSHIP_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_siege_airship_button,
-		SiegeAirshipUnit,
-		"SIEGE_AIRSHIP",
-		"SIEGE_AIRSHIP_DESCRIPTION"
+		_siege_airship_button, SiegeAirshipUnit, "SIEGE_AIRSHIP", "SIEGE_AIRSHIP_DESCRIPTION"
 	)
 	StructureMenuActions.refresh_sell_button(_sell_structure_button, _producer_units())
 	StructureMenuActions.refresh_rally_point_button(_rally_point_button, _producer_units())

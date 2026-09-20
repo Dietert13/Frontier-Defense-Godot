@@ -109,16 +109,19 @@ func _setup_tooltip():
 	var costs = Constants.Match.Units.PRODUCTION_COSTS.get(
 		unit_scene_path, {"resource_a": 0, "resource_b": 0}
 	)
-	tooltip_text = "{0}\n{1}\n{2}: {3} {4}, {5} {6}".format(
-		[
-			_display_name(),
-			tr("PRODUCTION_QUEUE_CANCEL"),
-			tr("REFUND"),
-			tr("RESOURCE_A"),
-			costs["resource_a"],
-			tr("RESOURCE_B"),
-			costs["resource_b"],
-		]
+	tooltip_text = (
+		"{0}\n{1}\n{2}: {3} {4}, {5} {6}"
+		. format(
+			[
+				_display_name(),
+				tr("PRODUCTION_QUEUE_CANCEL"),
+				tr("REFUND"),
+				tr("RESOURCE_A"),
+				costs["resource_a"],
+				tr("RESOURCE_B"),
+				costs["resource_b"],
+			]
+		)
 	)
 	if _is_ready_blocked():
 		tooltip_text += "\n{0}".format([tr("PRODUCTION_QUEUE_BLOCKED")])
@@ -254,7 +257,9 @@ func _fallback_texture_for_unit(unit_name):
 
 func _is_infantry_name(unit_name):
 	var key = unit_name.to_lower()
-	for token in ["worker", "engineer", "infantry", "trooper", "team", "medic", "saboteur", "commando"]:
+	for token in [
+		"worker", "engineer", "infantry", "trooper", "team", "medic", "saboteur", "commando"
+	]:
 		if key.contains(token):
 			return true
 	return false
@@ -298,9 +303,9 @@ func _camel_case_to_key(value):
 		var character = value[index]
 		var previous = value[index - 1] if index > 0 else ""
 		if index > 0 and character == character.to_upper() and character != character.to_lower():
-			if previous != previous.to_upper() or (
-				index + 1 < value.length()
-				and value[index + 1] != value[index + 1].to_upper()
+			if (
+				previous != previous.to_upper()
+				or (index + 1 < value.length() and value[index + 1] != value[index + 1].to_upper())
 			):
 				key += "_"
 		key += character.to_upper()

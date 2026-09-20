@@ -46,9 +46,7 @@ func _ready():
 		await _match.ready  # make sure Match is ready as it may change map on setup
 	else:
 		await get_tree().process_frame
-	find_child("MinimapViewport").size = (
-		_minimap_map_size() * MINIMAP_PIXELS_PER_WORLD_METER
-	)
+	find_child("MinimapViewport").size = (_minimap_map_size() * MINIMAP_PIXELS_PER_WORLD_METER)
 	_texture_rect.texture = find_child("MinimapViewport").get_texture()
 	_apply_fog_mask_texture()
 	_texture_rect.gui_input.connect(_on_gui_input)
@@ -416,25 +414,18 @@ func _sync_battle_event_ping(ping_state, progress):
 	var ping_node = ping_state["node"]
 	var center = ping_state["position"]
 	var style = _battle_event_ping_style(ping_state["event_type"])
-	var radius = lerpf(
-		style["radius_min"],
-		style["radius_max"],
-		progress
-	)
+	var radius = lerpf(style["radius_min"], style["radius_max"], progress)
 	var alpha = 1.0 - progress
 	var color = style["color"]
-	ping_node.default_color = Color(
-		color.r,
-		color.g,
-		color.b,
-		alpha
+	ping_node.default_color = Color(color.r, color.g, color.b, alpha)
+	ping_node.points = PackedVector2Array(
+		[
+			center + Vector2(0, -radius),
+			center + Vector2(radius, 0),
+			center + Vector2(0, radius),
+			center + Vector2(-radius, 0)
+		]
 	)
-	ping_node.points = PackedVector2Array([
-		center + Vector2(0, -radius),
-		center + Vector2(radius, 0),
-		center + Vector2(0, radius),
-		center + Vector2(-radius, 0)
-	])
 
 
 func _battle_event_ping_type(event_type):

@@ -59,12 +59,10 @@ func _layout_blocks():
 		block.visible = true
 		block.color = _disabled_color(spec[1])
 		block.position = Vector2(
-			round(rel_rect.position.x * size.x),
-			round(rel_rect.position.y * size.y)
+			round(rel_rect.position.x * size.x), round(rel_rect.position.y * size.y)
 		)
 		block.size = Vector2(
-			max(2.0, round(rel_rect.size.x * size.x)),
-			max(2.0, round(rel_rect.size.y * size.y))
+			max(2.0, round(rel_rect.size.x * size.x)), max(2.0, round(rel_rect.size.y * size.y))
 		)
 		block.z_index = index
 

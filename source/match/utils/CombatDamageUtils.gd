@@ -22,8 +22,7 @@ static func apply_projectile_damage(source_unit, target_unit):
 		_apply_damage(
 			source_unit,
 			splash_target,
-			_get_damage_amount(source_unit, splash_target)
-			* source_unit.splash_damage_multiplier
+			_get_damage_amount(source_unit, splash_target) * source_unit.splash_damage_multiplier
 		)
 
 

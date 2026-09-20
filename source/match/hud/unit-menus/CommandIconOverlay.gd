@@ -61,14 +61,15 @@ func _draw_structure_icon(rect, alpha = 1.0):
 	var accent = _with_alpha(accent_color, alpha)
 	var trim = _with_alpha(Color(0.86, 0.96, 1.0, 0.96), alpha) * icon_modulate
 	var base = Rect2(
-		rect.position + rect.size * Vector2(0.20, 0.54),
-		rect.size * Vector2(0.60, 0.22)
+		rect.position + rect.size * Vector2(0.20, 0.54), rect.size * Vector2(0.60, 0.22)
 	)
-	var roof = PackedVector2Array([
-		rect.position + rect.size * Vector2(0.25, 0.54),
-		rect.position + rect.size * Vector2(0.50, 0.32),
-		rect.position + rect.size * Vector2(0.75, 0.54),
-	])
+	var roof = PackedVector2Array(
+		[
+			rect.position + rect.size * Vector2(0.25, 0.54),
+			rect.position + rect.size * Vector2(0.50, 0.32),
+			rect.position + rect.size * Vector2(0.75, 0.54),
+		]
+	)
 	draw_rect(base, trim, true)
 	draw_polygon(roof, PackedColorArray([accent, accent.lightened(0.08), accent]))
 	draw_rect(
@@ -87,21 +88,27 @@ func _draw_structure_icon(rect, alpha = 1.0):
 func _draw_air_icon(rect, alpha = 1.0):
 	var accent = _with_alpha(accent_color, alpha)
 	var trim = _with_alpha(Color(0.90, 0.98, 1.0, 0.96), alpha) * icon_modulate
-	var body = PackedVector2Array([
-		rect.position + rect.size * Vector2(0.50, 0.18),
-		rect.position + rect.size * Vector2(0.60, 0.60),
-		rect.position + rect.size * Vector2(0.50, 0.78),
-		rect.position + rect.size * Vector2(0.40, 0.60),
-	])
-	var wings = PackedVector2Array([
-		rect.position + rect.size * Vector2(0.14, 0.48),
-		rect.position + rect.size * Vector2(0.86, 0.48),
-		rect.position + rect.size * Vector2(0.58, 0.62),
-		rect.position + rect.size * Vector2(0.50, 0.56),
-		rect.position + rect.size * Vector2(0.42, 0.62),
-	])
+	var body = PackedVector2Array(
+		[
+			rect.position + rect.size * Vector2(0.50, 0.18),
+			rect.position + rect.size * Vector2(0.60, 0.60),
+			rect.position + rect.size * Vector2(0.50, 0.78),
+			rect.position + rect.size * Vector2(0.40, 0.60),
+		]
+	)
+	var wings = PackedVector2Array(
+		[
+			rect.position + rect.size * Vector2(0.14, 0.48),
+			rect.position + rect.size * Vector2(0.86, 0.48),
+			rect.position + rect.size * Vector2(0.58, 0.62),
+			rect.position + rect.size * Vector2(0.50, 0.56),
+			rect.position + rect.size * Vector2(0.42, 0.62),
+		]
+	)
 	draw_polygon(wings, PackedColorArray([trim, trim, trim, trim, trim]))
-	draw_polygon(body, PackedColorArray([accent.lightened(0.12), accent, accent.darkened(0.10), accent]))
+	draw_polygon(
+		body, PackedColorArray([accent.lightened(0.12), accent, accent.darkened(0.10), accent])
+	)
 	draw_rect(
 		Rect2(rect.position + rect.size * Vector2(0.46, 0.26), rect.size * Vector2(0.08, 0.30)),
 		trim,
@@ -157,8 +164,12 @@ func _draw_vehicle_icon(rect, alpha = 1.0):
 		trim,
 		rect.size.x * 0.055
 	)
-	draw_circle(rect.position + rect.size * Vector2(0.30, 0.72), rect.size.x * 0.075, accent.darkened(0.22))
-	draw_circle(rect.position + rect.size * Vector2(0.70, 0.72), rect.size.x * 0.075, accent.darkened(0.22))
+	draw_circle(
+		rect.position + rect.size * Vector2(0.30, 0.72), rect.size.x * 0.075, accent.darkened(0.22)
+	)
+	draw_circle(
+		rect.position + rect.size * Vector2(0.70, 0.72), rect.size.x * 0.075, accent.darkened(0.22)
+	)
 
 
 func _draw_support_power_icon(rect, key, alpha = 1.0):
@@ -176,11 +187,16 @@ func _draw_support_power_icon(rect, key, alpha = 1.0):
 			accent,
 			rect.size.x * 0.10
 		)
-		draw_polygon(PackedVector2Array([
-			rect.position + rect.size * Vector2(0.30, 0.70),
-			rect.position + rect.size * Vector2(0.70, 0.70),
-			rect.position + rect.size * Vector2(0.50, 0.88),
-		]), PackedColorArray([trim, trim, accent]))
+		draw_polygon(
+			PackedVector2Array(
+				[
+					rect.position + rect.size * Vector2(0.30, 0.70),
+					rect.position + rect.size * Vector2(0.70, 0.70),
+					rect.position + rect.size * Vector2(0.50, 0.88),
+				]
+			),
+			PackedColorArray([trim, trim, accent])
+		)
 	elif key.contains("emp"):
 		draw_arc(center, rect.size.x * 0.34, 0.0, TAU, 28, accent, rect.size.x * 0.045)
 		draw_arc(center, rect.size.x * 0.20, 0.0, TAU, 24, trim, rect.size.x * 0.035)
@@ -202,14 +218,19 @@ func _draw_support_power_icon(rect, key, alpha = 1.0):
 		draw_line(center, center + rect.size * Vector2(0.21, 0.10), accent, rect.size.x * 0.045)
 		draw_circle(center, rect.size.x * 0.055, trim)
 	elif key.contains("shield"):
-		draw_polygon(PackedVector2Array([
-			rect.position + rect.size * Vector2(0.50, 0.13),
-			rect.position + rect.size * Vector2(0.75, 0.24),
-			rect.position + rect.size * Vector2(0.70, 0.64),
-			rect.position + rect.size * Vector2(0.50, 0.86),
-			rect.position + rect.size * Vector2(0.30, 0.64),
-			rect.position + rect.size * Vector2(0.25, 0.24),
-		]), PackedColorArray([accent, trim, accent, trim, accent, trim]))
+		draw_polygon(
+			PackedVector2Array(
+				[
+					rect.position + rect.size * Vector2(0.50, 0.13),
+					rect.position + rect.size * Vector2(0.75, 0.24),
+					rect.position + rect.size * Vector2(0.70, 0.64),
+					rect.position + rect.size * Vector2(0.50, 0.86),
+					rect.position + rect.size * Vector2(0.30, 0.64),
+					rect.position + rect.size * Vector2(0.25, 0.24),
+				]
+			),
+			PackedColorArray([accent, trim, accent, trim, accent, trim])
+		)
 	elif key.contains("nanite") or key.contains("repair"):
 		draw_rect(
 			Rect2(rect.position + rect.size * Vector2(0.43, 0.20), rect.size * Vector2(0.14, 0.58)),
@@ -221,7 +242,9 @@ func _draw_support_power_icon(rect, key, alpha = 1.0):
 			trim,
 			true
 		)
-		for offset in [Vector2(-0.28, -0.20), Vector2(0.30, -0.18), Vector2(-0.24, 0.26), Vector2(0.28, 0.27)]:
+		for offset in [
+			Vector2(-0.28, -0.20), Vector2(0.30, -0.18), Vector2(-0.24, 0.26), Vector2(0.28, 0.27)
+		]:
 			draw_circle(center + rect.size * offset, rect.size.x * 0.045, accent)
 	elif key.contains("weather"):
 		draw_circle(rect.position + rect.size * Vector2(0.38, 0.38), rect.size.x * 0.13, trim)
@@ -231,22 +254,32 @@ func _draw_support_power_icon(rect, key, alpha = 1.0):
 			trim,
 			true
 		)
-		draw_polygon(PackedVector2Array([
-			rect.position + rect.size * Vector2(0.54, 0.49),
-			rect.position + rect.size * Vector2(0.42, 0.72),
-			rect.position + rect.size * Vector2(0.55, 0.70),
-			rect.position + rect.size * Vector2(0.45, 0.90),
-			rect.position + rect.size * Vector2(0.73, 0.58),
-			rect.position + rect.size * Vector2(0.58, 0.60),
-		]), PackedColorArray([accent, accent, trim, trim, accent, accent]))
+		draw_polygon(
+			PackedVector2Array(
+				[
+					rect.position + rect.size * Vector2(0.54, 0.49),
+					rect.position + rect.size * Vector2(0.42, 0.72),
+					rect.position + rect.size * Vector2(0.55, 0.70),
+					rect.position + rect.size * Vector2(0.45, 0.90),
+					rect.position + rect.size * Vector2(0.73, 0.58),
+					rect.position + rect.size * Vector2(0.58, 0.60),
+				]
+			),
+			PackedColorArray([accent, accent, trim, trim, accent, accent])
+		)
 	elif key.contains("missile"):
-		draw_polygon(PackedVector2Array([
-			rect.position + rect.size * Vector2(0.54, 0.12),
-			rect.position + rect.size * Vector2(0.68, 0.66),
-			rect.position + rect.size * Vector2(0.50, 0.86),
-			rect.position + rect.size * Vector2(0.32, 0.66),
-			rect.position + rect.size * Vector2(0.46, 0.12),
-		]), PackedColorArray([trim, accent, trim, accent, trim]))
+		draw_polygon(
+			PackedVector2Array(
+				[
+					rect.position + rect.size * Vector2(0.54, 0.12),
+					rect.position + rect.size * Vector2(0.68, 0.66),
+					rect.position + rect.size * Vector2(0.50, 0.86),
+					rect.position + rect.size * Vector2(0.32, 0.66),
+					rect.position + rect.size * Vector2(0.46, 0.12),
+				]
+			),
+			PackedColorArray([trim, accent, trim, accent, trim])
+		)
 		draw_line(
 			rect.position + rect.size * Vector2(0.37, 0.72),
 			rect.position + rect.size * Vector2(0.25, 0.88),
@@ -260,7 +293,15 @@ func _draw_support_power_icon(rect, key, alpha = 1.0):
 			rect.size.x * 0.055
 		)
 	elif key.contains("paradrop"):
-		draw_arc(center + rect.size * Vector2(0.0, -0.14), rect.size.x * 0.32, PI, TAU, 24, trim, rect.size.x * 0.05)
+		draw_arc(
+			center + rect.size * Vector2(0.0, -0.14),
+			rect.size.x * 0.32,
+			PI,
+			TAU,
+			24,
+			trim,
+			rect.size.x * 0.05
+		)
 		draw_line(
 			rect.position + rect.size * Vector2(0.28, 0.43),
 			rect.position + rect.size * Vector2(0.42, 0.66),

@@ -49,7 +49,9 @@ func setup(player):
 
 func provision(resources, metadata):
 	if metadata != ENGINEER_METADATA:
-		push_warning("Ignoring unknown AI engineer resource request metadata: {0}".format([metadata]))
+		push_warning(
+			"Ignoring unknown AI engineer resource request metadata: {0}".format([metadata])
+		)
 		return
 	_pending_engineer_resource_requests = max(0, _pending_engineer_resource_requests - 1)
 	if not _resources_match(
@@ -118,8 +120,7 @@ func _enforce_capture_pressure():
 		return
 	_pending_engineer_resource_requests += 1
 	resources_required.emit(
-		Constants.Match.Units.PRODUCTION_COSTS[EngineerDroneScene.resource_path],
-		ENGINEER_METADATA
+		Constants.Match.Units.PRODUCTION_COSTS[EngineerDroneScene.resource_path], ENGINEER_METADATA
 	)
 
 
@@ -185,18 +186,12 @@ func _best_capture_target(reference_position = null):
 	if targets.is_empty():
 		return null
 	var origin = reference_position if reference_position != null else _player.global_position
-	targets.sort_custom(
-		func(a, b): return _target_score(a, origin) > _target_score(b, origin)
-	)
+	targets.sort_custom(func(a, b): return _target_score(a, origin) > _target_score(b, origin))
 	return targets[0]
 
 
 func _is_capture_target(unit):
-	return (
-		unit is Structure
-		and unit.can_be_captured_by(_player)
-		and not _is_already_targeted(unit)
-	)
+	return unit is Structure and unit.can_be_captured_by(_player) and not _is_already_targeted(unit)
 
 
 func _is_already_targeted(target):

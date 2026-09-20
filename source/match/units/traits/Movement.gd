@@ -115,13 +115,18 @@ func _is_navigation_point_valid(query_position, closest_point):
 func _is_moving_actively():
 	if not _has_finite_target_position():
 		return false
-	return _unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1)) > maxf(
-		target_desired_distance, 0.01
+	return (
+		_unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1))
+		> maxf(target_desired_distance, 0.01)
 	)
 
 
 func _has_finite_target_position():
-	return is_finite(target_position.x) and is_finite(target_position.y) and is_finite(target_position.z)
+	return (
+		is_finite(target_position.x)
+		and is_finite(target_position.y)
+		and is_finite(target_position.z)
+	)
 
 
 func _get_next_path_position_or_direct_target():
@@ -143,7 +148,10 @@ func _should_move_directly_to_target(next_path_position):
 func _move_air_directly_to_target():
 	var current_position_yless = _unit.global_position_yless
 	var target_position_yless = target_position * Vector3(1, 0, 1)
-	if current_position_yless.distance_to(target_position_yless) <= maxf(target_desired_distance, 0.01):
+	if (
+		current_position_yless.distance_to(target_position_yless)
+		<= maxf(target_desired_distance, 0.01)
+	):
 		_last_requested_velocity = Vector3.ZERO
 		_on_navigation_finished()
 		return
@@ -262,9 +270,7 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	var intended_position_yless = (
 		previous_position_yless + _last_requested_velocity * Vector3(1, 0, 1)
 	)
-	_try_crush_nearby_units(
-		previous_position_yless, actual_position_yless, intended_position_yless
-	)
+	_try_crush_nearby_units(previous_position_yless, actual_position_yless, intended_position_yless)
 	_previously_set_global_transform_of_unit = _unit.global_transform
 	_update_passive_movement_tracking(safe_velocity)
 	if _has_finite_target_position() and not _is_moving_actively():

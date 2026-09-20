@@ -220,7 +220,9 @@ func _team_key(player):
 
 
 func _player_participates(player):
-	return player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	return (
+		player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	)
 
 
 func _update_stats_labels():

@@ -15,7 +15,11 @@ func _ready():
 
 func get_navigation_map_rid_by_domain(domain):
 	if domain == Constants.Match.Navigation.Domain.AIR:
-		return air.navigation_map_rid if _air_navigation_map_is_usable() else terrain.navigation_map_rid
+		return (
+			air.navigation_map_rid
+			if _air_navigation_map_is_usable()
+			else terrain.navigation_map_rid
+		)
 	return terrain.navigation_map_rid
 
 

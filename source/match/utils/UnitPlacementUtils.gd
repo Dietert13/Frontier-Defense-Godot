@@ -126,10 +126,7 @@ static func validate_agent_placement_position(position, radius, existing_units, 
 			)
 			* Vector3(1, 0, 1)
 		)
-		if (
-			point_yless.distance_to(closest_point_yless)
-			> Constants.Match.Terrain.Navmesh.CELL_SIZE
-		):
+		if point_yless.distance_to(closest_point_yless) > Constants.Match.Terrain.Navmesh.CELL_SIZE:
 			return NOT_NAVIGABLE
 	return VALID
 
@@ -149,9 +146,7 @@ static func nearest_base_construction_anchor(player, position, structure_radius)
 		var anchor_position_yless = anchor.global_position * Vector3(1, 0, 1)
 		var distance = anchor_position_yless.distance_to(position_yless)
 		var allowed_distance = (
-			anchor.radius
-			+ structure_radius
-			+ Constants.Match.Units.BASE_CONSTRUCTION_RADIUS_M
+			anchor.radius + structure_radius + Constants.Match.Units.BASE_CONSTRUCTION_RADIUS_M
 		)
 		if distance > allowed_distance:
 			continue

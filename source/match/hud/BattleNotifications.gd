@@ -48,12 +48,15 @@ func push_message(
 	var label = _create_message_label(_format_message(message_key, format_args), focus_position)
 	_messages_box.add_child(label)
 	_messages_box.move_child(label, 0)
-	_messages.push_front(
-		{
-			"label": label,
-			"expires_at": _now() + message_lifetime_seconds,
-			"focus_position": focus_position,
-		}
+	(
+		_messages
+		. push_front(
+			{
+				"label": label,
+				"expires_at": _now() + message_lifetime_seconds,
+				"focus_position": focus_position,
+			}
+		)
 	)
 	if _is_focus_position(focus_position):
 		MatchSignals.battle_event_recorded.emit(focus_position)
@@ -70,9 +73,7 @@ func clear_messages():
 
 
 func _connect_signals():
-	MatchSignals.match_started.connect(
-		func(): push_message("BATTLE_NOTIFICATION_BATTLE_STARTED")
-	)
+	MatchSignals.match_started.connect(func(): push_message("BATTLE_NOTIFICATION_BATTLE_STARTED"))
 	MatchSignals.match_finished_with_victory.connect(
 		func(): push_message("BATTLE_NOTIFICATION_VICTORY")
 	)
@@ -140,11 +141,7 @@ func _on_unit_captured(unit, previous_player, new_player):
 func _on_unit_promoted(unit, rank):
 	if rank <= 0 or not _unit_belongs_to_human(unit):
 		return
-	push_message(
-		"BATTLE_NOTIFICATION_UNIT_PROMOTED",
-		[_rank_name(rank)],
-		_position_for_unit(unit)
-	)
+	push_message("BATTLE_NOTIFICATION_UNIT_PROMOTED", [_rank_name(rank)], _position_for_unit(unit))
 
 
 func _on_supply_crate_collected(crate, unit, effect_type):
@@ -156,9 +153,7 @@ func _on_supply_crate_collected(crate, unit, effect_type):
 func _on_unit_production_blocked(_unit_prototype, producer_unit):
 	if _unit_belongs_to_human(producer_unit):
 		push_message(
-			"BATTLE_NOTIFICATION_PRODUCTION_BLOCKED",
-			[],
-			_position_for_unit(producer_unit)
+			"BATTLE_NOTIFICATION_PRODUCTION_BLOCKED", [], _position_for_unit(producer_unit)
 		)
 
 
@@ -205,13 +200,11 @@ func _on_support_power_charging(power_id, player, charge_seconds):
 		power_name = tr(Constants.Match.SupportPowers.DEFINITIONS[power_id]["name_key"])
 	if player == _get_human_player():
 		push_message(
-			"BATTLE_NOTIFICATION_SUPERWEAPON_CHARGING",
-			[power_name, ceili(charge_seconds)]
+			"BATTLE_NOTIFICATION_SUPERWEAPON_CHARGING", [power_name, ceili(charge_seconds)]
 		)
 	elif _player_is_enemy_of_human(player):
 		push_message(
-			"BATTLE_NOTIFICATION_ENEMY_SUPERWEAPON_CHARGING",
-			[power_name, ceili(charge_seconds)]
+			"BATTLE_NOTIFICATION_ENEMY_SUPERWEAPON_CHARGING", [power_name, ceili(charge_seconds)]
 		)
 
 
@@ -352,7 +345,11 @@ func _create_message_label(text, focus_position = null):
 	label.text = text
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.clip_text = true
-	label.mouse_filter = Control.MOUSE_FILTER_STOP if _is_focus_position(focus_position) else Control.MOUSE_FILTER_IGNORE
+	label.mouse_filter = (
+		Control.MOUSE_FILTER_STOP
+		if _is_focus_position(focus_position)
+		else Control.MOUSE_FILTER_IGNORE
+	)
 	if _is_focus_position(focus_position):
 		label.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		label.tooltip_text = tr("BATTLE_NOTIFICATION_FOCUS_TOOLTIP")
@@ -403,7 +400,9 @@ func _remove_expired_messages():
 			continue
 		var label = message["label"]
 		if is_instance_valid(label):
-			label.modulate.a = clampf(remaining / FADE_SECONDS, 0.0, 1.0) if remaining < FADE_SECONDS else 1.0
+			label.modulate.a = (
+				clampf(remaining / FADE_SECONDS, 0.0, 1.0) if remaining < FADE_SECONDS else 1.0
+			)
 	_update_visibility()
 
 

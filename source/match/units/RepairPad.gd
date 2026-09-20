@@ -57,7 +57,9 @@ func _can_repair(unit):
 	if unit.hp == null or unit.hp_max == null or unit.hp >= unit.hp_max:
 		return false
 	var unit_radius = unit.radius if unit.radius != null else 0.0
-	return global_position_yless.distance_to(unit.global_position_yless) <= REPAIR_RADIUS + unit_radius
+	return (
+		global_position_yless.distance_to(unit.global_position_yless) <= REPAIR_RADIUS + unit_radius
+	)
 
 
 func _distance_to_repair_target(unit):

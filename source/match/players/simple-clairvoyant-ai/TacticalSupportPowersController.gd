@@ -192,7 +192,9 @@ func _pick_best_shield_position(power_id, min_score):
 	var radius = _definition(power_id)["radius"]
 	var pressure_radius = radius + 4.0
 	for candidate in candidates:
-		var pressure_distance = _nearest_enemy_pressure_distance(candidate.global_position_yless, pressure_radius)
+		var pressure_distance = _nearest_enemy_pressure_distance(
+			candidate.global_position_yless, pressure_radius
+		)
 		if pressure_distance == INF:
 			continue
 		var score = 0.0
@@ -312,8 +314,7 @@ func _friendly_units():
 
 func _friendly_mobile_units():
 	return _friendly_units().filter(
-		func(unit):
-			return _is_mobile_unit(unit) and not unit.is_chrono_relayed()
+		func(unit): return _is_mobile_unit(unit) and not unit.is_chrono_relayed()
 	)
 
 

@@ -55,7 +55,9 @@ func setup(player):
 
 func provision(resources, metadata):
 	if metadata == "worker":
-		_number_of_pending_worker_resource_requests = max(0, _number_of_pending_worker_resource_requests - 1)
+		_number_of_pending_worker_resource_requests = max(
+			0, _number_of_pending_worker_resource_requests - 1
+		)
 		if not _resources_match(
 			resources, Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path], metadata
 		):
@@ -80,7 +82,9 @@ func provision(resources, metadata):
 		if vehicle_factory.production_queue.produce(OreHarvesterScene, true) != null:
 			_number_of_pending_harvesters += 1
 	elif metadata == "cc":
-		_number_of_pending_cc_resource_requests = max(0, _number_of_pending_cc_resource_requests - 1)
+		_number_of_pending_cc_resource_requests = max(
+			0, _number_of_pending_cc_resource_requests - 1
+		)
 		if not _resources_match(
 			resources,
 			Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path],
@@ -117,7 +121,9 @@ func provision(resources, metadata):
 			return
 		_construct_ore_purifier()
 	else:
-		push_warning("Ignoring unknown AI economy resource request metadata: {0}".format([metadata]))
+		push_warning(
+			"Ignoring unknown AI economy resource request metadata: {0}".format([metadata])
+		)
 
 
 func _resources_match(resources, expected_resources, metadata):
@@ -296,9 +302,11 @@ func _enforce_number_of_harvesters():
 	if _constructed_vehicle_factory() == null:
 		return
 	if (
-		_ore_harvesters.size()
-		+ _number_of_pending_harvester_resource_requests
-		+ _number_of_pending_harvesters
+		(
+			_ore_harvesters.size()
+			+ _number_of_pending_harvester_resource_requests
+			+ _number_of_pending_harvesters
+		)
 		>= _ai.expected_number_of_ore_harvesters
 	):
 		return
@@ -312,8 +320,7 @@ func _enforce_number_of_harvesters():
 	)
 	for _i in range(number_of_extra_harvesters_required):
 		resources_required.emit(
-			Constants.Match.Units.PRODUCTION_COSTS[OreHarvesterScene.resource_path],
-			"ore_harvester"
+			Constants.Match.Units.PRODUCTION_COSTS[OreHarvesterScene.resource_path], "ore_harvester"
 		)
 		_number_of_pending_harvester_resource_requests += 1
 
@@ -457,7 +464,8 @@ func _has_constructed_refinery():
 
 func _constructed_vehicle_factory():
 	var vehicle_factories = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return unit is VehicleFactory and unit.player == _player and unit.is_constructed()
+		func(unit):
+			return unit is VehicleFactory and unit.player == _player and unit.is_constructed()
 	)
 	return vehicle_factories[0] if not vehicle_factories.is_empty() else null
 

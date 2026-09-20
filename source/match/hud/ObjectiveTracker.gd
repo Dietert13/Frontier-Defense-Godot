@@ -109,21 +109,27 @@ func _refresh():
 		_breakdown_label.text = ""
 	else:
 		_update_progress_bar(progress["anchors"], total_anchors, false)
-		_progress_label.text = "{0}: {1}    {2}: {3}".format(
-			[
-				tr("OBJECTIVE_PROGRESS_ENEMY_TEAMS"),
-				progress["enemy_teams"],
-				tr("OBJECTIVE_PROGRESS_ANCHORS"),
-				_anchor_ratio_text(progress["anchors"], total_anchors),
-			]
+		_progress_label.text = (
+			"{0}: {1}    {2}: {3}"
+			. format(
+				[
+					tr("OBJECTIVE_PROGRESS_ENEMY_TEAMS"),
+					progress["enemy_teams"],
+					tr("OBJECTIVE_PROGRESS_ANCHORS"),
+					_anchor_ratio_text(progress["anchors"], total_anchors),
+				]
+			)
 		)
-		_breakdown_label.text = "{0}: {1}    {2}: {3}".format(
-			[
-				tr("OBJECTIVE_PROGRESS_STRUCTURES"),
-				progress["structures"],
-				tr("OBJECTIVE_PROGRESS_WORKERS"),
-				progress["workers"],
-			]
+		_breakdown_label.text = (
+			"{0}: {1}    {2}: {3}"
+			. format(
+				[
+					tr("OBJECTIVE_PROGRESS_STRUCTURES"),
+					progress["structures"],
+					tr("OBJECTIVE_PROGRESS_WORKERS"),
+					progress["workers"],
+				]
+			)
 		)
 
 
@@ -159,11 +165,14 @@ func _update_progress_bar(remaining_anchors, total_anchors, complete):
 	_mission_progress_bar.value = _objective_completion_percent(
 		remaining_anchors, total_anchors, complete
 	)
-	_mission_progress_bar.tooltip_text = "{0}: {1}".format(
-		[
-			tr("OBJECTIVE_PROGRESS_ANCHORS"),
-			_anchor_ratio_text(remaining_anchors, total_anchors),
-		]
+	_mission_progress_bar.tooltip_text = (
+		"{0}: {1}"
+		. format(
+			[
+				tr("OBJECTIVE_PROGRESS_ANCHORS"),
+				_anchor_ratio_text(remaining_anchors, total_anchors),
+			]
+		)
 	)
 
 
@@ -198,7 +207,9 @@ func _get_tracked_player():
 		return human_players[0]
 	if _match != null and _match.visible_player != null:
 		return _match.visible_player
-	var participating_players = get_tree().get_nodes_in_group("players").filter(_player_participates)
+	var participating_players = get_tree().get_nodes_in_group("players").filter(
+		_player_participates
+	)
 	if not participating_players.is_empty():
 		return participating_players[0]
 	return null
@@ -211,7 +222,9 @@ func _team_key(player):
 
 
 func _player_participates(player):
-	return player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	return (
+		player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	)
 
 
 func _style_panel():

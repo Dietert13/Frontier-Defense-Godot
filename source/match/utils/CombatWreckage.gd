@@ -60,7 +60,9 @@ func _build_debris():
 
 		var mesh = BoxMesh.new()
 		var side = rng.randf_range(0.18, 0.34) * maxf(radius, 0.8)
-		mesh.size = Vector3(side, side * rng.randf_range(0.35, 0.7), side * rng.randf_range(0.7, 1.35))
+		mesh.size = Vector3(
+			side, side * rng.randf_range(0.35, 0.7), side * rng.randf_range(0.7, 1.35)
+		)
 
 		var debris = MeshInstance3D.new()
 		debris.name = "Debris{0}".format([index])
@@ -68,7 +70,9 @@ func _build_debris():
 		debris.material_override = material
 		var angle = rng.randf_range(0.0, TAU)
 		var distance = rng.randf_range(radius * 0.12, radius * 0.55)
-		debris.position = Vector3(cos(angle) * distance, mesh.size.y * 0.5 + 0.035, sin(angle) * distance)
+		debris.position = Vector3(
+			cos(angle) * distance, mesh.size.y * 0.5 + 0.035, sin(angle) * distance
+		)
 		debris.rotation = Vector3(
 			rng.randf_range(-0.22, 0.22), rng.randf_range(0.0, TAU), rng.randf_range(-0.22, 0.22)
 		)

@@ -18,7 +18,9 @@ static func spawn_impact_at_unit(unit, scale_multiplier = 1.0):
 	var radius = 1.0
 	if "radius" in unit and unit.radius != null:
 		radius = max(0.8, unit.radius)
-	spawn_impact(unit.get_parent(), unit.global_position + Vector3(0, 0.35, 0), radius * scale_multiplier)
+	spawn_impact(
+		unit.get_parent(), unit.global_position + Vector3(0, 0.35, 0), radius * scale_multiplier
+	)
 
 
 static func spawn_wreckage_at_unit(unit):

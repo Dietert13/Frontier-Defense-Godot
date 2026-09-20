@@ -26,7 +26,9 @@ func _refresh_visible_bars():
 		_match.settings.visibility == _match.settings.Visibility.PER_PLAYER
 		and (not human_players.is_empty() or _match.visible_player != null)
 	):
-		var tracked_player = human_players[0] if not human_players.is_empty() else _match.visible_player
+		var tracked_player = (
+			human_players[0] if not human_players.is_empty() else _match.visible_player
+		)
 		_show_player_bars([tracked_player])
 	else:
 		_show_player_bars(get_tree().get_nodes_in_group("players"))

@@ -1,9 +1,7 @@
 extends "res://source/match/units/actions/Action.gd"
 
 const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
-const RepairingWhileInRange = preload(
-	"res://source/match/units/actions/RepairingWhileInRange.gd"
-)
+const RepairingWhileInRange = preload("res://source/match/units/actions/RepairingWhileInRange.gd")
 
 var _target_unit = null
 var _sub_action = null
@@ -55,9 +53,11 @@ func _repair_or_move_closer():
 		queue_free()
 		return
 	_set_sub_action(
-		MovingToUnit.new(_target_unit)
-		if not RepairingWhileInRange.is_applicable(_unit, _target_unit)
-		else RepairingWhileInRange.new(_target_unit)
+		(
+			MovingToUnit.new(_target_unit)
+			if not RepairingWhileInRange.is_applicable(_unit, _target_unit)
+			else RepairingWhileInRange.new(_target_unit)
+		)
 	)
 
 

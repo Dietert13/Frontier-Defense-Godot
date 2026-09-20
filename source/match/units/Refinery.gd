@@ -53,8 +53,8 @@ func _find_harvester_spawn_position(harvester, spawn_direction, match):
 	]
 	var spacing = 0.35
 	var start_distance = radius + harvester.radius + spacing
-	var existing_units = get_tree().get_nodes_in_group("units") + get_tree().get_nodes_in_group(
-		"resource_units"
+	var existing_units = (
+		get_tree().get_nodes_in_group("units") + get_tree().get_nodes_in_group("resource_units")
 	)
 	for ring in range(4):
 		var distance = start_distance + (harvester.radius + spacing) * ring

@@ -98,14 +98,22 @@ func _can_collect(unit):
 	if unit.movement_speed <= 0.0:
 		return false
 	var unit_radius = unit.radius if unit.radius != null else 0.0
-	return global_position_yless.distance_to(unit.global_position_yless) <= pickup_radius + unit_radius
+	return (
+		global_position_yless.distance_to(unit.global_position_yless) <= pickup_radius + unit_radius
+	)
 
 
 func _apply_resources(unit):
-	unit.player.add_resources({
-		"resource_a": resource_a_bonus,
-		"resource_b": resource_b_bonus,
-	})
+	(
+		unit
+		. player
+		. add_resources(
+			{
+				"resource_a": resource_a_bonus,
+				"resource_b": resource_b_bonus,
+			}
+		)
+	)
 
 
 func _apply_repair(unit):
@@ -122,19 +130,23 @@ func _can_repair(player, target):
 	if target.hp == null or target.hp_max == null or target.hp >= target.hp_max:
 		return false
 	var target_radius = target.radius if target.radius != null else 0.0
-	return global_position_yless.distance_to(target.global_position_yless) <= repair_radius + target_radius
+	return (
+		global_position_yless.distance_to(target.global_position_yless)
+		<= repair_radius + target_radius
+	)
 
 
 func _apply_veterancy(unit):
 	if _try_promote(unit):
 		return
 	var nearby_allies = get_tree().get_nodes_in_group("units").filter(
-		func(target): return (
-			target is Unit
-			and target.player != null
-			and unit.player.is_allied_with(target.player)
-			and global_position_yless.distance_to(target.global_position_yless) <= repair_radius
-		)
+		func(target):
+			return (
+				target is Unit
+				and target.player != null
+				and unit.player.is_allied_with(target.player)
+				and global_position_yless.distance_to(target.global_position_yless) <= repair_radius
+			)
 	)
 	nearby_allies.sort_custom(
 		func(a, b):

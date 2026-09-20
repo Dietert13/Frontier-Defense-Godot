@@ -108,14 +108,10 @@ func _apply_compact_layout(panel, viewport_size):
 	_set_content_width(maxf(280.0, panel_width - 40.0))
 	_set_control_minimum_size("MapPreview", COMPACT_MAP_PREVIEW_SIZE)
 	_set_control_minimum_size("MapDetailsLabel", Vector2(0, COMPACT_MAP_DETAILS_HEIGHT))
-	_set_control_minimum_size(
-		"OperationSummaryLabel", Vector2(0, COMPACT_OPERATION_SUMMARY_HEIGHT)
-	)
+	_set_control_minimum_size("OperationSummaryLabel", Vector2(0, COMPACT_OPERATION_SUMMARY_HEIGHT))
 	_set_rich_text_fit_content("OperationSummaryLabel", false)
 	var grid_height = clampf(
-		viewport_size.y - 430.0,
-		COMPACT_MIN_PLAYER_GRID_HEIGHT,
-		DEFAULT_PLAYER_GRID_HEIGHT
+		viewport_size.y - 430.0, COMPACT_MIN_PLAYER_GRID_HEIGHT, DEFAULT_PLAYER_GRID_HEIGHT
 	)
 	_set_control_minimum_size("GridContainer", Vector2(0, grid_height))
 	_set_control_minimum_size("StartButton", Vector2(0, COMPACT_BUTTON_HEIGHT))
@@ -137,9 +133,7 @@ func _apply_default_layout(panel):
 	_set_content_width(DEFAULT_CONTENT_WIDTH)
 	_set_control_minimum_size("MapPreview", DEFAULT_MAP_PREVIEW_SIZE)
 	_set_control_minimum_size("MapDetailsLabel", Vector2(0, DEFAULT_MAP_DETAILS_HEIGHT))
-	_set_control_minimum_size(
-		"OperationSummaryLabel", Vector2(0, DEFAULT_OPERATION_SUMMARY_HEIGHT)
-	)
+	_set_control_minimum_size("OperationSummaryLabel", Vector2(0, DEFAULT_OPERATION_SUMMARY_HEIGHT))
 	_set_rich_text_fit_content("OperationSummaryLabel", true)
 	_set_control_minimum_size("GridContainer", Vector2(0, DEFAULT_PLAYER_GRID_HEIGHT))
 	_set_control_minimum_size("StartButton", Vector2.ZERO)
@@ -206,7 +200,9 @@ func _setup_starting_resource_option_button():
 		starting_resources_label.text = tr("STARTING_RESOURCES")
 	_starting_resources_option.clear()
 	for option_id in range(STARTING_RESOURCE_OPTIONS.size()):
-		_starting_resources_option.add_item(tr(STARTING_RESOURCE_OPTIONS[option_id]["key"]), option_id)
+		_starting_resources_option.add_item(
+			tr(STARTING_RESOURCE_OPTIONS[option_id]["key"]), option_id
+		)
 	_starting_resources_option.select(DEFAULT_STARTING_RESOURCE_OPTION)
 	_refresh_operation_summary()
 
@@ -217,7 +213,9 @@ func _create_match_settings():
 	match_settings.starting_resource_a = starting_resources["resource_a"]
 	match_settings.starting_resource_b = starting_resources["resource_b"]
 
-	var option_nodes = _get_player_option_nodes().filter(func(option_node): return option_node.visible)
+	var option_nodes = _get_player_option_nodes().filter(
+		func(option_node): return option_node.visible
+	)
 	var spawn_index_offset = 0
 	for option_node_id in range(option_nodes.size()):
 		var player_controller = _selected_player_controller(option_nodes[option_node_id])
@@ -280,8 +278,7 @@ func _map_index_for_initial_map():
 
 func _apply_match_settings(match_settings):
 	_select_starting_resources_option(
-		match_settings.starting_resource_a,
-		match_settings.starting_resource_b
+		match_settings.starting_resource_a, match_settings.starting_resource_b
 	)
 	for option_node in _get_visible_player_option_nodes():
 		_select_player_controller(option_node, Constants.PlayerType.NONE)
@@ -320,10 +317,7 @@ func _select_player_color_by_value(player_slot_id, color):
 		"ColorOptionButton{0}".format([player_slot_id]), false, false
 	)
 	if color_option_node != null:
-		_select_player_color(
-			color_option_node,
-			_player_color_id_for_color(color, player_slot_id)
-		)
+		_select_player_color(color_option_node, _player_color_id_for_color(color, player_slot_id))
 
 
 func _select_player_team_by_id(player_slot_id, team_id):
@@ -426,9 +420,7 @@ func _on_random_map_selected():
 
 
 func _set_map_details(players_text, size_text, map_count_text = ""):
-	var detail_lines = [
-		"[u]{0}:[/u] {1}".format([tr("MAP_DETAILS_PLAYERS"), players_text])
-	]
+	var detail_lines = ["[u]{0}:[/u] {1}".format([tr("MAP_DETAILS_PLAYERS"), players_text])]
 	if map_count_text != "":
 		detail_lines.append("[u]{0}:[/u] {1}".format([tr("MAP_DETAILS_MAPS"), map_count_text]))
 	detail_lines.append("[u]{0}:[/u] {1}".format([tr("MAP_DETAILS_SIZE"), size_text]))
@@ -444,20 +436,26 @@ func _refresh_operation_summary():
 	var lines = [
 		"[b]{0}[/b]".format([tr("OPERATION_SUMMARY_TITLE")]),
 		"[u]{0}:[/u] {1}".format([tr("OPERATION_SUMMARY_MAP"), _selected_map_display_name()]),
-		"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}".format(
-			[
-				tr("OPERATION_SUMMARY_PLAYERS"),
-				active_player_count,
-				tr("OPERATION_SUMMARY_TEAMS"),
-				active_team_count,
-			]
+		(
+			"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}"
+			. format(
+				[
+					tr("OPERATION_SUMMARY_PLAYERS"),
+					active_player_count,
+					tr("OPERATION_SUMMARY_TEAMS"),
+					active_team_count,
+				]
+			)
 		),
-		"[u]{0}:[/u] A {1} / B {2}".format(
-			[
-				tr("OPERATION_SUMMARY_RESOURCES"),
-				starting_resources["resource_a"],
-				starting_resources["resource_b"],
-			]
+		(
+			"[u]{0}:[/u] A {1} / B {2}"
+			. format(
+				[
+					tr("OPERATION_SUMMARY_RESOURCES"),
+					starting_resources["resource_a"],
+					starting_resources["resource_b"],
+				]
+			)
 		),
 		"[u]{0}:[/u] {1}".format(
 			[tr("OPERATION_SUMMARY_OBJECTIVE"), tr("OPERATION_SUMMARY_OBJECTIVE_ELIMINATION")]
@@ -493,13 +491,19 @@ func _active_force_summary():
 		if controller == Constants.PlayerType.NONE:
 			continue
 		var player_slot_id = _player_option_node_index(option_node)
-		force_parts.append(
-			"{0} {1} {2}".format(
-				[
-					tr("OPERATION_SUMMARY_SLOT").format([player_slot_id + 1]),
-					_controller_label(controller),
-					tr("TEAM_SHORT").format([_selected_player_team(player_slot_id) + 1]),
-				]
+		(
+			force_parts
+			. append(
+				(
+					"{0} {1} {2}"
+					. format(
+						[
+							tr("OPERATION_SUMMARY_SLOT").format([player_slot_id + 1]),
+							_controller_label(controller),
+							tr("TEAM_SHORT").format([_selected_player_team(player_slot_id) + 1]),
+						]
+					)
+				)
 			)
 		)
 	if force_parts.is_empty():
@@ -573,8 +577,9 @@ func _largest_map_path():
 		var largest_size = Constants.Match.MAPS[largest_map_path]["size"]
 		var map_area = map_size.x * map_size.y
 		var largest_area = largest_size.x * largest_size.y
-		if player_count > largest_player_count or (
-			player_count == largest_player_count and map_area > largest_area
+		if (
+			player_count > largest_player_count
+			or (player_count == largest_player_count and map_area > largest_area)
 		):
 			largest_map_path = map_path
 	return largest_map_path
@@ -588,7 +593,6 @@ func _map_player_range():
 		min_players = mini(min_players, player_count)
 		max_players = maxi(max_players, player_count)
 	return Vector2i(min_players, max_players)
-
 
 
 func _get_player_option_nodes():
@@ -613,7 +617,10 @@ func _get_player_color_option_nodes():
 	var color_option_nodes = _get_numbered_grid_children("ColorOptionButton")
 	color_option_nodes.sort_custom(
 		func(option_a, option_b):
-			return _player_color_option_node_index(option_a) < _player_color_option_node_index(option_b)
+			return (
+				_player_color_option_node_index(option_a)
+				< _player_color_option_node_index(option_b)
+			)
 	)
 	return color_option_nodes
 
@@ -622,7 +629,9 @@ func _get_player_team_option_nodes():
 	var team_option_nodes = _get_numbered_grid_children("TeamOptionButton")
 	team_option_nodes.sort_custom(
 		func(option_a, option_b):
-			return _player_team_option_node_index(option_a) < _player_team_option_node_index(option_b)
+			return (
+				_player_team_option_node_index(option_a) < _player_team_option_node_index(option_b)
+			)
 	)
 	return team_option_nodes
 
@@ -861,7 +870,8 @@ func _ensure_minimum_visible_player_controllers():
 
 func _active_visible_player_controller_count():
 	var active_option_nodes = _get_visible_player_option_nodes().filter(
-		func(option_node): return _selected_player_controller(option_node) != Constants.PlayerType.NONE
+		func(option_node):
+			return _selected_player_controller(option_node) != Constants.PlayerType.NONE
 	)
 	return active_option_nodes.size()
 

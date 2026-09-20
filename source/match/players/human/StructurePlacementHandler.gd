@@ -123,9 +123,7 @@ func _player_has_enough_resources():
 
 
 func _player_has_required_tech():
-	return Utils.Match.Unit.Tech.can_construct(
-		_player, _pending_structure_prototype.resource_path
-	)
+	return Utils.Match.Unit.Tech.can_construct(_player, _pending_structure_prototype.resource_path)
 
 
 func _active_blueprint_within_base_construction_radius():
@@ -156,14 +154,8 @@ func _update_feedback_label(blueprint_position_validity):
 		BlueprintPositionValidity.OUT_OF_MAP:
 			_feedback_label.text = tr("BLUEPRINT_OUT_OF_MAP")
 		BlueprintPositionValidity.MISSING_TECH:
-			var missing_requirements = (
-				Utils
-				. Match
-				. Unit
-				. Tech
-				. missing_construction_requirements(
-					_player, _pending_structure_prototype.resource_path
-				)
+			var missing_requirements = Utils.Match.Unit.Tech.missing_construction_requirements(
+				_player, _pending_structure_prototype.resource_path
 			)
 			_feedback_label.text = tr("BLUEPRINT_MISSING_TECH").format(
 				[Utils.Match.Unit.Tech.requirement_names(missing_requirements)]

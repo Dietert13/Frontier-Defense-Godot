@@ -151,10 +151,7 @@ func _assign_support_actions_for_current_target():
 	if not _has_active_target():
 		return
 	for attached_unit in _attached_units:
-		if (
-			_repair_target_for(attached_unit) != null
-			or attached_unit.action is Actions.Repairing
-		):
+		if _repair_target_for(attached_unit) != null or attached_unit.action is Actions.Repairing:
 			_assign_action_for_current_target(attached_unit)
 
 
@@ -205,8 +202,7 @@ func _repair_target_for(repair_unit):
 	if repair_targets.is_empty():
 		return null
 	repair_targets.sort_custom(
-		func(unit_a, unit_b):
-			return _missing_hp_ratio(unit_a) > _missing_hp_ratio(unit_b)
+		func(unit_a, unit_b): return _missing_hp_ratio(unit_a) > _missing_hp_ratio(unit_b)
 	)
 	return repair_targets[0]
 
@@ -257,11 +253,18 @@ func _action_targets_unit(action, target_unit):
 
 
 func _has_active_target():
-	return _target_unit != null and is_instance_valid(_target_unit) and _target_unit.is_inside_tree()
+	return (
+		_target_unit != null and is_instance_valid(_target_unit) and _target_unit.is_inside_tree()
+	)
 
 
 func _is_active_attached_unit(unit):
-	return unit != null and is_instance_valid(unit) and unit.is_inside_tree() and unit in _attached_units
+	return (
+		unit != null
+		and is_instance_valid(unit)
+		and unit.is_inside_tree()
+		and unit in _attached_units
+	)
 
 
 func _is_deployable_unit(unit):

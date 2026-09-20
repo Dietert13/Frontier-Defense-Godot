@@ -99,7 +99,9 @@ func _should_sync_hud_this_frame(delta):
 
 func _apply_static_style():
 	for panel_container in find_children("*", "PanelContainer", true, false):
-		panel_container.add_theme_stylebox_override("panel", _stylebox(PANEL_BG, PANEL_BORDER, 2, 3))
+		panel_container.add_theme_stylebox_override(
+			"panel", _stylebox(PANEL_BG, PANEL_BORDER, 2, 3)
+		)
 
 	for panel in find_children("*", "Panel", true, false):
 		panel.add_theme_stylebox_override("panel", _stylebox(SLOT_BG, SLOT_BORDER, 1, 2))
@@ -120,7 +122,9 @@ func _apply_static_style():
 		grid.add_theme_constant_override("v_separation", 0)
 
 	for hbox in find_children("*", "HBoxContainer", true, false):
-		hbox.add_theme_constant_override("separation", max(4, hbox.get_theme_constant("separation")))
+		hbox.add_theme_constant_override(
+			"separation", max(4, hbox.get_theme_constant("separation"))
+		)
 
 	_style_minimap()
 
@@ -195,8 +199,12 @@ func _sync_command_sidebar_layout():
 	var anchor_size = command_anchor.get_combined_minimum_size()
 	if anchor_size == Vector2.ZERO:
 		return
-	command_anchor.offset_left = -min(anchor_size.x, max(0.0, viewport_size.x - COMMAND_SIDEBAR_MARGIN))
-	command_anchor.offset_top = -min(anchor_size.y, max(0.0, viewport_size.y - COMMAND_SIDEBAR_MARGIN))
+	command_anchor.offset_left = -min(
+		anchor_size.x, max(0.0, viewport_size.x - COMMAND_SIDEBAR_MARGIN)
+	)
+	command_anchor.offset_top = -min(
+		anchor_size.y, max(0.0, viewport_size.y - COMMAND_SIDEBAR_MARGIN)
+	)
 	command_anchor.offset_right = 0.0
 	command_anchor.offset_bottom = 0.0
 
@@ -356,10 +364,7 @@ func _sync_floating_icon_overlay(button, primary_icon, icon_rect, visible):
 	var icon_color = primary_icon.modulate if primary_icon != null else NORMAL_ICON
 	var fallback_key = str(button.get_meta(CommandButtonIcons.META_ICON_SCENE_PATH, button.name))
 	overlay.set_icon(
-		_overlay_display_texture(primary_icon, fallback_key),
-		icon_color,
-		fallback_key,
-		false
+		_overlay_display_texture(primary_icon, fallback_key), icon_color, fallback_key, false
 	)
 
 
@@ -392,14 +397,13 @@ func _centered_floating_icon_rect(button, icon_rect, layer):
 	var local_position = button_global_position + icon_rect.position - layer_global_position
 	var max_icon_size = minf(FLOATING_ICON_MAX_SIZE, minf(icon_rect.size.x, icon_rect.size.y))
 	var floating_size = Vector2(max_icon_size, max_icon_size)
-	return Rect2(
-		local_position + (icon_rect.size - floating_size) * 0.5,
-		floating_size
-	)
+	return Rect2(local_position + (icon_rect.size - floating_size) * 0.5, floating_size)
 
 
 func _centered_button_icon_rect(icon_rect):
-	var max_icon_size = minf(COMMAND_VISIBLE_ICON_MAX_SIZE, minf(icon_rect.size.x, icon_rect.size.y))
+	var max_icon_size = minf(
+		COMMAND_VISIBLE_ICON_MAX_SIZE, minf(icon_rect.size.x, icon_rect.size.y)
+	)
 	var visible_size = Vector2(max_icon_size, max_icon_size)
 	return Rect2(icon_rect.position + (icon_rect.size - visible_size) * 0.5, visible_size)
 
@@ -472,10 +476,7 @@ func _button_size_for_icon_layout(button):
 	var minimum_size = button.custom_minimum_size
 	if minimum_size.x < 1.0 or minimum_size.y < 1.0:
 		minimum_size = COMMAND_BUTTON_SIZE
-	return Vector2(
-		maxf(button.size.x, minimum_size.x),
-		maxf(button.size.y, minimum_size.y)
-	)
+	return Vector2(maxf(button.size.x, minimum_size.x), maxf(button.size.y, minimum_size.y))
 
 
 func _sync_command_label_layers(button):
@@ -559,10 +560,7 @@ func _should_use_procedural_command_overlay_for_platform(has_web_feature):
 func _command_icon_top_margin(button, _icon):
 	var queue_label = button.find_child(QUEUE_LABEL_NAME, false, false)
 	var lock_label = button.find_child(LOCK_LABEL_NAME, false, false)
-	if (
-		(queue_label != null and queue_label.visible)
-		or (lock_label != null and lock_label.visible)
-	):
+	if (queue_label != null and queue_label.visible) or (lock_label != null and lock_label.visible):
 		return COMMAND_ICON_STATUS_TOP_MARGIN
 	return COMMAND_ICON_TOP_MARGIN
 
@@ -665,7 +663,9 @@ func _sync_screen_icon_overlays(buttons):
 		overlay.offset_top = centered_rect.position.y
 		overlay.offset_right = centered_rect.position.x + centered_rect.size.x
 		overlay.offset_bottom = centered_rect.position.y + centered_rect.size.y
-		var fallback_key = str(button.get_meta(CommandButtonIcons.META_ICON_SCENE_PATH, button.name))
+		var fallback_key = str(
+			button.get_meta(CommandButtonIcons.META_ICON_SCENE_PATH, button.name)
+		)
 		overlay.set_icon(
 			_overlay_display_texture(primary_icon, fallback_key),
 			primary_icon.modulate,
@@ -707,10 +707,7 @@ func _centered_screen_icon_rect(button, icon_rect, layer):
 	var local_position = button.global_position + icon_rect.position - layer.global_position
 	var max_icon_size = minf(SCREEN_ICON_MAX_SIZE, minf(icon_rect.size.x, icon_rect.size.y))
 	var screen_icon_size = Vector2(max_icon_size, max_icon_size)
-	return Rect2(
-		local_position + (icon_rect.size - screen_icon_size) * 0.5,
-		screen_icon_size
-	)
+	return Rect2(local_position + (icon_rect.size - screen_icon_size) * 0.5, screen_icon_size)
 
 
 func _screen_icon_name(button):

@@ -66,7 +66,9 @@ func _units_in_group(group_id: int):
 
 
 func _is_focusable_unit(unit):
-	return is_instance_valid(unit) and unit.is_inside_tree() and unit.is_in_group("controlled_units")
+	return (
+		is_instance_valid(unit) and unit.is_inside_tree() and unit.is_in_group("controlled_units")
+	)
 
 
 func _is_exact_current_selection(units):

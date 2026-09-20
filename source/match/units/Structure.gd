@@ -62,9 +62,11 @@ func get_sell_refund():
 	for resource in construction_cost:
 		refund[resource] = int(
 			ceil(
-				float(construction_cost[resource])
-				* Constants.Match.Structure.SELL_REFUND_RATIO
-				* hp_ratio
+				(
+					float(construction_cost[resource])
+					* Constants.Match.Structure.SELL_REFUND_RATIO
+					* hp_ratio
+				)
 			)
 		)
 	return refund
@@ -94,9 +96,11 @@ func get_repair_cost():
 	for resource in construction_cost:
 		repair_cost[resource] = int(
 			ceil(
-				float(construction_cost[resource])
-				* Constants.Match.Structure.MANUAL_REPAIR_COST_RATIO
-				* hp_ratio
+				(
+					float(construction_cost[resource])
+					* Constants.Match.Structure.MANUAL_REPAIR_COST_RATIO
+					* hp_ratio
+				)
 			)
 		)
 	return repair_cost
@@ -212,8 +216,10 @@ func _on_manual_repair_timer_timeout():
 		_stop_manual_repair()
 		return
 	var repaired_hp = minf(
-		Constants.Match.Structure.MANUAL_REPAIR_HITPOINTS_PER_SECOND
-		* Constants.Match.Structure.MANUAL_REPAIR_TICK_SECONDS,
+		(
+			Constants.Match.Structure.MANUAL_REPAIR_HITPOINTS_PER_SECOND
+			* Constants.Match.Structure.MANUAL_REPAIR_TICK_SECONDS
+		),
 		minf(_manual_repair_points_remaining, _missing_repair_hitpoints())
 	)
 	if repaired_hp <= 0.0:

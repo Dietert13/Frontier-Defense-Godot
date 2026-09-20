@@ -64,9 +64,11 @@ func _ready():
 		Constants.Match.SupportPowers.EMP_PULSE: find_child("EmpPulseCooldownLabel"),
 		Constants.Match.SupportPowers.CHRONO_RELAY: find_child("ChronoRelayCooldownLabel"),
 		Constants.Match.SupportPowers.SHIELD_OVERDRIVE: find_child("ShieldOverdriveCooldownLabel"),
-		Constants.Match.SupportPowers.NANITE_REPAIR_SWARM: find_child("NaniteRepairSwarmCooldownLabel"),
+		Constants.Match.SupportPowers.NANITE_REPAIR_SWARM:
+		find_child("NaniteRepairSwarmCooldownLabel"),
 		Constants.Match.SupportPowers.WEATHER_STORM: find_child("WeatherStormCooldownLabel"),
-		Constants.Match.SupportPowers.STRATEGIC_MISSILE: find_child("StrategicMissileCooldownLabel"),
+		Constants.Match.SupportPowers.STRATEGIC_MISSILE:
+		find_child("StrategicMissileCooldownLabel"),
 		Constants.Match.SupportPowers.PARADROP: find_child("ParadropCooldownLabel"),
 	}
 	for power_id in POWER_IDS:
@@ -123,12 +125,16 @@ func refresh():
 		SupportPowerIcons.ensure(button)
 		var unlocked = _is_unlocked(player, power_id)
 		var cooldown_remaining = get_cooldown_remaining(power_id)
-		_refresh_button_state(button, cooldown_label, power_id, has_player, unlocked, cooldown_remaining)
+		_refresh_button_state(
+			button, cooldown_label, power_id, has_player, unlocked, cooldown_remaining
+		)
 		_emit_ready_notification_if_needed(player, power_id)
 	visible = has_player
 
 
-func _refresh_button_state(button, cooldown_label, power_id, has_player, unlocked, cooldown_remaining):
+func _refresh_button_state(
+	button, cooldown_label, power_id, has_player, unlocked, cooldown_remaining
+):
 	button.visible = has_player
 	cooldown_label.visible = has_player
 	button.disabled = not can_activate(power_id)
@@ -284,9 +290,7 @@ func _build_tooltip(power_id):
 	if definition.has("healing"):
 		text += ", {0}: {1}".format([tr("HEALING"), definition["healing"]])
 	if definition.has("speed_multiplier"):
-		text += ", {0}: {1}%".format(
-			[tr("SPEED"), roundi(definition["speed_multiplier"] * 100.0)]
-		)
+		text += ", {0}: {1}%".format([tr("SPEED"), roundi(definition["speed_multiplier"] * 100.0)])
 	if definition.has("damage_multiplier"):
 		text += ", {0}: {1}%".format(
 			[tr("DAMAGE_TAKEN"), roundi(definition["damage_multiplier"] * 100.0)]

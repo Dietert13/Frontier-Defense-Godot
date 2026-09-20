@@ -28,7 +28,9 @@ const RailArtilleryWalkerUnit = preload("res://source/match/units/RailArtilleryW
 const StructureMenuActions = preload("res://source/match/hud/unit-menus/StructureMenuActions.gd")
 const CommandButtonHotkeys = preload("res://source/match/hud/unit-menus/CommandButtonHotkeys.gd")
 const ProductionMenuActions = preload("res://source/match/hud/unit-menus/ProductionMenuActions.gd")
-const ProductionButtonTooltip = preload("res://source/match/hud/unit-menus/ProductionButtonTooltip.gd")
+const ProductionButtonTooltip = preload(
+	"res://source/match/hud/unit-menus/ProductionButtonTooltip.gd"
+)
 
 var unit = null
 var units = []
@@ -36,7 +38,8 @@ var units = []
 @onready var _tank_button = find_child("ProduceTankButton")
 @onready var _scout_rover_button = find_child("ProduceScoutRoverButton")
 @onready var _ore_harvester_button = find_child("ProduceOreHarvesterButton")
-@onready var _mobile_construction_vehicle_button = find_child("ProduceMobileConstructionVehicleButton")
+@onready
+var _mobile_construction_vehicle_button = find_child("ProduceMobileConstructionVehicleButton")
 @onready var _mirage_scout_tank_button = find_child("ProduceMirageScoutTankButton")
 @onready var _flame_assault_buggy_button = find_child("ProduceFlameAssaultBuggyButton")
 @onready var _drone_mine_layer_button = find_child("ProduceDroneMineLayerButton")
@@ -67,10 +70,7 @@ func _ready():
 	_set_unit_tooltip(_tank_button, TankUnit, "TANK", "TANK_DESCRIPTION")
 	_set_unit_tooltip(_scout_rover_button, ScoutRoverUnit, "SCOUT_ROVER", "SCOUT_ROVER_DESCRIPTION")
 	_set_unit_tooltip(
-		_ore_harvester_button,
-		OreHarvesterUnit,
-		"ORE_HARVESTER",
-		"ORE_HARVESTER_DESCRIPTION"
+		_ore_harvester_button, OreHarvesterUnit, "ORE_HARVESTER", "ORE_HARVESTER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_mobile_construction_vehicle_button,
@@ -115,10 +115,7 @@ func _ready():
 		"MODULAR_MISSILE_CARRIER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_jammer_vehicle_button,
-		JammerVehicleUnit,
-		"JAMMER_VEHICLE",
-		"JAMMER_VEHICLE_DESCRIPTION"
+		_jammer_vehicle_button, JammerVehicleUnit, "JAMMER_VEHICLE", "JAMMER_VEHICLE_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_anti_air_walker_button, AntiAirWalkerUnit, "ANTI_AIR_WALKER", "ANTI_AIR_WALKER_DESCRIPTION"
@@ -157,10 +154,7 @@ func _ready():
 		"LONGBOW_MISSILE_CRAWLER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_lance_beam_tank_button,
-		LanceBeamTankUnit,
-		"LANCE_BEAM_TANK",
-		"LANCE_BEAM_TANK_DESCRIPTION"
+		_lance_beam_tank_button, LanceBeamTankUnit, "LANCE_BEAM_TANK", "LANCE_BEAM_TANK_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_railgun_tank_button, RailgunTankUnit, "RAILGUN_TANK", "RAILGUN_TANK_DESCRIPTION"
@@ -187,12 +181,11 @@ func _ready():
 
 func refresh():
 	_refresh_unit_button(_tank_button, TankUnit, "TANK", "TANK_DESCRIPTION")
-	_refresh_unit_button(_scout_rover_button, ScoutRoverUnit, "SCOUT_ROVER", "SCOUT_ROVER_DESCRIPTION")
 	_refresh_unit_button(
-		_ore_harvester_button,
-		OreHarvesterUnit,
-		"ORE_HARVESTER",
-		"ORE_HARVESTER_DESCRIPTION"
+		_scout_rover_button, ScoutRoverUnit, "SCOUT_ROVER", "SCOUT_ROVER_DESCRIPTION"
+	)
+	_refresh_unit_button(
+		_ore_harvester_button, OreHarvesterUnit, "ORE_HARVESTER", "ORE_HARVESTER_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_mobile_construction_vehicle_button,
@@ -237,10 +230,7 @@ func refresh():
 		"MODULAR_MISSILE_CARRIER_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_jammer_vehicle_button,
-		JammerVehicleUnit,
-		"JAMMER_VEHICLE",
-		"JAMMER_VEHICLE_DESCRIPTION"
+		_jammer_vehicle_button, JammerVehicleUnit, "JAMMER_VEHICLE", "JAMMER_VEHICLE_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_anti_air_walker_button, AntiAirWalkerUnit, "ANTI_AIR_WALKER", "ANTI_AIR_WALKER_DESCRIPTION"
@@ -279,10 +269,7 @@ func refresh():
 		"LONGBOW_MISSILE_CRAWLER_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_lance_beam_tank_button,
-		LanceBeamTankUnit,
-		"LANCE_BEAM_TANK",
-		"LANCE_BEAM_TANK_DESCRIPTION"
+		_lance_beam_tank_button, LanceBeamTankUnit, "LANCE_BEAM_TANK", "LANCE_BEAM_TANK_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_railgun_tank_button, RailgunTankUnit, "RAILGUN_TANK", "RAILGUN_TANK_DESCRIPTION"

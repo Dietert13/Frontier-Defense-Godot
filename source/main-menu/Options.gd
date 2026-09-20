@@ -242,7 +242,9 @@ func _refresh_audio_controls():
 
 
 func _format_volume_percent(volume):
-	return "{0}%".format([int(round(_slider_value_to_volume(volume * VOLUME_SLIDER_SCALE) * 100.0))])
+	return "{0}%".format(
+		[int(round(_slider_value_to_volume(volume * VOLUME_SLIDER_SCALE) * 100.0))]
+	)
 
 
 func _slider_value_to_volume(value):

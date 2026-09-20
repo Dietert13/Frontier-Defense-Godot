@@ -58,7 +58,10 @@ func _can_repair(unit):
 		return false
 	if _is_infantry(unit):
 		return false
-	if not "movement_domain" in unit or unit.movement_domain != Constants.Match.Navigation.Domain.TERRAIN:
+	if (
+		not "movement_domain" in unit
+		or unit.movement_domain != Constants.Match.Navigation.Domain.TERRAIN
+	):
 		return false
 	if not "movement_speed" in unit or unit.movement_speed <= 0.0:
 		return false
@@ -67,7 +70,9 @@ func _can_repair(unit):
 	if unit.hp == null or unit.hp_max == null or unit.hp >= unit.hp_max:
 		return false
 	var unit_radius = unit.radius if "radius" in unit and unit.radius != null else 0.0
-	return global_position_yless.distance_to(unit.global_position_yless) <= repair_radius + unit_radius
+	return (
+		global_position_yless.distance_to(unit.global_position_yless) <= repair_radius + unit_radius
+	)
 
 
 func _is_infantry(unit):

@@ -57,7 +57,10 @@ func _can_heal(unit):
 	if unit.hp == null or unit.hp_max == null or unit.hp >= unit.hp_max:
 		return false
 	var unit_radius = unit.radius if "radius" in unit and unit.radius != null else 0.0
-	return global_position_yless.distance_to(unit.global_position_yless) <= healing_radius + unit_radius
+	return (
+		global_position_yless.distance_to(unit.global_position_yless)
+		<= healing_radius + unit_radius
+	)
 
 
 func _is_infantry(unit):

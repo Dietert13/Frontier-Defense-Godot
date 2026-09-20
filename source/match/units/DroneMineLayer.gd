@@ -42,18 +42,12 @@ func _process(delta):
 
 
 func _can_deploy_mines():
-	return (
-		hp != null
-		and hp > 0
-		and not is_emp_disabled()
-		and _active_mines().size() < mine_limit
-	)
+	return hp != null and hp > 0 and not is_emp_disabled() and _active_mines().size() < mine_limit
 
 
 func _active_mines():
 	return get_tree().get_nodes_in_group("units").filter(
-		func(unit):
-			return unit is LandMine and unit.source_unit == self and unit.player == player
+		func(unit): return unit is LandMine and unit.source_unit == self and unit.player == player
 	)
 
 

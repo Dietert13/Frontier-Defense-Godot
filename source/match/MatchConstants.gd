@@ -103,8 +103,10 @@ class Capture:
 	]
 	const INFILTRATION_PRODUCTION_VETERANCY_TARGETS = {
 		"res://source/match/units/Barracks.tscn": "res://source/match/units/Barracks.tscn",
-		"res://source/match/units/VehicleFactory.tscn": "res://source/match/units/VehicleFactory.tscn",
-		"res://source/match/units/AircraftFactory.tscn": "res://source/match/units/AircraftFactory.tscn",
+		"res://source/match/units/VehicleFactory.tscn":
+		"res://source/match/units/VehicleFactory.tscn",
+		"res://source/match/units/AircraftFactory.tscn":
+		"res://source/match/units/AircraftFactory.tscn",
 	}
 
 
@@ -192,18 +194,18 @@ class SupportPowers:
 			"healing": 10.0,
 		},
 		"weather_storm":
-			{
-				"name_key": "WEATHER_STORM",
-				"description_key": "WEATHER_STORM_DESCRIPTION",
-				"requirements": ["res://source/match/units/WeatherControlSpire.tscn"],
-				"requires_power": true,
-				"superweapon": true,
-				"initial_cooldown": 90.0,
-				"cooldown": 90.0,
-				"impact_delay": 1.8,
-				"radius": 6.4,
-				"damage": 12.0,
-			},
+		{
+			"name_key": "WEATHER_STORM",
+			"description_key": "WEATHER_STORM_DESCRIPTION",
+			"requirements": ["res://source/match/units/WeatherControlSpire.tscn"],
+			"requires_power": true,
+			"superweapon": true,
+			"initial_cooldown": 90.0,
+			"cooldown": 90.0,
+			"impact_delay": 1.8,
+			"radius": 6.4,
+			"damage": 12.0,
+		},
 		"strategic_missile":
 		{
 			"name_key": "STRATEGIC_MISSILE",
@@ -562,17 +564,13 @@ class Units:
 		["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/GrenadierTrooper.tscn":
 		["res://source/match/units/RadarUplink.tscn"],
-		"res://source/match/units/MortarTeam.tscn":
-		["res://source/match/units/RadarUplink.tscn"],
-		"res://source/match/units/ShockTrooper.tscn":
-		["res://source/match/units/RadarUplink.tscn"],
+		"res://source/match/units/MortarTeam.tscn": ["res://source/match/units/RadarUplink.tscn"],
+		"res://source/match/units/ShockTrooper.tscn": ["res://source/match/units/RadarUplink.tscn"],
 		"res://source/match/units/ShieldTrooper.tscn":
 		["res://source/match/units/RadarUplink.tscn"],
-		"res://source/match/units/TacticalOfficer.tscn":
-		["res://source/match/units/TechLab.tscn"],
+		"res://source/match/units/TacticalOfficer.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/CryoSprayer.tscn": ["res://source/match/units/TechLab.tscn"],
-		"res://source/match/units/SniperScout.tscn":
-		["res://source/match/units/RadarUplink.tscn"],
+		"res://source/match/units/SniperScout.tscn": ["res://source/match/units/RadarUplink.tscn"],
 		"res://source/match/units/RailSniperTeam.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/PhaseSaboteur.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/SaboteurInfiltrator.tscn":
@@ -614,8 +612,7 @@ class Units:
 		"res://source/match/units/LanceBeamTank.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/RailgunTank.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/HammerSiegeTank.tscn": ["res://source/match/units/TechLab.tscn"],
-		"res://source/match/units/HeavySiegeWalker.tscn":
-		["res://source/match/units/TechLab.tscn"],
+		"res://source/match/units/HeavySiegeWalker.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/RailArtilleryWalker.tscn":
 		["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/BomberVTOL.tscn": ["res://source/match/units/TechLab.tscn"],
@@ -702,18 +699,17 @@ class Units:
 		"res://source/match/units/structure-geometries/TeslaFenceSegment.tscn",
 		"res://source/match/units/ArcCoilDefenseTower.tscn":
 		"res://source/match/units/structure-geometries/ArcCoilDefenseTower.tscn",
-			"res://source/match/units/LanceBeamDefenseTower.tscn":
-			"res://source/match/units/structure-geometries/LanceBeamDefenseTower.tscn",
-			"res://source/match/units/PrismDefenseObelisk.tscn":
-			"res://source/match/units/structure-geometries/PrismDefenseObelisk.tscn",
-			"res://source/match/units/RailCannonBunker.tscn":
-			"res://source/match/units/structure-geometries/RailCannonBunker.tscn",
+		"res://source/match/units/LanceBeamDefenseTower.tscn":
+		"res://source/match/units/structure-geometries/LanceBeamDefenseTower.tscn",
+		"res://source/match/units/PrismDefenseObelisk.tscn":
+		"res://source/match/units/structure-geometries/PrismDefenseObelisk.tscn",
+		"res://source/match/units/RailCannonBunker.tscn":
+		"res://source/match/units/structure-geometries/RailCannonBunker.tscn",
 		"res://source/match/units/WeatherControlSpire.tscn":
 		"res://source/match/units/structure-geometries/WeatherControlSpire.tscn",
 	}
 	const CONSTRUCTION_REQUIREMENTS = {
-		"res://source/match/units/RoboticsBay.tscn":
-		["res://source/match/units/RadarUplink.tscn"],
+		"res://source/match/units/RoboticsBay.tscn": ["res://source/match/units/RadarUplink.tscn"],
 		"res://source/match/units/TechLab.tscn": ["res://source/match/units/RoboticsBay.tscn"],
 		"res://source/match/units/AdvancedReactorPlant.tscn":
 		["res://source/match/units/TechLab.tscn"],
@@ -723,14 +719,12 @@ class Units:
 		["res://source/match/units/RoboticsBay.tscn"],
 		"res://source/match/units/TeslaFenceSegment.tscn":
 		["res://source/match/units/RoboticsBay.tscn"],
-		"res://source/match/units/RepairPad.tscn":
-		["res://source/match/units/RoboticsBay.tscn"],
-			"res://source/match/units/LanceBeamDefenseTower.tscn":
-			["res://source/match/units/TechLab.tscn"],
-			"res://source/match/units/PrismDefenseObelisk.tscn":
-			["res://source/match/units/TechLab.tscn"],
-			"res://source/match/units/RailCannonBunker.tscn":
-			["res://source/match/units/TechLab.tscn"],
+		"res://source/match/units/RepairPad.tscn": ["res://source/match/units/RoboticsBay.tscn"],
+		"res://source/match/units/LanceBeamDefenseTower.tscn":
+		["res://source/match/units/TechLab.tscn"],
+		"res://source/match/units/PrismDefenseObelisk.tscn":
+		["res://source/match/units/TechLab.tscn"],
+		"res://source/match/units/RailCannonBunker.tscn": ["res://source/match/units/TechLab.tscn"],
 		"res://source/match/units/WeatherControlSpire.tscn":
 		["res://source/match/units/TechLab.tscn"],
 	}
@@ -755,10 +749,10 @@ class Units:
 		"res://source/match/units/AntiGroundTurret.tscn": "AG_TURRET",
 		"res://source/match/units/AntiAirTurret.tscn": "AA_TURRET",
 		"res://source/match/units/TeslaFenceSegment.tscn": "TESLA_FENCE_SEGMENT",
-			"res://source/match/units/ArcCoilDefenseTower.tscn": "ARC_COIL_DEFENSE_TOWER",
-			"res://source/match/units/LanceBeamDefenseTower.tscn": "LANCE_BEAM_DEFENSE_TOWER",
-			"res://source/match/units/PrismDefenseObelisk.tscn": "PRISM_DEFENSE_OBELISK",
-			"res://source/match/units/RailCannonBunker.tscn": "RAIL_CANNON_BUNKER",
+		"res://source/match/units/ArcCoilDefenseTower.tscn": "ARC_COIL_DEFENSE_TOWER",
+		"res://source/match/units/LanceBeamDefenseTower.tscn": "LANCE_BEAM_DEFENSE_TOWER",
+		"res://source/match/units/PrismDefenseObelisk.tscn": "PRISM_DEFENSE_OBELISK",
+		"res://source/match/units/RailCannonBunker.tscn": "RAIL_CANNON_BUNKER",
 		"res://source/match/units/WeatherControlSpire.tscn": "WEATHER_CONTROL_SPIRE",
 	}
 	const CONSTRUCTION_COSTS = {
@@ -842,18 +836,18 @@ class Units:
 			"resource_a": 4,
 			"resource_b": 5,
 		},
-			"res://source/match/units/LanceBeamDefenseTower.tscn":
-			{
-				"resource_a": 5,
-				"resource_b": 6,
-			},
-			"res://source/match/units/PrismDefenseObelisk.tscn":
-			{
-				"resource_a": 7,
-				"resource_b": 8,
-			},
-			"res://source/match/units/RailCannonBunker.tscn":
-			{
+		"res://source/match/units/LanceBeamDefenseTower.tscn":
+		{
+			"resource_a": 5,
+			"resource_b": 6,
+		},
+		"res://source/match/units/PrismDefenseObelisk.tscn":
+		{
+			"resource_a": 7,
+			"resource_b": 8,
+		},
+		"res://source/match/units/RailCannonBunker.tscn":
+		{
 			"resource_a": 6,
 			"resource_b": 7,
 		},
@@ -881,10 +875,10 @@ class Units:
 		"res://source/match/units/AntiGroundTurret.tscn": 4,
 		"res://source/match/units/AntiAirTurret.tscn": 4,
 		"res://source/match/units/TeslaFenceSegment.tscn": 3,
-			"res://source/match/units/ArcCoilDefenseTower.tscn": 8,
-			"res://source/match/units/LanceBeamDefenseTower.tscn": 10,
-			"res://source/match/units/PrismDefenseObelisk.tscn": 13,
-			"res://source/match/units/RailCannonBunker.tscn": 12,
+		"res://source/match/units/ArcCoilDefenseTower.tscn": 8,
+		"res://source/match/units/LanceBeamDefenseTower.tscn": 10,
+		"res://source/match/units/PrismDefenseObelisk.tscn": 13,
+		"res://source/match/units/RailCannonBunker.tscn": 12,
 		"res://source/match/units/WeatherControlSpire.tscn": 14,
 	}
 	const DEFAULT_PROPERTIES = {
@@ -975,13 +969,13 @@ class Units:
 			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
 		},
 		"res://source/match/units/FieldMedic.tscn":
-			{
-				"sight_range": 7.0,
-				"hp": 5,
-				"hp_max": 5,
-				"repair_rate": Repair.HITPOINTS_PER_SECOND * 0.85,
-				"repair_radius": 3.75,
-			},
+		{
+			"sight_range": 7.0,
+			"hp": 5,
+			"hp_max": 5,
+			"repair_rate": Repair.HITPOINTS_PER_SECOND * 0.85,
+			"repair_radius": 3.75,
+		},
 		"res://source/match/units/ShieldTrooper.tscn":
 		{
 			"sight_range": 7.0,
@@ -1116,8 +1110,7 @@ class Units:
 			"capture_time": Capture.ENGINEER_CAPTURE_TIME_SECONDS * 2.0,
 			"infiltration_resource_steal_ratio": Capture.SABOTEUR_RESOURCE_STEAL_RATIO,
 			"infiltration_resource_steal_cap": Capture.SABOTEUR_RESOURCE_STEAL_CAP,
-			"infiltration_production_veterancy_rank":
-			Capture.SABOTEUR_PRODUCTION_VETERANCY_RANK,
+			"infiltration_production_veterancy_rank": Capture.SABOTEUR_PRODUCTION_VETERANCY_RANK,
 			"infiltration_power_sabotage_duration":
 			Capture.SABOTEUR_POWER_SABOTAGE_DURATION_SECONDS,
 		},
@@ -1236,13 +1229,13 @@ class Units:
 			"attack_domains": [Navigation.Domain.AIR],
 		},
 		"res://source/match/units/MobileRepairCrawler.tscn":
-			{
-				"sight_range": 9.0,
-				"hp": 9,
-				"hp_max": 9,
-				"repair_rate": Repair.HITPOINTS_PER_SECOND * 1.25,
-				"repair_radius": 4.0,
-			},
+		{
+			"sight_range": 9.0,
+			"hp": 9,
+			"hp_max": 9,
+			"repair_rate": Repair.HITPOINTS_PER_SECOND * 1.25,
+			"repair_radius": 4.0,
+		},
 		"res://source/match/units/MobileShieldProjector.tscn":
 		{
 			"sight_range": 9.5,
@@ -1578,29 +1571,29 @@ class Units:
 			"splash_radius": 1.4,
 			"splash_damage_multiplier": 0.45,
 		},
-			"res://source/match/units/LanceBeamDefenseTower.tscn":
-			{
-				"sight_range": 10.0,
+		"res://source/match/units/LanceBeamDefenseTower.tscn":
+		{
+			"sight_range": 10.0,
 			"hp": 12,
 			"hp_max": 12,
 			"attack_damage": 5,
 			"attack_interval": 1.5,
-				"attack_range": 9.5,
-				"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
-			},
-			"res://source/match/units/PrismDefenseObelisk.tscn":
-			{
-				"sight_range": 12.0,
-				"hp": 13,
-				"hp_max": 13,
-				"attack_damage": 7,
-				"attack_interval": 2.0,
-				"attack_range": 11.0,
-				"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
-				"structure_damage_multiplier": 1.5,
-			},
-			"res://source/match/units/RailCannonBunker.tscn":
-			{
+			"attack_range": 9.5,
+			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
+		},
+		"res://source/match/units/PrismDefenseObelisk.tscn":
+		{
+			"sight_range": 12.0,
+			"hp": 13,
+			"hp_max": 13,
+			"attack_damage": 7,
+			"attack_interval": 2.0,
+			"attack_range": 11.0,
+			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
+			"structure_damage_multiplier": 1.5,
+		},
+		"res://source/match/units/RailCannonBunker.tscn":
+		{
 			"sight_range": 12.0,
 			"hp": 14,
 			"hp_max": 14,
@@ -1700,11 +1693,11 @@ class Units:
 		"res://source/match/units/projectiles/Rocket.tscn",
 		"res://source/match/units/ArcCoilDefenseTower.tscn":
 		"res://source/match/units/projectiles/CannonShell.tscn",
-			"res://source/match/units/LanceBeamDefenseTower.tscn":
-			"res://source/match/units/projectiles/CannonShell.tscn",
-			"res://source/match/units/PrismDefenseObelisk.tscn":
-			"res://source/match/units/projectiles/CannonShell.tscn",
-			"res://source/match/units/RailCannonBunker.tscn":
+		"res://source/match/units/LanceBeamDefenseTower.tscn":
+		"res://source/match/units/projectiles/CannonShell.tscn",
+		"res://source/match/units/PrismDefenseObelisk.tscn":
+		"res://source/match/units/projectiles/CannonShell.tscn",
+		"res://source/match/units/RailCannonBunker.tscn":
 		"res://source/match/units/projectiles/CannonShell.tscn",
 		"res://source/match/units/TechBunker.tscn":
 		"res://source/match/units/projectiles/CannonShell.tscn"

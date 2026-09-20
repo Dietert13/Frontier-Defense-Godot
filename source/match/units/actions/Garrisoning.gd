@@ -45,9 +45,11 @@ func _garrison_or_move_closer():
 		queue_free()
 		return
 	_set_sub_action(
-		MovingToUnit.new(_target_unit)
-		if not GarrisoningWhileInRange.is_applicable(_unit, _target_unit)
-		else GarrisoningWhileInRange.new(_target_unit)
+		(
+			MovingToUnit.new(_target_unit)
+			if not GarrisoningWhileInRange.is_applicable(_unit, _target_unit)
+			else GarrisoningWhileInRange.new(_target_unit)
+		)
 	)
 
 

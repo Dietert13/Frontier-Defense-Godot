@@ -25,8 +25,10 @@ static func is_applicable(source_unit, target_unit):
 		and "attack_domains" in source_unit
 		and target_unit.movement_domain in source_unit.attack_domains
 		and (
-			source_unit.global_position_yless.distance_to(target_unit.global_position_yless)
-			<= source_unit.attack_range
+			(
+				source_unit.global_position_yless.distance_to(target_unit.global_position_yless)
+				<= source_unit.attack_range
+			)
 			or Moving.is_applicable(source_unit)
 		)
 	)

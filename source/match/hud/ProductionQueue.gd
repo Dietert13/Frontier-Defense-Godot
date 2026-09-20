@@ -46,11 +46,12 @@ func _detach_observed_production_queues():
 
 func _try_observing_production_queues():
 	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
-		func(unit): return (
-			is_instance_valid(unit)
-			and unit.is_inside_tree()
-			and unit.is_in_group("controlled_units")
-		)
+		func(unit):
+			return (
+				is_instance_valid(unit)
+				and unit.is_inside_tree()
+				and unit.is_in_group("controlled_units")
+			)
 	)
 	if selected_controlled_units.is_empty():
 		return

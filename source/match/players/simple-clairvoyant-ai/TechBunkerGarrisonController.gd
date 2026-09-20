@@ -42,9 +42,7 @@ func _owned_open_bunkers():
 				and not unit.is_garrison_full()
 			)
 	)
-	bunkers.sort_custom(
-		func(a, b): return a.get_garrison_count() < b.get_garrison_count()
-	)
+	bunkers.sort_custom(func(a, b): return a.get_garrison_count() < b.get_garrison_count())
 	return bunkers
 
 
@@ -78,10 +76,7 @@ func _is_available_garrison_unit(unit, bunker):
 		unit.player == _player
 		and bunker.can_garrison_unit(unit)
 		and _is_idle_for_garrison(unit)
-		and (
-			unit.global_position_yless.distance_to(bunker.global_position_yless)
-			<= SEARCH_RADIUS
-		)
+		and (unit.global_position_yless.distance_to(bunker.global_position_yless) <= SEARCH_RADIUS)
 	)
 
 

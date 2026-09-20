@@ -40,7 +40,11 @@ func _zap_targets():
 func _can_zap(target):
 	if target == self or target == null or not is_instance_valid(target):
 		return false
-	if not target.is_inside_tree() or not ("player" in target) or not player.is_enemy_with(target.player):
+	if (
+		not target.is_inside_tree()
+		or not ("player" in target)
+		or not player.is_enemy_with(target.player)
+	):
 		return false
 	if not ("hp" in target) or target.hp <= 0:
 		return false
@@ -49,4 +53,7 @@ func _can_zap(target):
 	if target.movement_domain != Constants.Match.Navigation.Domain.TERRAIN:
 		return false
 	var target_radius = target.radius if target.radius != null else 0.0
-	return global_position_yless.distance_to(target.global_position_yless) <= attack_range + target_radius
+	return (
+		global_position_yless.distance_to(target.global_position_yless)
+		<= attack_range + target_radius
+	)

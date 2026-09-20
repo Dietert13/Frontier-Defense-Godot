@@ -318,10 +318,7 @@ func grant_veterancy_rank(rank):
 	if target_rank <= veterancy_rank:
 		return false
 	_apply_veterancy_rank(target_rank)
-	experience_points = max(
-		experience_points,
-		Constants.Match.Veterancy.KILLS_BY_RANK[target_rank]
-	)
+	experience_points = max(experience_points, Constants.Match.Veterancy.KILLS_BY_RANK[target_rank])
 	return true
 
 
@@ -344,7 +341,11 @@ func _set_action(action_node):
 		clear_action_queue()
 		action_node.queue_free()
 		return
-	if action_node != null and not _setting_queued_action and not _is_default_waiting_action(action_node):
+	if (
+		action_node != null
+		and not _setting_queued_action
+		and not _is_default_waiting_action(action_node)
+	):
 		clear_action_queue()
 	elif action_node == null and not _clearing_finished_action:
 		clear_action_queue()
@@ -464,13 +465,21 @@ func _apply_veterancy_rank(new_rank):
 		old_hp_ratio = float(hp) / hp_max
 	veterancy_rank = min(new_rank, Constants.Match.Veterancy.MAX_RANK)
 	if _base_veterancy_properties.has("hp_max"):
-		hp_max = int(ceil(_base_veterancy_properties["hp_max"]
-			* Constants.Match.Veterancy.HP_MULTIPLIER_BY_RANK[veterancy_rank]))
+		hp_max = int(
+			ceil(
+				(
+					_base_veterancy_properties["hp_max"]
+					* Constants.Match.Veterancy.HP_MULTIPLIER_BY_RANK[veterancy_rank]
+				)
+			)
+		)
 		hp = clampi(int(ceil(old_hp_ratio * hp_max)), 1, hp_max)
 	if _base_veterancy_properties.has("attack_damage"):
 		attack_damage = snappedf(
-			_base_veterancy_properties["attack_damage"]
-			* Constants.Match.Veterancy.DAMAGE_MULTIPLIER_BY_RANK[veterancy_rank],
+			(
+				_base_veterancy_properties["attack_damage"]
+				* Constants.Match.Veterancy.DAMAGE_MULTIPLIER_BY_RANK[veterancy_rank]
+			),
 			0.1
 		)
 	if _base_veterancy_properties.has("attack_range"):

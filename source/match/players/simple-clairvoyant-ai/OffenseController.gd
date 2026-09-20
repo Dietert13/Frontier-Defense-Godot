@@ -197,7 +197,9 @@ func provision(resources, metadata):
 			metadata
 		)
 	else:
-		push_warning("Ignoring unknown AI offense resource request metadata: {0}".format([metadata]))
+		push_warning(
+			"Ignoring unknown AI offense resource request metadata: {0}".format([metadata])
+		)
 
 
 func _setup_refresh_timer():
@@ -210,12 +212,12 @@ func _setup_refresh_timer():
 func _provision_structure(structure_scene, resources, metadata):
 	_decrement_pending_request(_number_of_pending_structure_resource_requests, metadata)
 	if structure_scene == null:
-		push_warning("Ignoring AI offense structure provision with no scene for {0}".format([metadata]))
+		push_warning(
+			"Ignoring AI offense structure provision with no scene for {0}".format([metadata])
+		)
 		return
 	if not _resources_match(
-		resources,
-		Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path],
-		metadata
+		resources, Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path], metadata
 	):
 		return
 	var workers = get_tree().get_nodes_in_group("units").filter(
@@ -234,9 +236,7 @@ func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
 		push_warning("Ignoring AI offense unit provision with no scene for {0}".format([metadata]))
 		return
 	if not _resources_match(
-		resources,
-		Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path],
-		metadata
+		resources, Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path], metadata
 	):
 		return
 	if structure_producing_unit == null:
@@ -314,17 +314,23 @@ func _construct_structure(structure_scene):
 		unit_to_spawn.free()
 		return
 	var offense_direction = _offense_direction_from(reference_unit_for_placement.global_position)
-	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially_yet_skip_starting_radius(
-		reference_unit_for_placement.global_position,
-		reference_unit_for_placement.radius,
-		unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
-		0.1,
-		offense_direction,
-		false,
-		find_parent("Match").navigation.get_navigation_map_rid_by_domain(
-			unit_to_spawn.movement_domain
-		),
-		get_tree()
+	var placement_position = (
+		Utils
+		. Match
+		. Unit
+		. Placement
+		. find_valid_position_radially_yet_skip_starting_radius(
+			reference_unit_for_placement.global_position,
+			reference_unit_for_placement.radius,
+			unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
+			0.1,
+			offense_direction,
+			false,
+			find_parent("Match").navigation.get_navigation_map_rid_by_domain(
+				unit_to_spawn.movement_domain
+			),
+			get_tree()
+		)
 	)
 	if placement_position == Vector3.INF:
 		unit_to_spawn.free()
@@ -431,9 +437,13 @@ func _enforce_power_capacity():
 
 func _enforce_tech_structure_existence():
 	_enforce_structure_existence(_radar_uplink(), RadarUplinkScene, "radar_uplink")
-	if Utils.Match.Unit.Tech.player_has_constructed_structure(_player, RadarUplinkScene.resource_path):
+	if Utils.Match.Unit.Tech.player_has_constructed_structure(
+		_player, RadarUplinkScene.resource_path
+	):
 		_enforce_structure_existence(_robotics_bay(), RoboticsBayScene, "robotics_bay")
-	if Utils.Match.Unit.Tech.player_has_constructed_structure(_player, RoboticsBayScene.resource_path):
+	if Utils.Match.Unit.Tech.player_has_constructed_structure(
+		_player, RoboticsBayScene.resource_path
+	):
 		_enforce_structure_existence(_tech_lab(), TechLabScene, "tech_lab")
 	if Utils.Match.Unit.Tech.player_has_constructed_structure(_player, TechLabScene.resource_path):
 		_enforce_structure_existence(
@@ -511,7 +521,8 @@ func _is_tertiary_offensive_structure_duplicate():
 
 func _offensive_structure_for(offensive_structure):
 	var structures = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return _is_offensive_structure(unit, offensive_structure) and unit.player == _player
+		func(unit):
+			return _is_offensive_structure(unit, offensive_structure) and unit.player == _player
 	)
 	return structures[0] if not structures.is_empty() else null
 
@@ -572,10 +583,7 @@ func _is_units_production_allowed():
 		if structure == null or not structure.is_constructed():
 			continue
 		pending_or_queued_units += structure.production_queue.size()
-	return (
-		_number_of_additional_units_required()
-		> pending_or_queued_units
-	)
+	return _number_of_additional_units_required() > pending_or_queued_units
 
 
 func _number_of_additional_units_required():
@@ -696,18 +704,18 @@ func _unit_scenes_for_structure(offensive_structure):
 				HeavyMachinegunTrooperScene,
 				FieldMedicScene,
 				ShieldTrooperScene,
-					ShockTrooperScene,
-					RocketInfantryScene,
-					FlakRocketTeamScene,
-					FlakRocketTeamMk2Scene,
-					GrenadierTrooperScene,
-					MortarTeamScene,
-					CryoSprayerScene,
-					SniperScoutScene,
-					RailSniperTeamScene,
-					PhaseSaboteurScene,
-					PulseRifleCommandoScene,
-					TacticalOfficerScene,
+				ShockTrooperScene,
+				RocketInfantryScene,
+				FlakRocketTeamScene,
+				FlakRocketTeamMk2Scene,
+				GrenadierTrooperScene,
+				MortarTeamScene,
+				CryoSprayerScene,
+				SniperScoutScene,
+				RailSniperTeamScene,
+				PhaseSaboteurScene,
+				PulseRifleCommandoScene,
+				TacticalOfficerScene,
 			]
 
 
@@ -845,18 +853,18 @@ func _is_battle_unit(unit):
 		or unit is LightRifleInfantry
 		or unit is RocketInfantry
 		or unit is FieldMedic
-			or unit is ShieldTrooper
-			or unit is FlakRocketTeam
-			or unit is FlakRocketTeamMk2
-			or unit is HeavyMachinegunTrooper
+		or unit is ShieldTrooper
+		or unit is FlakRocketTeam
+		or unit is FlakRocketTeamMk2
+		or unit is HeavyMachinegunTrooper
 		or unit is ShockTrooper
 		or unit is GrenadierTrooper
 		or unit is MortarTeam
 		or unit is CryoSprayer
 		or unit is SniperScout
-			or unit is RailSniperTeam
-			or unit is PhaseSaboteur
-			or unit is PulseRifleCommando
+		or unit is RailSniperTeam
+		or unit is PhaseSaboteur
+		or unit is PulseRifleCommando
 		or unit is TacticalOfficer
 		or unit is ScoutRover
 		or unit is MirageScoutTank

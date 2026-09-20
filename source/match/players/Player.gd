@@ -105,8 +105,7 @@ func get_power_drain(include_under_construction = false):
 
 func get_power_margin(include_under_construction = false):
 	return (
-		get_power_supply(include_under_construction)
-		- get_power_drain(include_under_construction)
+		get_power_supply(include_under_construction) - get_power_drain(include_under_construction)
 	)
 
 

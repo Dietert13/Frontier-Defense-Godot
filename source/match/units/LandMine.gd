@@ -41,7 +41,11 @@ func _find_trigger_target():
 func _can_trigger(target):
 	if target == self or target == null or not is_instance_valid(target):
 		return false
-	if not target.is_inside_tree() or not ("player" in target) or not player.is_enemy_with(target.player):
+	if (
+		not target.is_inside_tree()
+		or not ("player" in target)
+		or not player.is_enemy_with(target.player)
+	):
 		return false
 	if not ("hp" in target) or target.hp <= 0:
 		return false
@@ -50,7 +54,10 @@ func _can_trigger(target):
 	if target.movement_domain != Constants.Match.Navigation.Domain.TERRAIN:
 		return false
 	var target_radius = target.radius if target.radius != null else 0.0
-	return global_position_yless.distance_to(target.global_position_yless) <= trigger_radius + target_radius
+	return (
+		global_position_yless.distance_to(target.global_position_yless)
+		<= trigger_radius + target_radius
+	)
 
 
 func _explode():
@@ -62,7 +69,9 @@ func _explode():
 			LandMineCombatVfx.spawn_impact_at_unit(target, 0.7)
 			impacted = true
 	if impacted:
-		LandMineCombatVfx.spawn_impact(get_parent(), global_position + Vector3(0, 0.25, 0), blast_radius)
+		LandMineCombatVfx.spawn_impact(
+			get_parent(), global_position + Vector3(0, 0.25, 0), blast_radius
+		)
 	queue_free()
 
 
@@ -70,7 +79,10 @@ func _can_damage_in_blast(target):
 	if not _can_trigger(target):
 		return false
 	var target_radius = target.radius if target.radius != null else 0.0
-	return global_position_yless.distance_to(target.global_position_yless) <= blast_radius + target_radius
+	return (
+		global_position_yless.distance_to(target.global_position_yless)
+		<= blast_radius + target_radius
+	)
 
 
 func _damage_source():

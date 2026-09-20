@@ -40,12 +40,13 @@ func setup(player):
 
 func provision(resources, metadata):
 	if metadata != SABOTEUR_METADATA:
-		push_warning("Ignoring unknown AI saboteur resource request metadata: {0}".format([metadata]))
+		push_warning(
+			"Ignoring unknown AI saboteur resource request metadata: {0}".format([metadata])
+		)
 		return
 	_pending_saboteur_resource_requests = max(0, _pending_saboteur_resource_requests - 1)
 	if not _resources_match(
-		resources,
-		Constants.Match.Units.PRODUCTION_COSTS[SaboteurInfiltratorScene.resource_path]
+		resources, Constants.Match.Units.PRODUCTION_COSTS[SaboteurInfiltratorScene.resource_path]
 	):
 		return
 	var barracks = _best_barracks()
@@ -172,8 +173,7 @@ func _dispatch_saboteur(saboteur):
 
 func _best_barracks():
 	var barracks_list = get_tree().get_nodes_in_group("units").filter(
-		func(unit):
-			return unit is Barracks and unit.player == _player and unit.is_constructed()
+		func(unit): return unit is Barracks and unit.player == _player and unit.is_constructed()
 	)
 	barracks_list.sort_custom(
 		func(a, b): return a.production_queue.size() < b.production_queue.size()
@@ -186,9 +186,7 @@ func _best_infiltration_target(reference_position = null):
 	if targets.is_empty():
 		return null
 	var origin = reference_position if reference_position != null else _player.global_position
-	targets.sort_custom(
-		func(a, b): return _target_score(a, origin) > _target_score(b, origin)
-	)
+	targets.sort_custom(func(a, b): return _target_score(a, origin) > _target_score(b, origin))
 	return targets[0]
 
 
@@ -235,9 +233,7 @@ func _target_score(target, origin):
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS.get(
 		scene_path, {"resource_a": 0, "resource_b": 0}
 	)
-	score += float(
-		construction_cost.get("resource_a", 0) + construction_cost.get("resource_b", 0)
-	)
+	score += float(construction_cost.get("resource_a", 0) + construction_cost.get("resource_b", 0))
 	if Constants.Match.Capture.INFILTRATION_RESOURCE_TARGETS.has(scene_path):
 		score += float(target.player.resource_a + target.player.resource_b) * 0.5
 	if Constants.Match.Capture.INFILTRATION_POWER_SABOTAGE_TARGETS.has(scene_path):

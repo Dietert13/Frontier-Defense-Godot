@@ -26,14 +26,10 @@ func _apply_resource_infiltration(target_structure, target_scene_path):
 
 
 func _apply_production_veterancy_infiltration(target_scene_path):
-	if not Constants.Match.Capture.INFILTRATION_PRODUCTION_VETERANCY_TARGETS.has(
-		target_scene_path
-	):
+	if not Constants.Match.Capture.INFILTRATION_PRODUCTION_VETERANCY_TARGETS.has(target_scene_path):
 		return
 	var producer_scene_path = (
-		Constants.Match.Capture.INFILTRATION_PRODUCTION_VETERANCY_TARGETS[
-			target_scene_path
-		]
+		Constants.Match.Capture.INFILTRATION_PRODUCTION_VETERANCY_TARGETS[target_scene_path]
 	)
 	player.grant_production_veterancy_rank(
 		producer_scene_path, infiltration_production_veterancy_rank

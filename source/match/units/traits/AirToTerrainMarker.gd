@@ -19,7 +19,9 @@ func _ready():
 	if _unit.has_signal("selected"):
 		_unit.selected.connect(_on_unit_selected)
 	else:
-		push_warning("Air-to-terrain marker parent has no selected signal: {0}".format([_unit.get_path()]))
+		push_warning(
+			"Air-to-terrain marker parent has no selected signal: {0}".format([_unit.get_path()])
+		)
 	if _unit.has_signal("deselected"):
 		_unit.deselected.connect(_mesh_instance.hide)
 	if _unit.is_in_group("selected_units"):

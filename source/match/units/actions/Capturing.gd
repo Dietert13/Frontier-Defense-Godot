@@ -47,9 +47,11 @@ func _capture_or_move_closer():
 		queue_free()
 		return
 	_set_sub_action(
-		MovingToUnit.new(_target_unit)
-		if not CapturingWhileInRange._units_are_in_entry_range(_unit, _target_unit)
-		else CapturingWhileInRange.new(_target_unit)
+		(
+			MovingToUnit.new(_target_unit)
+			if not CapturingWhileInRange._units_are_in_entry_range(_unit, _target_unit)
+			else CapturingWhileInRange.new(_target_unit)
+		)
 	)
 
 

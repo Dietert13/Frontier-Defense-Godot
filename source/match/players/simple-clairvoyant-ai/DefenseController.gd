@@ -65,7 +65,9 @@ func provision(resources, metadata):
 			0, _number_of_pending_ag_turret_resource_requests - 1
 		)
 		if not _resources_match(
-			resources, Constants.Match.Units.CONSTRUCTION_COSTS[AGTurretScene.resource_path], metadata
+			resources,
+			Constants.Match.Units.CONSTRUCTION_COSTS[AGTurretScene.resource_path],
+			metadata
 		):
 			return
 		if workers.is_empty() or ccs.is_empty():
@@ -76,7 +78,9 @@ func provision(resources, metadata):
 			0, _number_of_pending_aa_turret_resource_requests - 1
 		)
 		if not _resources_match(
-			resources, Constants.Match.Units.CONSTRUCTION_COSTS[AATurretScene.resource_path], metadata
+			resources,
+			Constants.Match.Units.CONSTRUCTION_COSTS[AATurretScene.resource_path],
+			metadata
 		):
 			return
 		if workers.is_empty() or ccs.is_empty():
@@ -171,14 +175,14 @@ func provision(resources, metadata):
 		if (
 			workers.is_empty()
 			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(
-				_player, RailCannonBunkerScene.resource_path
-			)
+			or not Utils.Match.Unit.Tech.can_construct(_player, RailCannonBunkerScene.resource_path)
 		):
 			return
 		_construct_turret(RailCannonBunkerScene)
 	else:
-		push_warning("Ignoring unknown AI defense resource request metadata: {0}".format([metadata]))
+		push_warning(
+			"Ignoring unknown AI defense resource request metadata: {0}".format([metadata])
+		)
 
 
 func _resources_match(resources, expected_resources, metadata):
@@ -276,10 +280,7 @@ func _enforce_number_of_tesla_fence_segments():
 		return
 	var number_of_extra_tesla_fence_segments_required = (
 		_ai.expected_number_of_tesla_fence_segments
-		- (
-			tesla_fence_segments.size()
-			+ _number_of_pending_tesla_fence_segment_resource_requests
-		)
+		- (tesla_fence_segments.size() + _number_of_pending_tesla_fence_segment_resource_requests)
 	)
 	for _i in range(number_of_extra_tesla_fence_segments_required):
 		resources_required.emit(
@@ -342,8 +343,7 @@ func _enforce_number_of_prism_defense_obelisks():
 		func(unit): return unit is PrismDefenseObelisk and unit.player == _player
 	)
 	if (
-		prism_defense_obelisks.size()
-		+ _number_of_pending_prism_defense_obelisk_resource_requests
+		prism_defense_obelisks.size() + _number_of_pending_prism_defense_obelisk_resource_requests
 		>= _ai.expected_number_of_prism_defense_obelisks
 	):
 		return
@@ -404,15 +404,21 @@ func _construct_turret(turret_scene):
 		command_center, unit_to_spawn, defense_direction, navigation_map_rid
 	)
 	if placement_position == Vector3.INF:
-		placement_position = Utils.Match.Unit.Placement.find_valid_position_radially_yet_skip_starting_radius(
-			command_center.global_position,
-			command_center.radius,
-			unit_to_spawn.radius,
-			0.1,
-			defense_direction,
-			false,
-			navigation_map_rid,
-			get_tree()
+		placement_position = (
+			Utils
+			. Match
+			. Unit
+			. Placement
+			. find_valid_position_radially_yet_skip_starting_radius(
+				command_center.global_position,
+				command_center.radius,
+				unit_to_spawn.radius,
+				0.1,
+				defense_direction,
+				false,
+				navigation_map_rid,
+				get_tree()
+			)
 		)
 	if (
 		placement_position != Vector3.INF
@@ -453,28 +459,18 @@ func _frontline_defense_position(
 	)
 	var nearest_enemy = _nearest_enemy_to(origin)
 	var command_center_enemy_distance = (
-		INF
-		if nearest_enemy == null
-		else origin.distance_to(nearest_enemy.global_position_yless)
+		INF if nearest_enemy == null else origin.distance_to(nearest_enemy.global_position_yless)
 	)
 	var forward_distance = unit_to_spawn.radius
 	while forward_distance <= max_forward:
 		for side_offset in side_offsets:
-			var candidate_position = (
-				origin + forward * forward_distance + lateral * side_offset
-			)
+			var candidate_position = origin + forward * forward_distance + lateral * side_offset
 			if not _is_frontline_candidate(
-				origin,
-				candidate_position,
-				forward,
-				nearest_enemy,
-				command_center_enemy_distance
+				origin, candidate_position, forward, nearest_enemy, command_center_enemy_distance
 			):
 				continue
-			if (
-				not Utils.Match.Unit.Placement.is_within_base_construction_radius(
-					_player, candidate_position, unit_to_spawn.radius
-				)
+			if not Utils.Match.Unit.Placement.is_within_base_construction_radius(
+				_player, candidate_position, unit_to_spawn.radius
 			):
 				continue
 			if (
@@ -588,8 +584,10 @@ func _repair_damaged_structures():
 func _should_ai_repair(structure):
 	return (
 		structure.can_repair()
-		and _missing_hitpoint_ratio(structure)
-		>= Constants.Match.Structure.AI_REPAIR_MIN_MISSING_HITPOINT_RATIO
+		and (
+			_missing_hitpoint_ratio(structure)
+			>= Constants.Match.Structure.AI_REPAIR_MIN_MISSING_HITPOINT_RATIO
+		)
 	)
 
 
@@ -625,7 +623,9 @@ func _on_unit_died(unit):
 	elif unit is RailCannonBunker:
 		_enforce_number_of_rail_cannon_bunkers()
 	else:
-		push_warning("Ignoring non-defense unit removal in AI defense controller: {0}".format([unit.name]))
+		push_warning(
+			"Ignoring non-defense unit removal in AI defense controller: {0}".format([unit.name])
+		)
 
 
 func _on_unit_spawned(unit):

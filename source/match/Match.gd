@@ -333,8 +333,7 @@ func focus_camera_on_player(player):
 
 func _participant_players():
 	return get_tree().get_nodes_in_group("players").filter(
-		func(player):
-			return not ("participates_in_match" in player) or player.participates_in_match
+		func(player): return not ("participates_in_match" in player) or player.participates_in_match
 	)
 
 
@@ -400,16 +399,19 @@ func get_web_diagnostic_status() -> String:
 	var camera_name = str(camera.name) if camera != null else "none"
 	var camera_pos = camera.global_position if camera != null else Vector3.ZERO
 	var camera_rot = camera.rotation_degrees if camera != null else Vector3.ZERO
-	return "U:{0} P:{1} Map:{2} Terrain:{3}\nCam:{4} pos:{5} rot:{6}".format(
-		[
-			unit_count,
-			player_count,
-			str(map.size) if map != null else "none",
-			str(terrain_visible),
-			camera_name,
-			_format_vector3(camera_pos),
-			_format_vector3(camera_rot),
-		]
+	return (
+		"U:{0} P:{1} Map:{2} Terrain:{3}\nCam:{4} pos:{5} rot:{6}"
+		. format(
+			[
+				unit_count,
+				player_count,
+				str(map.size) if map != null else "none",
+				str(terrain_visible),
+				camera_name,
+				_format_vector3(camera_pos),
+				_format_vector3(camera_rot),
+			]
+		)
 	)
 
 

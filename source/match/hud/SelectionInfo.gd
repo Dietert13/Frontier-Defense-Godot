@@ -166,33 +166,51 @@ func _single_unit_stats(unit):
 		stats.append("{0} {1}".format([tr("SELECTION_SPEED"), _format_number(unit.movement_speed)]))
 	if unit.repair_rate != null:
 		if "repair_radius" in unit and unit.repair_radius > 0.0:
-			stats.append("{0} {1}{2}   {3} {4}".format(
-				[
-					tr("SELECTION_REPAIR"),
-					_format_number(unit.repair_rate),
-					tr("REPAIR_RATE"),
-					tr("RADIUS"),
-					_format_number(unit.repair_radius),
-				]
-			))
+			(
+				stats
+				. append(
+					(
+						"{0} {1}{2}   {3} {4}"
+						. format(
+							[
+								tr("SELECTION_REPAIR"),
+								_format_number(unit.repair_rate),
+								tr("REPAIR_RATE"),
+								tr("RADIUS"),
+								_format_number(unit.repair_radius),
+							]
+						)
+					)
+				)
+			)
 		else:
-			stats.append("{0} {1}{2}".format(
-				[tr("SELECTION_REPAIR"), _format_number(unit.repair_rate), tr("REPAIR_RATE")]
-			))
+			stats.append(
+				"{0} {1}{2}".format(
+					[tr("SELECTION_REPAIR"), _format_number(unit.repair_rate), tr("REPAIR_RATE")]
+				)
+			)
 	if "healing_rate" in unit and "healing_radius" in unit and unit.healing_rate > 0.0:
-		stats.append("{0} +{1}{2}   {3} {4}".format(
-			[
-				tr("HEALING"),
-				_format_number(unit.healing_rate),
-				tr("REPAIR_RATE"),
-				tr("RADIUS"),
-				_format_number(unit.healing_radius),
-			]
-		))
+		(
+			stats
+			. append(
+				(
+					"{0} +{1}{2}   {3} {4}"
+					. format(
+						[
+							tr("HEALING"),
+							_format_number(unit.healing_rate),
+							tr("REPAIR_RATE"),
+							tr("RADIUS"),
+							_format_number(unit.healing_radius),
+						]
+					)
+				)
+			)
+		)
 	if unit.capture_time != null:
-		stats.append("{0} {1}s".format(
-			[tr("SELECTION_CAPTURE"), _format_number(unit.capture_time)]
-		))
+		stats.append(
+			"{0} {1}s".format([tr("SELECTION_CAPTURE"), _format_number(unit.capture_time)])
+		)
 	if unit.hold_position:
 		stats.append(tr("SELECTION_HOLD_POSITION"))
 	if unit.has_method("is_deployed_mode") and unit.is_deployed_mode():
@@ -214,9 +232,15 @@ func _single_unit_stats(unit):
 		if unit.resource_income_b > 0:
 			income_parts.append("{0} +{1}".format([tr("RESOURCE_B"), unit.resource_income_b]))
 		if not income_parts.is_empty():
-			stats.append("{0} {1}/{2}s".format(
-				[tr("SELECTION_INCOME"), ", ".join(income_parts), _format_number(unit.income_interval_s)]
-			))
+			stats.append(
+				"{0} {1}/{2}s".format(
+					[
+						tr("SELECTION_INCOME"),
+						", ".join(income_parts),
+						_format_number(unit.income_interval_s)
+					]
+				)
+			)
 	return "   ".join(stats)
 
 
@@ -229,7 +253,10 @@ func _multiple_unit_stats(units):
 			structures += 1
 		elif unit is Unit:
 			combat_units += 1
-		if "movement_domain" in unit and unit.movement_domain == Constants.Match.Navigation.Domain.AIR:
+		if (
+			"movement_domain" in unit
+			and unit.movement_domain == Constants.Match.Navigation.Domain.AIR
+		):
 			air_units += 1
 	var parts = []
 	if combat_units > 0:
@@ -269,9 +296,9 @@ func _matching_control_group_ids(units):
 
 
 func _units_in_control_group(group_id):
-	return get_tree().get_nodes_in_group(
-		"{0}{1}".format([CONTROL_GROUP_NAME_PREFIX, group_id])
-	).filter(func(unit): return _is_valid_controlled_group_unit(unit))
+	return get_tree().get_nodes_in_group("{0}{1}".format([CONTROL_GROUP_NAME_PREFIX, group_id])).filter(
+		func(unit): return _is_valid_controlled_group_unit(unit)
+	)
 
 
 func _is_valid_controlled_group_unit(unit):
@@ -425,9 +452,9 @@ func _camel_case_to_key(value):
 		var character = value[index]
 		var previous = value[index - 1] if index > 0 else ""
 		if index > 0 and character == character.to_upper() and character != character.to_lower():
-			if previous != previous.to_upper() or (
-				index + 1 < value.length()
-				and value[index + 1] != value[index + 1].to_upper()
+			if (
+				previous != previous.to_upper()
+				or (index + 1 < value.length() and value[index + 1] != value[index + 1].to_upper())
 			):
 				key += "_"
 		key += character.to_upper()

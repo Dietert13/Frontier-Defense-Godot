@@ -42,8 +42,8 @@ var _tracked_player = null
 var _tracked_production_queues = []
 var _command_button_size = COMMAND_BUTTON_SIZE_MAX
 var _command_panel_rows = COMMAND_PANEL_ROWS_MAX
-var _command_panel_size = COMMAND_BUTTON_SIZE_MAX * Vector2(
-	COMMAND_PANEL_COLUMNS, COMMAND_PANEL_ROWS_MAX
+var _command_panel_size = (
+	COMMAND_BUTTON_SIZE_MAX * Vector2(COMMAND_PANEL_COLUMNS, COMMAND_PANEL_ROWS_MAX)
 )
 var _active_menu = null
 var _layout_initialized = false
@@ -87,9 +87,7 @@ func apply_command_panel_layout_for_viewport(viewport_size):
 		return
 	_command_button_size = next_button_size
 	_command_panel_rows = next_panel_rows
-	_command_panel_size = _command_button_size * Vector2(
-		COMMAND_PANEL_COLUMNS, _command_panel_rows
-	)
+	_command_panel_size = _command_button_size * Vector2(COMMAND_PANEL_COLUMNS, _command_panel_rows)
 	_setup_command_panel_slots()
 	_layout_command_details_panel()
 	_layout_initialized = true
@@ -113,8 +111,7 @@ func _command_panel_rows_for_viewport(viewport_size):
 	if viewport_size.y <= 0.0:
 		return COMMAND_PANEL_ROWS_MAX
 	var height_needed_for_full_panel = (
-		COMMAND_BUTTON_SIZE_MAX.y * COMMAND_PANEL_ROWS_MAX
-		+ COMMAND_PANEL_VERTICAL_RESERVED_SPACE
+		COMMAND_BUTTON_SIZE_MAX.y * COMMAND_PANEL_ROWS_MAX + COMMAND_PANEL_VERTICAL_RESERVED_SPACE
 	)
 	if viewport_size.y >= height_needed_for_full_panel:
 		return COMMAND_PANEL_ROWS_MAX
@@ -131,8 +128,7 @@ func _command_button_size_for_viewport(viewport_size, panel_rows):
 		(viewport_size.y - COMMAND_PANEL_VERTICAL_RESERVED_SPACE) / panel_rows
 	)
 	var next_button_size = minf(
-		COMMAND_BUTTON_SIZE_MAX.x,
-		minf(width_limited_size, height_limited_size)
+		COMMAND_BUTTON_SIZE_MAX.x, minf(width_limited_size, height_limited_size)
 	)
 	next_button_size = maxf(COMMAND_BUTTON_SIZE_MIN.x, next_button_size)
 	return Vector2(next_button_size, next_button_size)
@@ -219,9 +215,7 @@ func _try_showing_any_menu():
 		selected_controlled_units, AircraftFactory, _aircraft_factory_menu
 	):
 		return true
-	if _try_show_production_menu_for_selection(
-		selected_controlled_units, Barracks, _barracks_menu
-	):
+	if _try_show_production_menu_for_selection(selected_controlled_units, Barracks, _barracks_menu):
 		return true
 	if (
 		selected_controlled_units.size() == 1
@@ -558,10 +552,7 @@ func _details_stylebox(bg_color, border_color):
 func _track_player_resources(player):
 	if _tracked_player == player:
 		return
-	if (
-		_tracked_player != null
-		and _tracked_player.changed.is_connected(_on_tracked_player_changed)
-	):
+	if _tracked_player != null and _tracked_player.changed.is_connected(_on_tracked_player_changed):
 		_tracked_player.changed.disconnect(_on_tracked_player_changed)
 	_tracked_player = player
 	if (

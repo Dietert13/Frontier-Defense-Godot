@@ -23,9 +23,12 @@ var _sub_action = null
 
 static func is_applicable(source_unit, target_unit):
 	return (
-		(source_unit is Worker and target_unit is ResourceUnit)
-		or (source_unit is Worker and _is_resource_dropoff(target_unit))
-	) and source_unit.can_collect_resources()
+		(
+			(source_unit is Worker and target_unit is ResourceUnit)
+			or (source_unit is Worker and _is_resource_dropoff(target_unit))
+		)
+		and source_unit.can_collect_resources()
+	)
 
 
 func _init(unit):
@@ -151,10 +154,7 @@ static func _is_resource_dropoff(unit):
 
 static func _find_dropoff_closest_to_unit(unit):
 	var dropoffs_of_the_same_player = unit.get_tree().get_nodes_in_group("units").filter(
-		func(a_unit):
-			return (
-				_is_resource_dropoff(a_unit) and a_unit.player == unit.player
-			)
+		func(a_unit): return _is_resource_dropoff(a_unit) and a_unit.player == unit.player
 	)
 	if dropoffs_of_the_same_player.is_empty():
 		return null

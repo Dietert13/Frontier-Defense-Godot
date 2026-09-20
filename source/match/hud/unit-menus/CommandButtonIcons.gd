@@ -134,7 +134,9 @@ static func _asset_exists(path):
 static func _fallback_texture_for_scene(scene_path):
 	if _fallback_textures.has(scene_path):
 		return _fallback_textures[scene_path]
-	var image = Image.create(FALLBACK_TEXTURE_SIZE, FALLBACK_TEXTURE_SIZE, false, Image.FORMAT_RGBA8)
+	var image = Image.create(
+		FALLBACK_TEXTURE_SIZE, FALLBACK_TEXTURE_SIZE, false, Image.FORMAT_RGBA8
+	)
 	image.fill(Color(0.020, 0.045, 0.055, 1.0))
 	var accent = _accent_color_for_scene(scene_path)
 	var trim = Color(0.86, 0.96, 1.0, 1.0)
@@ -142,7 +144,14 @@ static func _fallback_texture_for_scene(scene_path):
 	_draw_rect(image, 0, FALLBACK_TEXTURE_SIZE - 3, FALLBACK_TEXTURE_SIZE, 3, accent)
 	_draw_rect(image, 0, 0, 3, FALLBACK_TEXTURE_SIZE, accent)
 	_draw_rect(image, FALLBACK_TEXTURE_SIZE - 3, 0, 3, FALLBACK_TEXTURE_SIZE, accent)
-	_draw_rect(image, 5, 5, FALLBACK_TEXTURE_SIZE - 10, FALLBACK_TEXTURE_SIZE - 10, Color(0.05, 0.09, 0.10, 1.0))
+	_draw_rect(
+		image,
+		5,
+		5,
+		FALLBACK_TEXTURE_SIZE - 10,
+		FALLBACK_TEXTURE_SIZE - 10,
+		Color(0.05, 0.09, 0.10, 1.0)
+	)
 	var key = scene_path.to_lower()
 	if _is_structure_key(key):
 		_draw_structure_image(image, accent, trim)
@@ -179,7 +188,9 @@ static func _draw_structure_image(image, accent, trim):
 
 static func _draw_air_image(image, accent, trim):
 	_draw_triangle(image, Vector2i(36, 12), Vector2i(46, 52), Vector2i(36, 62), accent)
-	_draw_triangle(image, Vector2i(36, 12), Vector2i(26, 52), Vector2i(36, 62), accent.lightened(0.06))
+	_draw_triangle(
+		image, Vector2i(36, 12), Vector2i(26, 52), Vector2i(36, 62), accent.lightened(0.06)
+	)
 	_draw_triangle(image, Vector2i(10, 36), Vector2i(62, 36), Vector2i(36, 48), trim)
 	_draw_rect(image, 33, 21, 6, 28, trim)
 	_draw_rect(image, 28, 55, 16, 4, accent.darkened(0.16))
@@ -227,10 +238,7 @@ static func _draw_triangle(image, point_a, point_b, point_c, color):
 			var w0 = _edge(point_b, point_c, point)
 			var w1 = _edge(point_c, point_a, point)
 			var w2 = _edge(point_a, point_b, point)
-			if (
-				(w0 >= 0 and w1 >= 0 and w2 >= 0)
-				or (w0 <= 0 and w1 <= 0 and w2 <= 0)
-			):
+			if (w0 >= 0 and w1 >= 0 and w2 >= 0) or (w0 <= 0 and w1 <= 0 and w2 <= 0):
 				image.set_pixel(x, y, color)
 
 

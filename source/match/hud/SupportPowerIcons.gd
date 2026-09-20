@@ -50,7 +50,9 @@ static func ensure(button):
 	if icon_rect == null or icon_rect.texture == null:
 		apply(button, button.get_meta(META_SUPPORT_POWER_ID, ""))
 	else:
-		_sync_overlay(button, icon_rect, icon_rect.texture, button.get_meta(META_SUPPORT_POWER_ID, ""))
+		_sync_overlay(
+			button, icon_rect, icon_rect.texture, button.get_meta(META_SUPPORT_POWER_ID, "")
+		)
 
 
 static func _sync_overlay(button, icon_rect, display_texture, power_id):

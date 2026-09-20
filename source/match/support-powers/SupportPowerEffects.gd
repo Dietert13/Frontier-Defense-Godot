@@ -46,15 +46,21 @@ static func _activate_orbital_strike(match_node, player, target_position, defini
 			match_node, target_position, definition["radius"], delay, Color(1.0, 0.72, 0.22, 0.55)
 		)
 		_schedule_after(
-			match_node, delay, func(): _resolve_orbital_strike(match_node, player, target_position, definition)
+			match_node,
+			delay,
+			func(): _resolve_orbital_strike(match_node, player, target_position, definition)
 		)
 		return
 	_resolve_orbital_strike(match_node, player, target_position, definition)
 
 
 static func _resolve_orbital_strike(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.35, 0.0), definition["radius"])
-	_apply_area_damage(match_node, player, target_position, definition["radius"], definition["damage"], 1.2)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.35, 0.0), definition["radius"]
+	)
+	_apply_area_damage(
+		match_node, player, target_position, definition["radius"], definition["damage"], 1.2
+	)
 
 
 static func _activate_weather_storm(match_node, player, target_position, definition):
@@ -64,17 +70,27 @@ static func _activate_weather_storm(match_node, player, target_position, definit
 			match_node, target_position, definition["radius"], delay, Color(0.4, 0.9, 1.0, 0.5)
 		)
 		_schedule_after(
-			match_node, delay, func(): _resolve_weather_storm(match_node, player, target_position, definition)
+			match_node,
+			delay,
+			func(): _resolve_weather_storm(match_node, player, target_position, definition)
 		)
 		return
 	_resolve_weather_storm(match_node, player, target_position, definition)
 
 
 static func _resolve_weather_storm(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.55, 0.0), definition["radius"])
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(1.6, 0.45, -1.2), definition["radius"] * 0.55)
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(-1.4, 0.45, 1.1), definition["radius"] * 0.55)
-	_apply_area_damage(match_node, player, target_position, definition["radius"], definition["damage"], 1.6)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.55, 0.0), definition["radius"]
+	)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(1.6, 0.45, -1.2), definition["radius"] * 0.55
+	)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(-1.4, 0.45, 1.1), definition["radius"] * 0.55
+	)
+	_apply_area_damage(
+		match_node, player, target_position, definition["radius"], definition["damage"], 1.6
+	)
 
 
 static func _activate_strategic_missile(match_node, player, target_position, definition):
@@ -85,17 +101,27 @@ static func _activate_strategic_missile(match_node, player, target_position, def
 		)
 		_spawn_strategic_missile_projectile(match_node, target_position, delay)
 		_schedule_after(
-			match_node, delay, func(): _resolve_strategic_missile(match_node, player, target_position, definition)
+			match_node,
+			delay,
+			func(): _resolve_strategic_missile(match_node, player, target_position, definition)
 		)
 		return
 	_resolve_strategic_missile(match_node, player, target_position, definition)
 
 
 static func _resolve_strategic_missile(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.85, 0.0), definition["radius"])
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.9, 0.55, 0.9), definition["radius"] * 0.45)
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(-0.8, 0.55, -0.7), definition["radius"] * 0.45)
-	_apply_area_damage(match_node, player, target_position, definition["radius"], definition["damage"], 2.0)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.85, 0.0), definition["radius"]
+	)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.9, 0.55, 0.9), definition["radius"] * 0.45
+	)
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(-0.8, 0.55, -0.7), definition["radius"] * 0.45
+	)
+	_apply_area_damage(
+		match_node, player, target_position, definition["radius"], definition["damage"], 2.0
+	)
 
 
 static func _spawn_strategic_missile_projectile(match_node, target_position, lifetime):
@@ -159,7 +185,9 @@ static func _spawn_strategic_missile_projectile(match_node, target_position, lif
 
 	var tween = match_node.get_tree().create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(projectile, "global_position", target_position + Vector3(0.0, 0.85, 0.0), lifetime)
+	tween.tween_property(
+		projectile, "global_position", target_position + Vector3(0.0, 0.85, 0.0), lifetime
+	)
 	tween.tween_property(projectile, "scale", Vector3(1.15, 1.35, 1.15), lifetime)
 	tween.chain().tween_callback(
 		func():
@@ -211,7 +239,9 @@ static func _activate_paradrop(match_node, player, target_position, definition):
 			match_node, target_position, definition["radius"], delay, Color(0.25, 0.8, 1.0, 0.48)
 		)
 		_schedule_after(
-			match_node, delay, func(): _resolve_paradrop(match_node, player, target_position, definition)
+			match_node,
+			delay,
+			func(): _resolve_paradrop(match_node, player, target_position, definition)
 		)
 		return
 	_resolve_paradrop(match_node, player, target_position, definition)
@@ -237,7 +267,9 @@ static func _resolve_paradrop(match_node, player, target_position, definition):
 			unit_to_spawn.free()
 			continue
 		CombatVfx.spawn_impact(match_node, spawn_position + Vector3(0.0, 0.35, 0.0), 0.85)
-		MatchSignals.setup_and_spawn_unit.emit(unit_to_spawn, Transform3D(Basis(), spawn_position), player)
+		MatchSignals.setup_and_spawn_unit.emit(
+			unit_to_spawn, Transform3D(Basis(), spawn_position), player
+		)
 
 
 static func _pick_paradrop_spawn_position(match_node, target_position, preferred_offset, unit):
@@ -249,7 +281,9 @@ static func _pick_paradrop_spawn_position(match_node, target_position, preferred
 		or unit.movement_domain == null
 	):
 		return target_position + preferred_offset
-	var navigation_map_rid = match_node.navigation.get_navigation_map_rid_by_domain(unit.movement_domain)
+	var navigation_map_rid = match_node.navigation.get_navigation_map_rid_by_domain(
+		unit.movement_domain
+	)
 	var preferred_position = (target_position + preferred_offset) * Vector3(1, 0, 1)
 	var existing_units = (
 		match_node.get_tree().get_nodes_in_group("units")
@@ -278,7 +312,9 @@ static func _pick_paradrop_spawn_position(match_node, target_position, preferred
 
 
 static func _activate_chrono_relay(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"])
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"]
+	)
 	for unit in match_node.get_tree().get_nodes_in_group("units"):
 		if not unit is Unit:
 			continue
@@ -288,14 +324,19 @@ static func _activate_chrono_relay(match_node, player, target_position, definiti
 			continue
 		if unit.find_child("Movement") == null:
 			continue
-		if unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1)) > definition["radius"]:
+		if (
+			unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1))
+			> definition["radius"]
+		):
 			continue
 		unit.apply_chrono_relay(definition["duration"], definition["speed_multiplier"])
 		CombatVfx.spawn_impact_at_unit(unit, 0.65)
 
 
 static func _activate_shield_overdrive(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"])
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"]
+	)
 	for unit in match_node.get_tree().get_nodes_in_group("units"):
 		if not unit is Unit:
 			continue
@@ -303,14 +344,19 @@ static func _activate_shield_overdrive(match_node, player, target_position, defi
 			continue
 		if unit.hp == null or unit.hp <= 0:
 			continue
-		if unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1)) > definition["radius"]:
+		if (
+			unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1))
+			> definition["radius"]
+		):
 			continue
 		unit.apply_support_shield(definition["duration"], definition["damage_multiplier"])
 		CombatVfx.spawn_impact_at_unit(unit, 0.75)
 
 
 static func _activate_nanite_repair_swarm(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"])
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.45, 0.0), definition["radius"]
+	)
 	for unit in match_node.get_tree().get_nodes_in_group("units"):
 		if not unit is Unit:
 			continue
@@ -318,7 +364,10 @@ static func _activate_nanite_repair_swarm(match_node, player, target_position, d
 			continue
 		if unit.hp == null or unit.hp <= 0 or unit.hp_max == null:
 			continue
-		if unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1)) > definition["radius"]:
+		if (
+			unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1))
+			> definition["radius"]
+		):
 			continue
 		var previous_hp = unit.hp
 		unit.hp = min(unit.hp_max, unit.hp + definition["healing"])
@@ -342,7 +391,9 @@ static func _apply_area_damage(match_node, player, target_position, radius, dama
 
 
 static func _activate_emp_pulse(match_node, player, target_position, definition):
-	CombatVfx.spawn_impact(match_node, target_position + Vector3(0.0, 0.35, 0.0), definition["radius"])
+	CombatVfx.spawn_impact(
+		match_node, target_position + Vector3(0.0, 0.35, 0.0), definition["radius"]
+	)
 	for unit in match_node.get_tree().get_nodes_in_group("units"):
 		if not unit is Unit:
 			continue
@@ -352,7 +403,10 @@ static func _activate_emp_pulse(match_node, player, target_position, definition)
 			continue
 		if unit.find_child("Movement") == null:
 			continue
-		if unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1)) > definition["radius"]:
+		if (
+			unit.global_position_yless.distance_to(target_position * Vector3(1, 0, 1))
+			> definition["radius"]
+		):
 			continue
 		unit.disable_by_emp(definition["duration"])
 		CombatVfx.spawn_impact_at_unit(unit, 0.9)

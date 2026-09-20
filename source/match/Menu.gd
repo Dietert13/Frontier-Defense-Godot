@@ -298,8 +298,7 @@ func _refresh_perspective_selector():
 		return
 	for player_index in range(players.size()):
 		_perspective_option_button.add_item(
-			_player_perspective_label(players[player_index], player_index),
-			player_index
+			_player_perspective_label(players[player_index], player_index), player_index
 		)
 	var selected_index = players.find(match_node.visible_player)
 	_perspective_option_button.select(maxi(0, selected_index))
@@ -333,9 +332,12 @@ func _participant_players():
 
 
 func _has_human_player():
-	return not get_tree().get_nodes_in_group("players").filter(
-		func(player): return player is Human
-	).is_empty()
+	return not (
+		get_tree()
+		. get_nodes_in_group("players")
+		. filter(func(player): return player is Human)
+		. is_empty()
+	)
 
 
 func _refresh_status_summary():
@@ -343,40 +345,52 @@ func _refresh_status_summary():
 		return
 	var match_node = find_parent("Match")
 	if match_node == null:
-		_status_label.text = "\n".join(
-			[
-				"[b]{0}[/b]".format([tr("MATCH_STATUS_TITLE")]),
-				tr("MATCH_STATUS_NO_MATCH"),
-				"[u]{0}:[/u] {1}".format([tr("MATCH_STATUS_SPEED"), _speed_label_for_engine()]),
-			]
+		_status_label.text = (
+			"\n"
+			. join(
+				[
+					"[b]{0}[/b]".format([tr("MATCH_STATUS_TITLE")]),
+					tr("MATCH_STATUS_NO_MATCH"),
+					"[u]{0}:[/u] {1}".format([tr("MATCH_STATUS_SPEED"), _speed_label_for_engine()]),
+				]
+			)
 		)
 		return
 	var tracked_player = _get_tracked_player(match_node)
 	var progress = _enemy_progress(tracked_player)
-	_status_label.text = "\n".join(
-		[
-			"[b]{0}[/b]".format([tr("MATCH_STATUS_TITLE")]),
-			"[u]{0}:[/u] {1}".format(
-				[tr("MATCH_STATUS_OBJECTIVE"), tr("OBJECTIVE_TRACKER_ELIMINATION")]
-			),
-			"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}".format(
-				[
-					tr("MATCH_STATUS_MAP"),
-					_match_map_name(match_node),
-					tr("MATCH_STATUS_DURATION"),
-					_format_duration((Time.get_ticks_msec() - _started_at_msec) / 1000.0),
-				]
-			),
-			"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}".format(
-				[
-					tr("OBJECTIVE_PROGRESS_ENEMY_TEAMS"),
-					progress["enemy_teams"],
-					tr("OBJECTIVE_PROGRESS_ANCHORS"),
-					progress["anchors"],
-				]
-			),
-			"[u]{0}:[/u] {1}".format([tr("MATCH_STATUS_SPEED"), _speed_label_for_engine()]),
-		]
+	_status_label.text = (
+		"\n"
+		. join(
+			[
+				"[b]{0}[/b]".format([tr("MATCH_STATUS_TITLE")]),
+				"[u]{0}:[/u] {1}".format(
+					[tr("MATCH_STATUS_OBJECTIVE"), tr("OBJECTIVE_TRACKER_ELIMINATION")]
+				),
+				(
+					"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}"
+					. format(
+						[
+							tr("MATCH_STATUS_MAP"),
+							_match_map_name(match_node),
+							tr("MATCH_STATUS_DURATION"),
+							_format_duration((Time.get_ticks_msec() - _started_at_msec) / 1000.0),
+						]
+					)
+				),
+				(
+					"[u]{0}:[/u] {1}    [u]{2}:[/u] {3}"
+					. format(
+						[
+							tr("OBJECTIVE_PROGRESS_ENEMY_TEAMS"),
+							progress["enemy_teams"],
+							tr("OBJECTIVE_PROGRESS_ANCHORS"),
+							progress["anchors"],
+						]
+					)
+				),
+				"[u]{0}:[/u] {1}".format([tr("MATCH_STATUS_SPEED"), _speed_label_for_engine()]),
+			]
+		)
 	)
 
 
@@ -431,7 +445,9 @@ func _get_tracked_player(match_node):
 		return human_players[0]
 	if "visible_player" in match_node and match_node.visible_player != null:
 		return match_node.visible_player
-	var participating_players = get_tree().get_nodes_in_group("players").filter(_player_participates)
+	var participating_players = get_tree().get_nodes_in_group("players").filter(
+		_player_participates
+	)
 	if not participating_players.is_empty():
 		return participating_players[0]
 	return null
@@ -444,7 +460,9 @@ func _team_key(player):
 
 
 func _player_participates(player):
-	return player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	return (
+		player != null and (not ("participates_in_match" in player) or player.participates_in_match)
+	)
 
 
 func _speed_label_for_engine():

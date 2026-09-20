@@ -20,7 +20,9 @@ const TacticalOfficerUnit = preload("res://source/match/units/TacticalOfficer.ts
 const StructureMenuActions = preload("res://source/match/hud/unit-menus/StructureMenuActions.gd")
 const CommandButtonHotkeys = preload("res://source/match/hud/unit-menus/CommandButtonHotkeys.gd")
 const ProductionMenuActions = preload("res://source/match/hud/unit-menus/ProductionMenuActions.gd")
-const ProductionButtonTooltip = preload("res://source/match/hud/unit-menus/ProductionButtonTooltip.gd")
+const ProductionButtonTooltip = preload(
+	"res://source/match/hud/unit-menus/ProductionButtonTooltip.gd"
+)
 
 var unit = null
 var units = []
@@ -62,17 +64,9 @@ func _ready():
 		"ROCKET_INFANTRY",
 		"ROCKET_INFANTRY_DESCRIPTION"
 	)
+	_set_unit_tooltip(_field_medic_button, FieldMedicUnit, "FIELD_MEDIC", "FIELD_MEDIC_DESCRIPTION")
 	_set_unit_tooltip(
-		_field_medic_button,
-		FieldMedicUnit,
-		"FIELD_MEDIC",
-		"FIELD_MEDIC_DESCRIPTION"
-	)
-	_set_unit_tooltip(
-		_shield_trooper_button,
-		ShieldTrooperUnit,
-		"SHIELD_TROOPER",
-		"SHIELD_TROOPER_DESCRIPTION"
+		_shield_trooper_button, ShieldTrooperUnit, "SHIELD_TROOPER", "SHIELD_TROOPER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_flak_rocket_team_button,
@@ -93,10 +87,7 @@ func _ready():
 		"HEAVY_MACHINEGUN_TROOPER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_shock_trooper_button,
-		ShockTrooperUnit,
-		"SHOCK_TROOPER",
-		"SHOCK_TROOPER_DESCRIPTION"
+		_shock_trooper_button, ShockTrooperUnit, "SHOCK_TROOPER", "SHOCK_TROOPER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_grenadier_trooper_button,
@@ -106,16 +97,10 @@ func _ready():
 	)
 	_set_unit_tooltip(_mortar_team_button, MortarTeamUnit, "MORTAR_TEAM", "MORTAR_TEAM_DESCRIPTION")
 	_set_unit_tooltip(
-		_cryo_sprayer_button,
-		CryoSprayerUnit,
-		"CRYO_SPRAYER",
-		"CRYO_SPRAYER_DESCRIPTION"
+		_cryo_sprayer_button, CryoSprayerUnit, "CRYO_SPRAYER", "CRYO_SPRAYER_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_sniper_scout_button,
-		SniperScoutUnit,
-		"SNIPER_SCOUT",
-		"SNIPER_SCOUT_DESCRIPTION"
+		_sniper_scout_button, SniperScoutUnit, "SNIPER_SCOUT", "SNIPER_SCOUT_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_rail_sniper_team_button,
@@ -124,10 +109,7 @@ func _ready():
 		"RAIL_SNIPER_TEAM_DESCRIPTION"
 	)
 	_set_unit_tooltip(
-		_phase_saboteur_button,
-		PhaseSaboteurUnit,
-		"PHASE_SABOTEUR",
-		"PHASE_SABOTEUR_DESCRIPTION"
+		_phase_saboteur_button, PhaseSaboteurUnit, "PHASE_SABOTEUR", "PHASE_SABOTEUR_DESCRIPTION"
 	)
 	_set_unit_tooltip(
 		_saboteur_infiltrator_button,
@@ -163,16 +145,10 @@ func refresh():
 		"ROCKET_INFANTRY_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_field_medic_button,
-		FieldMedicUnit,
-		"FIELD_MEDIC",
-		"FIELD_MEDIC_DESCRIPTION"
+		_field_medic_button, FieldMedicUnit, "FIELD_MEDIC", "FIELD_MEDIC_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_shield_trooper_button,
-		ShieldTrooperUnit,
-		"SHIELD_TROOPER",
-		"SHIELD_TROOPER_DESCRIPTION"
+		_shield_trooper_button, ShieldTrooperUnit, "SHIELD_TROOPER", "SHIELD_TROOPER_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_flak_rocket_team_button,
@@ -193,10 +169,7 @@ func refresh():
 		"HEAVY_MACHINEGUN_TROOPER_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_shock_trooper_button,
-		ShockTrooperUnit,
-		"SHOCK_TROOPER",
-		"SHOCK_TROOPER_DESCRIPTION"
+		_shock_trooper_button, ShockTrooperUnit, "SHOCK_TROOPER", "SHOCK_TROOPER_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_grenadier_trooper_button,
@@ -204,18 +177,14 @@ func refresh():
 		"GRENADIER_TROOPER",
 		"GRENADIER_TROOPER_DESCRIPTION"
 	)
-	_refresh_unit_button(_mortar_team_button, MortarTeamUnit, "MORTAR_TEAM", "MORTAR_TEAM_DESCRIPTION")
 	_refresh_unit_button(
-		_cryo_sprayer_button,
-		CryoSprayerUnit,
-		"CRYO_SPRAYER",
-		"CRYO_SPRAYER_DESCRIPTION"
+		_mortar_team_button, MortarTeamUnit, "MORTAR_TEAM", "MORTAR_TEAM_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_sniper_scout_button,
-		SniperScoutUnit,
-		"SNIPER_SCOUT",
-		"SNIPER_SCOUT_DESCRIPTION"
+		_cryo_sprayer_button, CryoSprayerUnit, "CRYO_SPRAYER", "CRYO_SPRAYER_DESCRIPTION"
+	)
+	_refresh_unit_button(
+		_sniper_scout_button, SniperScoutUnit, "SNIPER_SCOUT", "SNIPER_SCOUT_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_rail_sniper_team_button,
@@ -224,10 +193,7 @@ func refresh():
 		"RAIL_SNIPER_TEAM_DESCRIPTION"
 	)
 	_refresh_unit_button(
-		_phase_saboteur_button,
-		PhaseSaboteurUnit,
-		"PHASE_SABOTEUR",
-		"PHASE_SABOTEUR_DESCRIPTION"
+		_phase_saboteur_button, PhaseSaboteurUnit, "PHASE_SABOTEUR", "PHASE_SABOTEUR_DESCRIPTION"
 	)
 	_refresh_unit_button(
 		_saboteur_infiltrator_button,

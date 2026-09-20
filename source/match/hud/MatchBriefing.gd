@@ -83,8 +83,7 @@ func _opening_text():
 func _player_counts():
 	var visible_player = _match.visible_player
 	var players = get_tree().get_nodes_in_group("players").filter(
-		func(player):
-			return not ("participates_in_match" in player) or player.participates_in_match
+		func(player): return not ("participates_in_match" in player) or player.participates_in_match
 	)
 	var counts = {
 		"allies": 0,

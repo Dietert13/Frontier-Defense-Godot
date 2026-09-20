@@ -12,7 +12,12 @@ func is_full():
 
 
 func can_deploy_as_command_center():
-	return is_inside_tree() and player != null and _match != null and _match.has_method("_setup_and_spawn_unit")
+	return (
+		is_inside_tree()
+		and player != null
+		and _match != null
+		and _match.has_method("_setup_and_spawn_unit")
+	)
 
 
 func deploy_as_command_center():

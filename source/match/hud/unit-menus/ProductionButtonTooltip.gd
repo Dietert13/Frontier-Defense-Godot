@@ -37,15 +37,12 @@ static func apply(
 		[button.tr("PRODUCTION_STATS"), _stats_text(button, properties), _format_number(time)]
 	)
 	tooltip_text += "\n{0}: {1}, {2}: {3}".format(
-		[
-			button.tr("RESOURCE_A"),
-			costs["resource_a"],
-			button.tr("RESOURCE_B"),
-			costs["resource_b"]
-		]
+		[button.tr("RESOURCE_A"), costs["resource_a"], button.tr("RESOURCE_B"), costs["resource_b"]]
 	)
 	tooltip_text += _format_production_requirements(button, unit_scene_path, missing_requirements)
-	tooltip_text += CommandButtonStatus.production_queue_full_tooltip(button, production_queue, production_queues)
+	tooltip_text += CommandButtonStatus.production_queue_full_tooltip(
+		button, production_queue, production_queues
+	)
 	tooltip_text += ProductionMenuActions.batch_tooltip(button)
 	button.tooltip_text = CommandButtonHotkeys.tooltip(button, tooltip_text)
 	CommandButtonStatus.apply_production(
@@ -232,7 +229,10 @@ static func _format_production_requirements(button, unit_scene_path, missing_req
 	)
 	if not missing_requirements.is_empty():
 		text += "\n{0}: {1}".format(
-			[button.tr("MISSING_TECH"), Utils.Match.Unit.Tech.requirement_names(missing_requirements)]
+			[
+				button.tr("MISSING_TECH"),
+				Utils.Match.Unit.Tech.requirement_names(missing_requirements)
+			]
 		)
 	return text
 
