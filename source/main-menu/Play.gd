@@ -860,9 +860,10 @@ func _ensure_minimum_visible_player_controllers():
 
 
 func _active_visible_player_controller_count():
-	return _get_visible_player_option_nodes().filter(
+	var active_option_nodes = _get_visible_player_option_nodes().filter(
 		func(option_node): return _selected_player_controller(option_node) != Constants.PlayerType.NONE
-	).size()
+	)
+	return active_option_nodes.size()
 
 
 func _enforce_single_visible_human(selected_player_id):
