@@ -252,24 +252,17 @@ func _navigate_unit_towards_unit(unit, target_unit):
 
 
 func _navigate_unit_towards_unit_with_dedicated_action(unit, target_unit):
-	if Actions.CollectingResourcesSequentially.is_applicable(unit, target_unit):
-		unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
-		return true
-	if Actions.Capturing.is_applicable(unit, target_unit):
-		unit.action = Actions.Capturing.new(target_unit)
-		return true
-	if Actions.Garrisoning.is_applicable(unit, target_unit):
-		unit.action = Actions.Garrisoning.new(target_unit)
-		return true
-	if Actions.AutoAttacking.is_applicable(unit, target_unit):
-		unit.action = Actions.AutoAttacking.new(target_unit)
-		return true
-	if Actions.Constructing.is_applicable(unit, target_unit):
-		unit.action = Actions.Constructing.new(target_unit)
-		return true
-	if Actions.Repairing.is_applicable(unit, target_unit):
-		unit.action = Actions.Repairing.new(target_unit)
-		return true
+	for dedicated_action in [
+		Actions.CollectingResourcesSequentially,
+		Actions.Capturing,
+		Actions.Garrisoning,
+		Actions.AutoAttacking,
+		Actions.Constructing,
+		Actions.Repairing,
+	]:
+		if dedicated_action.is_applicable(unit, target_unit):
+			unit.action = dedicated_action.new(target_unit)
+			return true
 	return false
 
 

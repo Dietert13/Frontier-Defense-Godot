@@ -54,76 +54,91 @@ func setup(player):
 
 
 func provision(resources, metadata):
-	if metadata == "worker":
-		_number_of_pending_worker_resource_requests = max(
-			0, _number_of_pending_worker_resource_requests - 1
-		)
-		if not _resources_match(
-			resources, Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path], metadata
-		):
-			return
-		if _ccs.is_empty():
-			return
-		if _ccs[0].production_queue.produce(WorkerScene, true) != null:
-			_number_of_pending_workers += 1
-	elif metadata == "ore_harvester":
-		_number_of_pending_harvester_resource_requests = max(
-			0, _number_of_pending_harvester_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.PRODUCTION_COSTS[OreHarvesterScene.resource_path],
-			metadata
-		):
-			return
-		var vehicle_factory = _constructed_vehicle_factory()
-		if vehicle_factory == null:
-			return
-		if vehicle_factory.production_queue.produce(OreHarvesterScene, true) != null:
-			_number_of_pending_harvesters += 1
-	elif metadata == "cc":
-		_number_of_pending_cc_resource_requests = max(
-			0, _number_of_pending_cc_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path],
-			metadata
-		):
-			return
-		if _workers.is_empty():
-			return
-		_construct_cc()
-	elif metadata == "refinery":
-		_number_of_pending_refinery_resource_requests = max(
-			0, _number_of_pending_refinery_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[RefineryScene.resource_path],
-			metadata
-		):
-			return
-		if _workers.is_empty():
-			return
-		_construct_refinery()
-	elif metadata == "ore_purifier":
-		_number_of_pending_ore_purifier_resource_requests = max(
-			0, _number_of_pending_ore_purifier_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[OrePurifierScene.resource_path],
-			metadata
-		):
-			return
-		if _workers.is_empty():
-			return
-		_construct_ore_purifier()
-	else:
-		push_warning(
-			"Ignoring unknown AI economy resource request metadata: {0}".format([metadata])
-		)
+	match metadata:
+		"worker":
+			_provision_worker(resources)
+		"ore_harvester":
+			_provision_ore_harvester(resources)
+		"cc":
+			_provision_cc(resources)
+		"refinery":
+			_provision_refinery(resources)
+		"ore_purifier":
+			_provision_ore_purifier(resources)
+		_:
+			push_warning(
+				"Ignoring unknown AI economy resource request metadata: {0}".format([metadata])
+			)
+
+
+func _provision_worker(resources):
+	_number_of_pending_worker_resource_requests = max(
+		0, _number_of_pending_worker_resource_requests - 1
+	)
+	if not _resources_match(
+		resources, Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path], "worker"
+	):
+		return
+	if _ccs.is_empty():
+		return
+	if _ccs[0].production_queue.produce(WorkerScene, true) != null:
+		_number_of_pending_workers += 1
+
+
+func _provision_ore_harvester(resources):
+	_number_of_pending_harvester_resource_requests = max(
+		0, _number_of_pending_harvester_resource_requests - 1
+	)
+	if not _resources_match(
+		resources,
+		Constants.Match.Units.PRODUCTION_COSTS[OreHarvesterScene.resource_path],
+		"ore_harvester"
+	):
+		return
+	var vehicle_factory = _constructed_vehicle_factory()
+	if vehicle_factory == null:
+		return
+	if vehicle_factory.production_queue.produce(OreHarvesterScene, true) != null:
+		_number_of_pending_harvesters += 1
+
+
+func _provision_cc(resources):
+	_number_of_pending_cc_resource_requests = max(0, _number_of_pending_cc_resource_requests - 1)
+	if not _resources_match(
+		resources, Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path], "cc"
+	):
+		return
+	if _workers.is_empty():
+		return
+	_construct_cc()
+
+
+func _provision_refinery(resources):
+	_number_of_pending_refinery_resource_requests = max(
+		0, _number_of_pending_refinery_resource_requests - 1
+	)
+	if not _resources_match(
+		resources, Constants.Match.Units.CONSTRUCTION_COSTS[RefineryScene.resource_path], "refinery"
+	):
+		return
+	if _workers.is_empty():
+		return
+	_construct_refinery()
+
+
+func _provision_ore_purifier(resources):
+	_number_of_pending_ore_purifier_resource_requests = max(
+		0, _number_of_pending_ore_purifier_resource_requests - 1
+	)
+	if not _resources_match(
+		resources,
+		Constants.Match.Units.CONSTRUCTION_COSTS[OrePurifierScene.resource_path],
+		"ore_purifier"
+	):
+		return
+	if _workers.is_empty():
+		return
+	_construct_ore_purifier()
 
 
 func _resources_match(resources, expected_resources, metadata):

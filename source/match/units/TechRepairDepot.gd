@@ -54,24 +54,32 @@ func _can_repair(unit):
 		return false
 	if not "player" in unit or not player.is_allied_with(unit.player):
 		return false
-	if unit is Structure:
+	if unit is Structure or _is_infantry(unit):
 		return false
-	if _is_infantry(unit):
-		return false
-	if (
-		not "movement_domain" in unit
-		or unit.movement_domain != Constants.Match.Navigation.Domain.TERRAIN
-	):
-		return false
-	if not "movement_speed" in unit or unit.movement_speed <= 0.0:
-		return false
-	if not "hp" in unit or not "hp_max" in unit:
-		return false
-	if unit.hp == null or unit.hp_max == null or unit.hp >= unit.hp_max:
+	if not _is_mobile_terrain_unit(unit) or not _is_damaged(unit):
 		return false
 	var unit_radius = unit.radius if "radius" in unit and unit.radius != null else 0.0
 	return (
 		global_position_yless.distance_to(unit.global_position_yless) <= repair_radius + unit_radius
+	)
+
+
+func _is_mobile_terrain_unit(unit):
+	return (
+		"movement_domain" in unit
+		and unit.movement_domain == Constants.Match.Navigation.Domain.TERRAIN
+		and "movement_speed" in unit
+		and unit.movement_speed > 0.0
+	)
+
+
+func _is_damaged(unit):
+	return (
+		"hp" in unit
+		and "hp_max" in unit
+		and unit.hp != null
+		and unit.hp_max != null
+		and unit.hp < unit.hp_max
 	)
 
 

@@ -41,10 +41,11 @@ const COMPACT_OPERATION_SUMMARY_HEIGHT = 78
 const COMPACT_BUTTON_HEIGHT = 38
 const COMPACT_MIN_PLAYER_GRID_HEIGHT = 240
 
-var _map_paths = []
-var _random = RandomNumberGenerator.new()
 var initial_match_settings = null
 var initial_map_path = ""
+
+var _map_paths = []
+var _random = RandomNumberGenerator.new()
 
 @onready var _start_button = find_child("StartButton")
 @onready var _back_button = find_child("BackButton")

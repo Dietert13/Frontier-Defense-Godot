@@ -4,16 +4,16 @@ const Human = preload("res://source/match/players/human/Human.gd")
 const Structure = preload("res://source/match/units/Structure.gd")
 const Worker = preload("res://source/match/units/Worker.gd")
 
+var _refresh_pending = false
+var _watched_unit_ids = {}
+var _max_enemy_anchors_seen = 0
+
 @onready var _title_label = find_child("TitleLabel")
 @onready var _objective_label = find_child("ObjectiveLabel")
 @onready var _mission_progress_bar = find_child("MissionProgressBar")
 @onready var _progress_label = find_child("ProgressLabel")
 @onready var _breakdown_label = find_child("BreakdownLabel")
 @onready var _match = find_parent("Match")
-
-var _refresh_pending = false
-var _watched_unit_ids = {}
-var _max_enemy_anchors_seen = 0
 
 
 func _ready():

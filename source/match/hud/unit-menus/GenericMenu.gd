@@ -5,12 +5,13 @@ const CommandButtonHotkeys = preload("res://source/match/hud/unit-menus/CommandB
 
 var units = []
 
+var _repair_structure_button = null
+
 @onready var _hold_position_button = find_child("HoldPositionButton")
 @onready var _attack_move_button = find_child("AttackMoveButton")
 @onready var _patrol_button = find_child("PatrolButton")
 @onready var _sell_structure_button = find_child("SellStructureButton")
 @onready var _deploy_mode_button = find_child("DeployModeButton")
-var _repair_structure_button = null
 @onready var _cancel_action_button = find_child("CancelActionButton")
 @onready var _guard_area_button = find_child("GuardAreaButton")
 @onready var _scatter_button = find_child("ScatterButton")

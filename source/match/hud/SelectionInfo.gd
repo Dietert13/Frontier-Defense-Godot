@@ -296,7 +296,8 @@ func _matching_control_group_ids(units):
 
 
 func _units_in_control_group(group_id):
-	return get_tree().get_nodes_in_group("{0}{1}".format([CONTROL_GROUP_NAME_PREFIX, group_id])).filter(
+	var group_name = "{0}{1}".format([CONTROL_GROUP_NAME_PREFIX, group_id])
+	return get_tree().get_nodes_in_group(group_name).filter(
 		func(unit): return _is_valid_controlled_group_unit(unit)
 	)
 

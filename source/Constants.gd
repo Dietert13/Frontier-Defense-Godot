@@ -14,16 +14,15 @@ class Match:
 	extends "res://source/match/MatchConstants.gd"
 
 	class Player:
+		const SimpleClairvoyantAIScene = preload(
+			"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
+		)
 		const CONTROLLER_SCENES = {
 			PlayerType.HUMAN: preload("res://source/match/players/human/Human.tscn"),
-			PlayerType.SIMPLE_CLAIRVOYANT_AI_BEGINNER:
-			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
-			PlayerType.SIMPLE_CLAIRVOYANT_AI_EASY:
-			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
-			PlayerType.SIMPLE_CLAIRVOYANT_AI:
-			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
-			PlayerType.SIMPLE_CLAIRVOYANT_AI_HARD:
-			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
+			PlayerType.SIMPLE_CLAIRVOYANT_AI_BEGINNER: SimpleClairvoyantAIScene,
+			PlayerType.SIMPLE_CLAIRVOYANT_AI_EASY: SimpleClairvoyantAIScene,
+			PlayerType.SIMPLE_CLAIRVOYANT_AI: SimpleClairvoyantAIScene,
+			PlayerType.SIMPLE_CLAIRVOYANT_AI_HARD: SimpleClairvoyantAIScene,
 		}
 
 

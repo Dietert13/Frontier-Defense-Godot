@@ -102,6 +102,10 @@ func _calculate_blueprint_position_validity():
 		return BlueprintPositionValidity.NOT_ENOUGH_RESOURCES
 	if not _active_blueprint_within_base_construction_radius():
 		return BlueprintPositionValidity.OUT_OF_BASE_RADIUS
+	return _calculate_blueprint_placement_validity()
+
+
+func _calculate_blueprint_placement_validity():
 	var placement_validity = Utils.Match.Unit.Placement.validate_agent_placement_position(
 		_active_blueprint_node.global_position,
 		_pending_structure_radius,

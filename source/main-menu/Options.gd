@@ -34,6 +34,8 @@ const AUDIO_VOLUME_CONTROLS = [
 	},
 ]
 
+var _audio_label = null
+
 @onready var _screen = find_child("Screen")
 @onready var _language = find_child("Language")
 @onready var _mouse_movement_restricted = find_child("MouseMovementRestricted")
@@ -41,7 +43,6 @@ const AUDIO_VOLUME_CONTROLS = [
 @onready var _language_label = find_child("LanguageLabel")
 @onready var _mouse_label = find_child("MouseLabel")
 @onready var _back_button = find_child("BackButton")
-var _audio_label = null
 
 
 func _ready():

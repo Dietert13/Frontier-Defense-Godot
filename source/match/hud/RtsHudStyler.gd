@@ -524,7 +524,7 @@ func _sync_icon_glyph_label(button, _primary_icon, icon_rect, visible):
 	button.move_child(label, button.get_child_count() - 1)
 
 
-func _should_show_icon_glyph_label(visible):
+func _should_show_icon_glyph_label(_visible):
 	return false
 
 
@@ -553,7 +553,7 @@ func _should_use_mosaic_command_icon():
 	return false
 
 
-func _should_use_procedural_command_overlay_for_platform(has_web_feature):
+func _should_use_procedural_command_overlay_for_platform(_has_web_feature):
 	return false
 
 

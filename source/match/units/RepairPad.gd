@@ -52,13 +52,21 @@ func _can_repair(unit):
 		or unit.movement_domain != Constants.Match.Navigation.Domain.TERRAIN
 	):
 		return false
-	if not ("hp" in unit) or not ("hp_max" in unit):
-		return false
-	if unit.hp == null or unit.hp_max == null or unit.hp >= unit.hp_max:
+	if not _is_damaged(unit):
 		return false
 	var unit_radius = unit.radius if unit.radius != null else 0.0
 	return (
 		global_position_yless.distance_to(unit.global_position_yless) <= REPAIR_RADIUS + unit_radius
+	)
+
+
+func _is_damaged(unit):
+	return (
+		"hp" in unit
+		and "hp_max" in unit
+		and unit.hp != null
+		and unit.hp_max != null
+		and unit.hp < unit.hp_max
 	)
 
 

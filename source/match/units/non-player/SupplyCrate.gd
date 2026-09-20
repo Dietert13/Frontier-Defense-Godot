@@ -85,9 +85,7 @@ func collect(unit):
 
 
 func _can_collect(unit):
-	if not unit is Unit or not unit.is_inside_tree():
-		return false
-	if unit is Structure:
+	if not unit is Unit or not unit.is_inside_tree() or unit is Structure:
 		return false
 	if unit.player == null:
 		return false

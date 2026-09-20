@@ -415,7 +415,7 @@ func get_web_diagnostic_status() -> String:
 	)
 
 
-func _web_startup_diagnostic_line(player) -> String:
+func _web_startup_diagnostic_line(_player) -> String:
 	return "WEB_STARTUP {0}".format([get_web_diagnostic_status().replace("\n", " ")])
 
 

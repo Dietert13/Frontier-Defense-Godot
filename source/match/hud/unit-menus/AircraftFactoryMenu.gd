@@ -17,6 +17,8 @@ const ProductionButtonTooltip = preload(
 var unit = null
 var units = []
 
+var _repair_structure_button = null
+
 @onready var _helicopter_button = find_child("ProduceHelicopterButton")
 @onready var _drone_button = find_child("ProduceDroneButton")
 @onready var _interceptor_vtol_button = find_child("ProduceInterceptorVTOLButton")
@@ -26,7 +28,6 @@ var units = []
 @onready var _siege_airship_button = find_child("ProduceSiegeAirshipButton")
 @onready var _sell_structure_button = find_child("SellStructureButton")
 @onready var _rally_point_button = find_child("SetRallyPointButton")
-var _repair_structure_button = null
 
 
 func _ready():

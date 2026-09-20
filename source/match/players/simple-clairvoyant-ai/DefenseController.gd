@@ -53,6 +53,53 @@ func setup(player):
 
 
 func provision(resources, metadata):
+	match metadata:
+		"ag_turret":
+			_number_of_pending_ag_turret_resource_requests = max(
+				0, _number_of_pending_ag_turret_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, AGTurretScene, false)
+		"aa_turret":
+			_number_of_pending_aa_turret_resource_requests = max(
+				0, _number_of_pending_aa_turret_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, AATurretScene, false)
+		"tesla_fence_segment":
+			_number_of_pending_tesla_fence_segment_resource_requests = max(
+				0, _number_of_pending_tesla_fence_segment_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, TeslaFenceSegmentScene, true)
+		"arc_coil_tower":
+			_number_of_pending_arc_coil_tower_resource_requests = max(
+				0, _number_of_pending_arc_coil_tower_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, ArcCoilDefenseTowerScene, true)
+		"lance_beam_tower":
+			_number_of_pending_lance_beam_tower_resource_requests = max(
+				0, _number_of_pending_lance_beam_tower_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, LanceBeamDefenseTowerScene, true)
+		"prism_defense_obelisk":
+			_number_of_pending_prism_defense_obelisk_resource_requests = max(
+				0, _number_of_pending_prism_defense_obelisk_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, PrismDefenseObeliskScene, true)
+		"rail_cannon_bunker":
+			_number_of_pending_rail_cannon_bunker_resource_requests = max(
+				0, _number_of_pending_rail_cannon_bunker_resource_requests - 1
+			)
+			_provision_turret(resources, metadata, RailCannonBunkerScene, true)
+		_:
+			push_warning(
+				"Ignoring unknown AI defense resource request metadata: {0}".format([metadata])
+			)
+
+
+func _provision_turret(resources, metadata, turret_scene, requires_tech):
+	if not _resources_match(
+		resources, Constants.Match.Units.CONSTRUCTION_COSTS[turret_scene.resource_path], metadata
+	):
+		return
 	var workers = get_tree().get_nodes_in_group("units").filter(
 		func(unit):
 			return unit is Worker and unit.can_construct_structures() and unit.player == _player
@@ -60,129 +107,14 @@ func provision(resources, metadata):
 	var ccs = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
-	if metadata == "ag_turret":
-		_number_of_pending_ag_turret_resource_requests = max(
-			0, _number_of_pending_ag_turret_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[AGTurretScene.resource_path],
-			metadata
-		):
-			return
-		if workers.is_empty() or ccs.is_empty():
-			return
-		_construct_turret(AGTurretScene)
-	elif metadata == "aa_turret":
-		_number_of_pending_aa_turret_resource_requests = max(
-			0, _number_of_pending_aa_turret_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[AATurretScene.resource_path],
-			metadata
-		):
-			return
-		if workers.is_empty() or ccs.is_empty():
-			return
-		_construct_turret(AATurretScene)
-	elif metadata == "tesla_fence_segment":
-		_number_of_pending_tesla_fence_segment_resource_requests = max(
-			0, _number_of_pending_tesla_fence_segment_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[TeslaFenceSegmentScene.resource_path],
-			metadata
-		):
-			return
-		if (
-			workers.is_empty()
-			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(
-				_player, TeslaFenceSegmentScene.resource_path
-			)
-		):
-			return
-		_construct_turret(TeslaFenceSegmentScene)
-	elif metadata == "arc_coil_tower":
-		_number_of_pending_arc_coil_tower_resource_requests = max(
-			0, _number_of_pending_arc_coil_tower_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[ArcCoilDefenseTowerScene.resource_path],
-			metadata
-		):
-			return
-		if (
-			workers.is_empty()
-			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(
-				_player, ArcCoilDefenseTowerScene.resource_path
-			)
-		):
-			return
-		_construct_turret(ArcCoilDefenseTowerScene)
-	elif metadata == "lance_beam_tower":
-		_number_of_pending_lance_beam_tower_resource_requests = max(
-			0, _number_of_pending_lance_beam_tower_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[LanceBeamDefenseTowerScene.resource_path],
-			metadata
-		):
-			return
-		if (
-			workers.is_empty()
-			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(
-				_player, LanceBeamDefenseTowerScene.resource_path
-			)
-		):
-			return
-		_construct_turret(LanceBeamDefenseTowerScene)
-	elif metadata == "prism_defense_obelisk":
-		_number_of_pending_prism_defense_obelisk_resource_requests = max(
-			0, _number_of_pending_prism_defense_obelisk_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[PrismDefenseObeliskScene.resource_path],
-			metadata
-		):
-			return
-		if (
-			workers.is_empty()
-			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(
-				_player, PrismDefenseObeliskScene.resource_path
-			)
-		):
-			return
-		_construct_turret(PrismDefenseObeliskScene)
-	elif metadata == "rail_cannon_bunker":
-		_number_of_pending_rail_cannon_bunker_resource_requests = max(
-			0, _number_of_pending_rail_cannon_bunker_resource_requests - 1
-		)
-		if not _resources_match(
-			resources,
-			Constants.Match.Units.CONSTRUCTION_COSTS[RailCannonBunkerScene.resource_path],
-			metadata
-		):
-			return
-		if (
-			workers.is_empty()
-			or ccs.is_empty()
-			or not Utils.Match.Unit.Tech.can_construct(_player, RailCannonBunkerScene.resource_path)
-		):
-			return
-		_construct_turret(RailCannonBunkerScene)
-	else:
-		push_warning(
-			"Ignoring unknown AI defense resource request metadata: {0}".format([metadata])
-		)
+	if workers.is_empty() or ccs.is_empty():
+		return
+	if (
+		requires_tech
+		and not Utils.Match.Unit.Tech.can_construct(_player, turret_scene.resource_path)
+	):
+		return
+	_construct_turret(turret_scene)
 
 
 func _resources_match(resources, expected_resources, metadata):

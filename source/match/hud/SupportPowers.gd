@@ -190,13 +190,7 @@ func arm_power(power_id):
 
 
 func _try_activate_hotkey(event):
-	if not visible:
-		return false
-	if not event is InputEventKey:
-		return false
-	if not event.pressed or event.echo:
-		return false
-	if event.alt_pressed or event.ctrl_pressed or event.meta_pressed:
+	if not visible or not _is_plain_key_press(event):
 		return false
 	var keycode = event.physical_keycode if event.physical_keycode != 0 else event.keycode
 	for power_id in POWER_IDS:
@@ -210,6 +204,15 @@ func _try_activate_hotkey(event):
 			return true
 		return arm_power(power_id)
 	return false
+
+
+func _is_plain_key_press(event):
+	return (
+		event is InputEventKey
+		and event.pressed
+		and not event.echo
+		and not (event.alt_pressed or event.ctrl_pressed or event.meta_pressed)
+	)
 
 
 func activate_power_at(power_id, target_position):

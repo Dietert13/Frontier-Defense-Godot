@@ -32,17 +32,16 @@ func _update_material():
 	if _unit.is_in_group("controlled_units"):
 		_mesh_instance.material_override = CONTROLLED_UNIT_MATERIAL
 		return true
-	elif _unit.is_in_group("adversary_units"):
+	if _unit.is_in_group("adversary_units"):
 		_mesh_instance.material_override = ADVERSARY_UNIT_MATERIAL
 		return true
-	else:
-		push_warning(
-			"Hiding air-to-terrain marker for unit without player visibility group: {0}".format(
-				[_unit.get_path()]
-			)
+	push_warning(
+		"Hiding air-to-terrain marker for unit without player visibility group: {0}".format(
+			[_unit.get_path()]
 		)
-		_mesh_instance.hide()
-		return false
+	)
+	_mesh_instance.hide()
+	return false
 
 
 func _on_unit_selected():

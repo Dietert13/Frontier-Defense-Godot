@@ -27,17 +27,6 @@ const COMMAND_DETAILS_BORDER = Color(0.34, 0.52, 0.58, 1.0)
 const COMMAND_DETAILS_TITLE_COLOR = Color(0.84, 0.97, 0.93, 1.0)
 const COMMAND_DETAILS_BODY_COLOR = Color(0.58, 0.73, 0.72, 1.0)
 
-@onready var _command_panel_viewport = find_child("CommandPanelViewport")
-@onready var _background_grid = find_child("BackgroundGrid")
-@onready var _menu_scroll = find_child("MenuScroll")
-@onready var _menu_stack = find_child("MenuStack")
-@onready var _generic_menu = find_child("GenericMenu")
-@onready var _command_center_menu = find_child("CommandCenterMenu")
-@onready var _vehicle_factory_menu = find_child("VehicleFactoryMenu")
-@onready var _aircraft_factory_menu = find_child("AircraftFactoryMenu")
-@onready var _barracks_menu = find_child("BarracksMenu")
-@onready var _worker_menu = find_child("WorkerMenu")
-
 var _tracked_player = null
 var _tracked_production_queues = []
 var _command_button_size = COMMAND_BUTTON_SIZE_MAX
@@ -51,6 +40,17 @@ var _details_panel = null
 var _details_title = null
 var _details_body = null
 var _details_button = null
+
+@onready var _command_panel_viewport = find_child("CommandPanelViewport")
+@onready var _background_grid = find_child("BackgroundGrid")
+@onready var _menu_scroll = find_child("MenuScroll")
+@onready var _menu_stack = find_child("MenuStack")
+@onready var _generic_menu = find_child("GenericMenu")
+@onready var _command_center_menu = find_child("CommandCenterMenu")
+@onready var _vehicle_factory_menu = find_child("VehicleFactoryMenu")
+@onready var _aircraft_factory_menu = find_child("AircraftFactoryMenu")
+@onready var _barracks_menu = find_child("BarracksMenu")
+@onready var _worker_menu = find_child("WorkerMenu")
 
 
 func _ready():
@@ -203,20 +203,16 @@ func _try_showing_any_menu():
 	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return unit.is_in_group("controlled_units")
 	)
-	if _try_show_production_menu_for_selection(
-		selected_controlled_units, CommandCenter, _command_center_menu
-	):
-		return true
-	if _try_show_production_menu_for_selection(
-		selected_controlled_units, VehicleFactory, _vehicle_factory_menu
-	):
-		return true
-	if _try_show_production_menu_for_selection(
-		selected_controlled_units, AircraftFactory, _aircraft_factory_menu
-	):
-		return true
-	if _try_show_production_menu_for_selection(selected_controlled_units, Barracks, _barracks_menu):
-		return true
+	for structure_type_and_menu in [
+		[CommandCenter, _command_center_menu],
+		[VehicleFactory, _vehicle_factory_menu],
+		[AircraftFactory, _aircraft_factory_menu],
+		[Barracks, _barracks_menu],
+	]:
+		if _try_show_production_menu_for_selection(
+			selected_controlled_units, structure_type_and_menu[0], structure_type_and_menu[1]
+		):
+			return true
 	if (
 		selected_controlled_units.size() == 1
 		and selected_controlled_units[0] is Worker

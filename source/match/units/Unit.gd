@@ -11,7 +11,7 @@ signal emp_disabled_changed(disabled)
 const MATERIAL_ALBEDO_TO_REPLACE = Color(0.99, 0.81, 0.48)
 const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
 const CombatVfx = preload("res://source/match/utils/CombatVfxUtils.gd")
-const _WaitingForTargetsAction = preload("res://source/match/units/actions/WaitingForTargets.gd")
+const WaitingForTargetsAction = preload("res://source/match/units/actions/WaitingForTargets.gd")
 
 var hp = null:
 	set = _set_hp
@@ -387,7 +387,7 @@ func _current_action_blocks_queue():
 
 
 func _is_default_waiting_action(action_node):
-	return action_node is _WaitingForTargetsAction
+	return action_node is WaitingForTargetsAction
 
 
 func _safety_checks():

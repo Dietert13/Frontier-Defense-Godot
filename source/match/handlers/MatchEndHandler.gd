@@ -5,6 +5,14 @@ const Structure = preload("res://source/match/units/Structure.gd")
 const Worker = preload("res://source/match/units/Worker.gd")
 const MatchFlow = preload("res://source/match/MatchFlow.gd")
 
+var _started_at_msec = 0
+var _enemy_units_destroyed = 0
+var _enemy_structures_destroyed = 0
+var _units_lost = 0
+var _structures_lost = 0
+var _counted_death_instance_ids = {}
+var _result_reason_key = "MATCH_RESULT_FINISH_REASON"
+
 @onready var _victory_tile = find_child("Victory")
 @onready var _defeat_tile = find_child("Defeat")
 @onready var _finish_tile = find_child("Finish")
@@ -17,14 +25,6 @@ const MatchFlow = preload("res://source/match/MatchFlow.gd")
 @onready var _units_lost_value = find_child("UnitsLostValue")
 @onready var _structures_lost_value = find_child("StructuresLostValue")
 @onready var _resources_value = find_child("ResourcesValue")
-
-var _started_at_msec = 0
-var _enemy_units_destroyed = 0
-var _enemy_structures_destroyed = 0
-var _units_lost = 0
-var _structures_lost = 0
-var _counted_death_instance_ids = {}
-var _result_reason_key = "MATCH_RESULT_FINISH_REASON"
 
 
 func _ready():

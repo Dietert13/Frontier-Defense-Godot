@@ -82,5 +82,5 @@ static func _should_use_procedural_overlay():
 	return _should_use_procedural_overlay_for_platform(OS.has_feature("web"))
 
 
-static func _should_use_procedural_overlay_for_platform(has_web_feature):
+static func _should_use_procedural_overlay_for_platform(_has_web_feature):
 	return false

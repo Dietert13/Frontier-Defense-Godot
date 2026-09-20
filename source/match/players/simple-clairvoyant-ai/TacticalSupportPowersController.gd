@@ -110,27 +110,27 @@ func _setup_refresh_timer():
 
 
 func _pick_target_position(power_id):
+	var target_position = null
 	match power_id:
 		Constants.Match.SupportPowers.EMP_PULSE:
-			return _pick_best_cluster_position(power_id, true, MIN_CLUSTER_TARGETS)
+			target_position = _pick_best_cluster_position(power_id, true, MIN_CLUSTER_TARGETS)
 		Constants.Match.SupportPowers.ORBITAL_STRIKE:
-			return _pick_best_scored_strike_position(power_id, ORBITAL_STRIKE_MIN_SCORE)
+			target_position = _pick_best_scored_strike_position(power_id, ORBITAL_STRIKE_MIN_SCORE)
 		Constants.Match.SupportPowers.WEATHER_STORM:
-			return _pick_best_scored_strike_position(power_id, WEATHER_STORM_MIN_SCORE)
+			target_position = _pick_best_scored_strike_position(power_id, WEATHER_STORM_MIN_SCORE)
 		Constants.Match.SupportPowers.STRATEGIC_MISSILE:
-			return _pick_best_scored_strike_position(power_id, STRATEGIC_MISSILE_MIN_SCORE)
-		Constants.Match.SupportPowers.PARADROP:
-			return _pick_any_enemy_position()
+			target_position = _pick_best_scored_strike_position(
+				power_id, STRATEGIC_MISSILE_MIN_SCORE
+			)
+		Constants.Match.SupportPowers.PARADROP, Constants.Match.SupportPowers.RADAR_SWEEP:
+			target_position = _pick_any_enemy_position()
 		Constants.Match.SupportPowers.NANITE_REPAIR_SWARM:
-			return _pick_best_repair_position(power_id, NANITE_REPAIR_MIN_MISSING_HP)
+			target_position = _pick_best_repair_position(power_id, NANITE_REPAIR_MIN_MISSING_HP)
 		Constants.Match.SupportPowers.SHIELD_OVERDRIVE:
-			return _pick_best_shield_position(power_id, SHIELD_OVERDRIVE_MIN_SCORE)
+			target_position = _pick_best_shield_position(power_id, SHIELD_OVERDRIVE_MIN_SCORE)
 		Constants.Match.SupportPowers.CHRONO_RELAY:
-			return _pick_best_chrono_position(power_id, CHRONO_RELAY_MIN_MOBILE_UNITS)
-		Constants.Match.SupportPowers.RADAR_SWEEP:
-			return _pick_any_enemy_position()
-		_:
-			return null
+			target_position = _pick_best_chrono_position(power_id, CHRONO_RELAY_MIN_MOBILE_UNITS)
+	return target_position
 
 
 func _pick_best_cluster_position(power_id, mobile_only, min_targets):
