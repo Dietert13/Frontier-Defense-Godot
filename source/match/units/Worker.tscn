@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://source/match/units/Worker.gd" id="1_hapsg"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="2_bt6lt"]
-[ext_resource type="PackedScene" uid="uid://j5umsiiyb8a7" path="res://assets/models/kenney-spacekit/rover.glb" id="2_ef11q"]
+[ext_resource type="PackedScene" path="res://assets/models/frontier/scv.glb" id="2_ef11q"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="3_yl7si"]
 [ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="4_lmprj"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_50cqd"]
@@ -20,8 +20,9 @@ script = ExtResource("1_hapsg")
 [node name="Geometry" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
 
-[node name="rover" parent="Geometry" instance=ExtResource("2_ef11q")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4, 0, -3)
+[node name="SCV" parent="Geometry" instance=ExtResource("2_ef11q")]
+rotation = Vector3(0, 3.14159265, 0)
+scale = Vector3(0.47, 0.47, 0.47)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
@@ -36,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 0.6
 
 [node name="Movement" parent="." instance=ExtResource("4_lmprj")]
+wait_for_first_player_order = true
 path_desired_distance = 0.31
 target_desired_distance = 0.31
 path_height_offset = 0.6
@@ -56,4 +58,5 @@ radius = 0.6
 
 [node name="Sparkling" parent="." instance=ExtResource("8_pqovx")]
 
-[editable path="Geometry/rover"]
+
+

@@ -241,6 +241,9 @@ func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
 		return
 	if structure_producing_unit == null:
 		return
+	if unit_scene == ShockTrooperScene and not structure_producing_unit.tech_lab_ready:
+		structure_producing_unit.start_tech_lab()
+		return
 	structure_producing_unit.production_queue.produce(unit_scene, true)
 
 
@@ -893,3 +896,4 @@ func _is_battle_unit(unit):
 		or unit is HeavyBombardmentAirship
 		or unit is SiegeAirship
 	)
+

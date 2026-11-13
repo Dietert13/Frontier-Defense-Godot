@@ -15,7 +15,12 @@ func _ready():
 		queue_free()
 		return
 	_unit_particles.visible = _unit.visible
-	_setup_unit_particles()
+	var visual = _unit.get_node_or_null("Geometry")
+	if visual != null and visual.has_method("fire_at"):
+		if _unit.is_visible_in_tree():
+			visual.fire_at(target_unit.global_position + Vector3.UP * 0.4, _unit.attack_interval)
+	else:
+		_setup_unit_particles()
 	_setup_timer()
 	if not _has_target_unit():
 		queue_free()
@@ -50,3 +55,4 @@ func _setup_unit_particles():
 
 func _has_target_unit():
 	return target_unit != null and is_instance_valid(target_unit) and target_unit.is_inside_tree()
+

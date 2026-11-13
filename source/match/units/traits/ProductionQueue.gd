@@ -50,6 +50,9 @@ func get_elements():
 func produce(unit_prototype, ignore_limit = false):
 	if not ignore_limit and _queue.size() >= Constants.Match.Units.PRODUCTION_QUEUE_LIMIT:
 		return null
+	if "tech_lab_ready" in _unit and unit_prototype.resource_path == _unit.FIREBAT_SCENE:
+		if not _unit.tech_lab_ready:
+			return null
 	if not Utils.Match.Unit.Tech.can_produce(_unit.player, unit_prototype.resource_path):
 		return null
 	var production_cost = Constants.Match.Units.PRODUCTION_COSTS[unit_prototype.resource_path]
@@ -153,3 +156,4 @@ func _notify_production_blocked_once(queue_element):
 	queue_element.blocked_notification_sent = true
 	queue_element.emit_changed()
 	MatchSignals.unit_production_blocked.emit(queue_element.unit_prototype, _unit)
+

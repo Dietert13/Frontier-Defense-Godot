@@ -19,6 +19,9 @@ const PASSIVE_MOVEMENT_TRACKING_ENABLED = true
 
 @export var domain = Constants.Match.Navigation.Domain.TERRAIN
 @export var speed: float = 4.0
+@export var wait_for_first_player_order := false
+
+var _waiting_for_order := false
 
 var _interim_speed: float = 0.0
 
@@ -67,8 +70,11 @@ func _ready():
 	velocity_computed.connect(_on_velocity_computed)
 	navigation_finished.connect(_on_navigation_finished)
 	set_navigation_map(_match.navigation.get_navigation_map_rid_by_domain(domain))
+	_waiting_for_order = wait_for_first_player_order and _unit.is_in_group("controlled_units")
 	_align_unit_position_to_navigation()
-	if _unit.action == null:
+	if _waiting_for_order:
+		stop()
+	elif _unit.action == null:
 		move(
 			(
 				_unit.global_position
@@ -78,6 +84,7 @@ func _ready():
 
 
 func move(movement_target: Vector3):
+	_waiting_for_order = false
 	target_position = movement_target
 
 
@@ -89,6 +96,8 @@ func stop():
 
 func _align_unit_position_to_navigation():
 	await get_tree().process_frame  # wait for navigation to be operational
+	if _waiting_for_order:
+		return
 	var initial_position = get_parent().global_transform.origin
 	var closest_point = NavigationServer3D.map_get_closest_point(
 		get_navigation_map(), initial_position
@@ -258,6 +267,8 @@ func _update_passive_movement_tracking(safe_velocity):
 
 
 func _on_velocity_computed(safe_velocity: Vector3):
+	if _waiting_for_order:
+		return
 	if domain == Constants.Match.Navigation.Domain.AIR:
 		return
 	var previous_position_yless = _unit.global_position_yless
@@ -294,3 +305,4 @@ func _try_crush_nearby_units(from_position_yless, actual_position_yless, intende
 func _on_navigation_finished():
 	target_position = Vector3.INF
 	movement_finished.emit()
+

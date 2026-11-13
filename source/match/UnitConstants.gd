@@ -304,7 +304,6 @@ const PRODUCTION_REQUIREMENTS = {
 	"res://source/match/units/FlakRocketTeamMk2.tscn": ["res://source/match/units/TechLab.tscn"],
 	"res://source/match/units/GrenadierTrooper.tscn": ["res://source/match/units/RadarUplink.tscn"],
 	"res://source/match/units/MortarTeam.tscn": ["res://source/match/units/RadarUplink.tscn"],
-	"res://source/match/units/ShockTrooper.tscn": ["res://source/match/units/RadarUplink.tscn"],
 	"res://source/match/units/ShieldTrooper.tscn": ["res://source/match/units/RadarUplink.tscn"],
 	"res://source/match/units/TacticalOfficer.tscn": ["res://source/match/units/TechLab.tscn"],
 	"res://source/match/units/CryoSprayer.tscn": ["res://source/match/units/TechLab.tscn"],
@@ -603,3 +602,4 @@ const POWER_DRAIN = {
 	"res://source/match/units/RailCannonBunker.tscn": 12,
 	"res://source/match/units/WeatherControlSpire.tscn": 14,
 }
+

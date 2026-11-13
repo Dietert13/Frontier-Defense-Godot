@@ -265,7 +265,7 @@ STRATEGIC_MISSILE,Strategic missile,Rakieta strategiczna,战略导弹
 STRATEGIC_MISSILE_DESCRIPTION,launches a high-damage missile into a targeted enemy area,wystrzeliwuje rakietę o dużych obrażeniach we wskazany obszar wroga,发射延迟命中的高伤害导弹
 PARADROP,Paradrop,Zrzut spadochronowy,空降部队
 PARADROP_DESCRIPTION,drops a small infantry squad near the targeted area after capturing a tech airport,zrzuca mały oddział piechoty w pobliżu wskazanego obszaru po przejęciu lotniska technologicznego,向目标区域投送步兵小队
-WORKER,Worker,Robotnik,工人
+WORKER,SCV,Robotnik,工人
 WORKER_DESCRIPTION,collects resources,zbiera zasoby,采集资源并建造建筑
 HELICOPTER,Helicopter,Helikopter,直升机
 HELICOPTER_DESCRIPTION,fights ground and air targets,zwlacza cele naziemne i powietrzne,快速空中火力支援
@@ -287,8 +287,8 @@ FLAK_ROCKET_TEAM_MK2,Flak rocket team Mk2,Drużyna rakiet przeciwlotniczych Mk2,
 FLAK_ROCKET_TEAM_MK2_DESCRIPTION,late-tech flak infantry that can splash both aircraft and ground targets,późna piechota przeciwlotnicza rażąca odłamkami cele powietrzne i naziemne,可打击空中和地面目标的升级小队
 HEAVY_MACHINEGUN_TROOPER,Heavy machinegun trooper,Ciężki strzelec maszynowy,重机枪兵
 HEAVY_MACHINEGUN_TROOPER_DESCRIPTION,suppresses ground targets with high sustained fire,tłumi cele naziemne ciągłym ogniem,压制步兵和轻甲目标
-SHOCK_TROOPER,Shock trooper,Szturmowiec elektryczny,震击兵
-SHOCK_TROOPER_DESCRIPTION,advanced infantry with high burst damage against ground targets,zaawansowana piechota z silnym ogniem przeciw celom naziemnym,近距离高伤害突击步兵
+SHOCK_TROOPER,Firebat,Szturmowiec elektryczny,震击兵
+SHOCK_TROOPER_DESCRIPTION,close-range flamethrower infantry unlocked by the Barracks Tech Lab,zaawansowana piechota z silnym ogniem przeciw celom naziemnym,近距离高伤害突击步兵
 GRENADIER_TROOPER,Grenadier trooper,Grenadier,榴弹兵
 GRENADIER_TROOPER_DESCRIPTION,splash damage infantry for clustered ground targets,piechota z obrażeniami obszarowymi przeciw skupionym celom naziemnym,对集群目标造成溅射伤害
 MORTAR_TEAM,Mortar team,Obsługa moździerza,迫击炮组
@@ -432,3 +432,4 @@ OBJECTIVE_PROGRESS_ANCHORS,Anchors,Punkty,锚点
 OBJECTIVE_PROGRESS_STRUCTURES,Structures,Struktury,建筑
 OBJECTIVE_PROGRESS_WORKERS,Workers,Robotnicy,工人
 OBJECTIVE_PROGRESS_COMPLETE,All enemy command anchors destroyed,Wszystkie wrogie punkty dowodzenia zniszczone,所有敌方指挥锚点已摧毁
+

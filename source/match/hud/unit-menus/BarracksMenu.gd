@@ -28,6 +28,7 @@ var unit = null
 var units = []
 
 var _repair_structure_button = null
+var _tech_lab_button: Button
 
 @onready var _light_rifle_infantry_button = find_child("ProduceLightRifleInfantryButton")
 @onready var _rocket_infantry_button = find_child("ProduceRocketInfantryButton")
@@ -52,6 +53,14 @@ var _repair_structure_button = null
 
 func _ready():
 	_repair_structure_button = StructureMenuActions.ensure_repair_button(self)
+	_tech_lab_button = Button.new()
+	_tech_lab_button.name = "BuildTechLabButton"
+	_tech_lab_button.custom_minimum_size = Vector2(112, 112)
+	_tech_lab_button.focus_mode = Control.FOCUS_NONE
+	_tech_lab_button.icon = preload("res://assets/ui/icons/TechLab.png")
+	_tech_lab_button.expand_icon = true
+	_tech_lab_button.pressed.connect(_build_tech_lab)
+	add_child(_tech_lab_button)
 	CommandButtonHotkeys.assign_grid_hotkeys(self)
 	_set_unit_tooltip(
 		_light_rifle_infantry_button,
@@ -217,6 +226,7 @@ func refresh():
 	StructureMenuActions.refresh_sell_button(_sell_structure_button, _producer_units())
 	StructureMenuActions.refresh_rally_point_button(_rally_point_button, _producer_units())
 	StructureMenuActions.refresh_repair_button(_repair_structure_button, _producer_units())
+	_refresh_tech_lab()
 
 
 func _refresh_unit_button(button, unit_scene, name_key, description_key):
@@ -340,3 +350,32 @@ func _producer_units():
 
 func _producer_queues():
 	return _producer_units().map(func(producer_unit): return producer_unit.production_queue)
+
+
+func _process(_delta: float) -> void:
+	if is_visible_in_tree():
+		_refresh_tech_lab()
+
+
+func _refresh_tech_lab() -> void:
+	var producers := _producer_units().filter(func(barracks): return is_instance_valid(barracks))
+	var eligible := producers.filter(func(barracks): return barracks.tech_lab_ready)
+	var available := producers.any(func(barracks): return barracks.can_start_tech_lab())
+	var underway := producers.filter(func(barracks): return barracks.tech_lab_remaining > 0.0)
+	_tech_lab_button.disabled = not available
+	_tech_lab_button.text = "BUILD TECH LAB"
+	_tech_lab_button.tooltip_text = "3 blue crystals and 1 red crystal. Unlocks Firebat at this Barracks."
+	if not underway.is_empty():
+		_tech_lab_button.text = "TECH LAB %ds" % ceili(underway[0].tech_lab_remaining)
+	elif not producers.is_empty() and eligible.size() == producers.size():
+		_tech_lab_button.text = "TECH LAB READY"
+	_shock_trooper_button.disabled = not ProductionMenuActions.has_available_queue(eligible)
+	if eligible.is_empty():
+		_shock_trooper_button.tooltip_text = "Firebat requires a completed Tech Lab at this Barracks."
+
+
+func _build_tech_lab() -> void:
+	for barracks in _producer_units():
+		if is_instance_valid(barracks) and barracks.start_tech_lab():
+			break
+	refresh()

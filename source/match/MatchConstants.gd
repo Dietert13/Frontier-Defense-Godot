@@ -291,3 +291,5 @@ class VoiceNarrator:
 		Events.ENEMY_SUPERWEAPON_READY: BaseUnderAttackVoice,
 		Events.ENEMY_SUPERWEAPON_LAUNCHED: BaseUnderAttackVoice,
 	}
+
+
